@@ -1,0 +1,3 @@
+[submodule "AutoProxy"]
+	path = AutoProxy
+	url = git@github.com:JinnLynn/GenPAC.git
