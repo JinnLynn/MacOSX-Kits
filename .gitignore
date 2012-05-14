@@ -1,4 +1,8 @@
-Backup.with.*
+#生成的Shell脚本链接文件
+*.*l
+
+#日志
+*.log
 
 # Windows
 [Dd]esktop.ini
