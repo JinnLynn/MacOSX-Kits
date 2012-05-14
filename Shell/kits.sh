@@ -25,6 +25,9 @@ case $1 in
     'backup' )
         backup.shl
         ;;
+    'genpac' )
+        $KITS/GenPAC/genpac.py
+        ;;
     'mamp' )
         mamp $2
         ;;
