@@ -19,17 +19,23 @@ function usage() {
 }
 
 case $1 in
-    'usage' )
-        usage
-        ;;
-    'backup' )
+    'backup' )     #备份文件到NAS
         backup.shl
         ;;
-    'genpac' )
+    'genpac' )     #通过GenPAC生成自动代理配置文件
         $KITS/GenPAC/genpac.py
         ;;
-    'mamp' )
+    'mamp' )       #MAMP管理
         mamp $2
+        ;;
+    'lyric' )      #获取iTunes当前播放曲目的歌词
+        osascript $KITS/FetchLyric/FetchLyric.applescript
+        ;;
+    'usage' )      #使用说明
+        usage
+        ;;
+    '' )
+        usage
         ;;
     * )
         echo "kits: '$1' is not a kits command. See 'kits usage'."
