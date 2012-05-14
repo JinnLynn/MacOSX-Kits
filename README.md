@@ -1,10 +1,10 @@
 # MacOSX-Kits
 
-一些在Mac OSX下使用的小工具，大部分是Shell Script或AppleScript。
+一些个人在Mac OSX下使用的小工具，可能是Shell Script、AppleScript、Python等。
 
 ## USAGE
 
-使用说明见相应目录下的README文件，或在[Jeeker.net][1]也能找到更为详细的说明文章。
+使用说明见相应目录下的README文件，或在[Jeeker.net][1]或也能找到更为详细的说明文章。
 
 ## Copyright and license
 
