@@ -1,18 +1,8 @@
 #!/bin/sh
 
-function mamp() {
-    case $1 in
-        'start' )
-            mamp.sh start
-            ;;
-        'stop' )
-            mamp.sh stop
-            ;;
-        'restart' )
-            mamp.sh restart
-            ;;
-    esac
-}
+if [ -z $KITS ]; then
+    . $(cd $(dirname $0); pwd)/build-env.sh
+fi
 
 function usage() {
     more "${KITSSHELL}/misc/kits-usage.txt"
@@ -20,19 +10,23 @@ function usage() {
 
 case $1 in
     'backup' )     #备份文件到NAS
-        backup.shl
+        $KITSSHELL/backup/backup.sh
         ;;
     'genpac' )     #通过GenPAC生成自动代理配置文件
         $KITS/GenPAC/genpac.py
         ;;
     'mamp' )       #MAMP管理
-        mamp $2
+        $KITSSHELL/mamp.sh $2
         ;;
     'lyric' )      #获取iTunes当前播放曲目的歌词
         osascript $KITS/FetchLyric/FetchLyric.applescript
         ;;
     'usage' )      #使用说明
         usage
+        ;;
+    'test' )
+        echo 'test' >> "/Users/JinnLynn/log.log"
+        echo "KITS: ${KITS}" >> "/Users/JinnLynn/log.log"
         ;;
     '' )
         usage
