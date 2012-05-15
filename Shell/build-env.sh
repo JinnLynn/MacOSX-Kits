@@ -13,7 +13,7 @@ export PATH="${KITSSHELL}:${PATH}"
 
 
 #建立链接 链接文件后缀加l，便于GIT忽略
-ln -sf $KITSSHELL/backup/backup.sh $KITSSHELL/backup.shl
+#ln -sf $KITSSHELL/backup/backup.sh $KITSSHELL/backup.shl
 
 #建立别名
 alias kits="kits.sh"
