@@ -10,19 +10,17 @@ function stop() {
     /Applications/MAMP/bin/stopApache.sh
 }
 
-#echo $PATH
-
 case $1 in
-    start)
+    'start' )
         start
         ;;
-    stop)
+    'stop' )
         stop
         ;;
-    restart)
+    'restart' )
         stop
         start
         ;;
+    * )
+        echo "mamp: '$1' is not a mamp command."
 esac
-
-#echo $KITS
