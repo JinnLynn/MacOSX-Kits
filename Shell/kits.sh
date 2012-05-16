@@ -8,6 +8,14 @@ function usage() {
     more "${KITSSHELL}/misc/kits-usage.txt"
 }
 
+function sshkey() {
+    if [ -f $KITSSHELL/private.sh ]; then 
+        . $KITSSHELL/private.sh sshkey 
+    else
+        echo 'kits: sshkey is not a kits command.'
+    fi
+}
+
 case $1 in
     'backup' )     #备份文件到NAS
         $KITSSHELL/backup/backup.sh
@@ -21,12 +29,11 @@ case $1 in
     'lyric' )      #获取iTunes当前播放曲目的歌词
         osascript $KITS/FetchLyric/FetchLyric.applescript
         ;;
+    'sshkey' )     #SSH秘钥处理
+        sshkey
+        ;;
     'usage' )      #使用说明
         usage
-        ;;
-    'test' )
-        echo 'test' >> "/Users/JinnLynn/log.log"
-        echo "KITS: ${KITS}" >> "/Users/JinnLynn/log.log"
         ;;
     '' )
         usage
