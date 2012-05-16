@@ -19,7 +19,7 @@ SSHKEY=/Users/JinnLynn/.ssh/keys/jnas-key
 EXCLUDE=./excludes
 
 #日志
-LOGFILE=./log/backup-$(date +%Y%m%d).log
+LOGFILE=./log/$(date +%Y%m%d).log
 
 #SSH密钥代理SOCKET 在cron中必须设置，否则无法成功备份
 if [ -z $SSH_AUTH_SOCK ]; then
