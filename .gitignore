@@ -4,6 +4,9 @@
 #日志
 *.log
 
+#私人脚本
+private.sh
+
 # Windows
 [Dd]esktop.ini
 [Tt]humbs.db
