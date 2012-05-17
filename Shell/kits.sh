@@ -1,9 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
+#检查环境变量
 if [ -z $KITS ]; then
     . $(cd $(dirname $0); pwd)/build-env.sh
 fi
 
+#Applescrit接口文件
+OSASPORT=$KITSSHELL/osasport.applescript
+
+#使用说明
 function usage() {
     more "${KITSSHELL}/misc/kits-usage.txt"
 }
@@ -26,8 +31,8 @@ case $1 in
     'mamp' )       #MAMP管理
         $KITSSHELL/mamp.sh $2
         ;;
-    'lyric' )      #获取iTunes当前播放曲目的歌词
-        osascript $KITS/FetchLyric/FetchLyric.applescript
+    'itunes' )     #部分itunes操作
+        osascript $OSASPORT itunes $2 $3
         ;;
     'sshkey' )     #SSH秘钥处理
         sshkey
