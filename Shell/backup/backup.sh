@@ -13,7 +13,7 @@ BHOST=backup@10.0.0.1
 BDST=/volume1/Backup
 
 #SSH密钥 密钥的导入通过 ssh-add 
-SSHKEY=/Users/JinnLynn/.ssh/keys/jnas-key
+SSHKEY=/Users/JinnLynn/.ssh/jkey
 
 #忽略的文件列表文件
 EXCLUDE=./excludes
