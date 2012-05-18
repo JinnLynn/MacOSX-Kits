@@ -48,18 +48,17 @@ function backup() {
 	#被修改回删除的文件保存处理 每天生成一个目录
 	BDIR="$BDST/$2/$(date +0%u)"
 	OPTS="-av --force --ignore-errors --delete --backup --backup-dir=$BDIR"
-	SSH_OPT="ssh -i ${SSHKEY}"
+	SSH_OPT="ssh -i $SSHKEY"
 	EXCULDE_OPT="--exclude-from=$EXCLUDE"
 	#清除旧的增量备份数据
 	rsync --delete -a $SCRIPTPATH/.emptydir/ $BHOST:$BDIR
 	#同步文件
-	if [ $3 = nas ]; then
+	if [ "$3" = 'nas' ]; then
 		#同步NAS上文件
-		echo $3
-		ssh -i $SSHKEY $BHOST "rsync $OPTS $1 $BDST/$2/current" >> $LOGFILE
+		$SSH_OPT $BHOST "rsync $OPTS $1 $BDST/$2/current" >> $LOGFILE
 	else
 		#同步本地文件
-		rsync $OPTS $EXCULDE_OPT -e "${SSH_OPT}" $1 $BHOST:$BDST/$2/current >> $LOGFILE
+		rsync $OPTS $EXCULDE_OPT -e "$SSH_OPT" $1 $BHOST:$BDST/$2/current >> $LOGFILE
 	fi
 	
 	echo "------------------------------------------------" >> $LOGFILE
@@ -73,22 +72,22 @@ function backup() {
 
 #JMBP
 #备份iTunes
-backup /Users/JinnLynn/Music/iTunes/ JMBP.iTunes this
+backup /Users/JinnLynn/Music/iTunes/ JMBP.iTunes
 
 #备份Developer
-backup /Users/JinnLynn/Developer/ JMBP.Developer this
+backup /Users/JinnLynn/Developer/ JMBP.Developer
 
 #备份Documents
-backup /Users/JinnLynn/Documents/ JMBP.Documents this
+backup /Users/JinnLynn/Documents/ JMBP.Documents
 
 #备份Applications
-backup /Applications/ JMBP.Applications this
+backup /Applications/ JMBP.Applications
 
 #备份Pictures
-backup /Users/JinnLynn/Pictures/ JMBP.Pictures this
+backup /Users/JinnLynn/Pictures/ JMBP.Pictures
 
 #JMBPWin
-backup /Volumes/BOOTCAMP/Users/JinnLynn/Developer/ JMBPWin.Developer this
+backup /Volumes/BOOTCAMP/Users/JinnLynn/Developer/ JMBPWin.Developer
 
 #JNAS SCMs
 backup /volume1/DevCenter/SCMs/ JNAS.SCMs nas
