@@ -10,12 +10,12 @@ OSASPORT=$KITSSHELL/osasport.applescript
 
 #使用说明
 function usage() {
-    more "${KITSSHELL}/misc/kits-usage.txt"
+    more "$KITSSHELL/misc/kits-usage.txt"
 }
 
 function sshkey() {
     if [ -f $KITSSHELL/private.sh ]; then 
-        . $KITSSHELL/private.sh sshkey 
+        . $KITSSHELL/private.sh sshkey $1
     else
         echo 'kits: sshkey is not a kits command.'
     fi
@@ -35,7 +35,7 @@ case $1 in
         osascript $OSASPORT itunes $2 $3
         ;;
     'sshkey' )     #SSH秘钥处理
-        sshkey
+        sshkey $2
         ;;
     'usage' )      #使用说明
         usage
