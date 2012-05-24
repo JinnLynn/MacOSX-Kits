@@ -3,19 +3,23 @@
 #配置
 #------------------------------------------------------------------------#
 
-#备份服务器SSH
-BHOST=backup@10.0.0.1
+#备份服务器SSH 如 backup@10.0.0.1
+BHOST=$($KITSSHELL/kits.sh private info_bhost)
 #备份路径 远程服务器上的
 BDST=/volume1/Backup
 
-#SSH密钥 密钥的导入通过 ssh-add 
-SSHKEY=/Users/JinnLynn/.ssh/jkey
+#SSH密钥文件 如 /Users/JinnLynn/.ssh/jkey
+SSHKEY=$($KITSSHELL/kits.sh private info_sshkey)
 
 #忽略的文件列表文件
 EXCLUDE=./excludes
 
 #日志目录
 LOGDIR=./log
+
+echo $BHOST
+echo $SSHKEY
+exit
 
 #配置结束
 #------------------------------------------------------------------------#

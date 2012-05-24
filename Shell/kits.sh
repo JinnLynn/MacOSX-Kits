@@ -13,17 +13,18 @@ function usage() {
     more "$KITSSHELL/misc/kits-usage.txt"
 }
 
-function sshkey() {
+#私有操作
+function private() {
     if [ -f $KITSSHELL/private.sh ]; then 
-        . $KITSSHELL/private.sh sshkey $1
+        . $KITSSHELL/private.sh $1 $2
     else
-        echo 'kits: sshkey is not a kits command.'
+        echo 'kits: private is not a kits command.'
     fi
 }
 
 case $1 in
     'backup' )     #备份文件到NAS
-        $KITSSHELL/backup/backup.sh
+        . $KITSSHELL/backup/backup.sh
         ;;
     'genpac' )     #通过GenPAC生成自动代理配置文件
         $KITS/GenPAC/genpac.py
@@ -35,7 +36,10 @@ case $1 in
         osascript $OSASPORT itunes $2 $3
         ;;
     'sshkey' )     #SSH秘钥处理
-        sshkey $2
+        private sshkey $2
+        ;;
+    'private' )    #私有的一些操作
+        private $2 $3
         ;;
     'usage' )      #使用说明
         usage
