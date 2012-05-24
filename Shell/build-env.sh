@@ -13,3 +13,5 @@ export PATH="${KITSSHELL}:${PATH}"
 
 #建立别名
 alias kits="kits.sh"
+alias env=". ~/.bashrc; echo 'rebuild env ok.'"
+alias lm="ls -al | more"
