@@ -12,7 +12,7 @@ BDST=/volume1/Backup
 SSHKEY=$($KITSSHELL/kits.sh private info_sshkey)
 
 #忽略的文件列表文件
-EXCLUDE=./excludes
+EXCLUDE=./excludes.txt
 
 #日志目录
 LOGDIR=./log
