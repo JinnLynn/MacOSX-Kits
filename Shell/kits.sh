@@ -24,7 +24,7 @@ function private() {
 
 case $1 in
     'backup' )     #备份文件到NAS
-        . $KITSSHELL/backup/backup.sh
+        $KITSSHELL/backup/backup.sh
         ;;
     'genpac' )     #通过GenPAC生成自动代理配置文件
         $KITS/GenPAC/genpac.py

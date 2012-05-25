@@ -17,10 +17,6 @@ EXCLUDE=./excludes.txt
 #日志目录
 LOGDIR=./log
 
-echo $BHOST
-echo $SSHKEY
-exit
-
 #配置结束
 #------------------------------------------------------------------------#
 
