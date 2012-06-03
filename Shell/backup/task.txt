@@ -1,0 +1,30 @@
+# ---------------------------------------------------- #
+# 备份任务配置
+# 格式：备份文件夹绝对路径 备份名 附加属性
+# 附加属性指 nas 有此值时表示备份NAS上的文件
+# 注意：备份文件夹路径最好以'/'结束
+# 支持以#开始的注释
+# ---------------------------------------------------- #
+
+#备份iTunes
+/Users/JinnLynn/Music/iTunes/ JMBP.iTunes
+
+#备份Developer
+/Users/JinnLynn/Developer/ JMBP.Developer
+
+#备份Documents
+/Users/JinnLynn/Documents/ JMBP.Documents
+
+#备份Applications
+/Applications/ JMBP.Applications
+
+#备份Pictures
+/Users/JinnLynn/Pictures/ JMBP.Pictures
+
+#JMBPWin
+/Volumes/BOOTCAMP/Users/JinnLynn/Developer/ JMBPWin.Developer
+
+#JNAS SCMs
+/volume1/DevCenter/SCMs/ JNAS.SCMs nas
+
+# 最后必须留空一行
