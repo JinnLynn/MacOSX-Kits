@@ -11,10 +11,7 @@ export KITS="${HOME}/Developer/Misc/MacOSX-Kits"
 export KITSSHELL="${KITS}/Shell"
 export PATH="${KITSSHELL}:${PATH}"
 
-#建立别名
-alias kits="kits.sh"
-alias env=". ~/.bashrc; echo 'rebuild env ok.'"
-alias ls="ls -h"
-alias ll="ls -l"
-
-alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+#载入别名
+if [ -f $KITSSHELL/alias.sh ]; then
+    source $KITSSHELL/alias.sh
+fi
