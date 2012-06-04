@@ -30,3 +30,7 @@ alias kits.itunes="kits itunes"
 alias kits.mamp.start="kits mamp start"
 alias kits.mamp.stop="kits mamp stop"
 alias kits.mamp.restart="kits mamp restart"
+
+#隐藏文件的显示与否
+alias kits.hiddenfiles.show="$KITSSHELL/filesystem.sh hiddenfiles show"
+alias kits.hiddenfiles.hide="$KITSSHELL/filesystem.sh hiddenfiles hide"
