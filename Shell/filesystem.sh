@@ -1,5 +1,5 @@
 # 显示隐藏的文件
-function showhiddenfiles() {
+function show_hidden_files() {
   defaults write com.apple.Finder AppleShowAllFiles YES
   osascript -e 'tell application "Finder" to quit'
   sleep 1
@@ -7,7 +7,7 @@ function showhiddenfiles() {
 }
 
 # 隐藏隐藏的文件
-function hidehiddenfiles() {
+function hide_hidden_files() {
   defaults write com.apple.Finder AppleShowAllFiles NO
   osascript -e 'tell application "Finder" to quit'
   sleep 1
@@ -17,9 +17,9 @@ function hidehiddenfiles() {
 case $1 in
     'hiddenfiles' )     #隐藏文件的显示与隐藏
         if [ "$2" = 'show' ]; then
-            showhiddenfiles
+            show_hidden_files
         elif [ "$2" = 'hide' ]; then
-            hidehiddenfiles
+            hide_hidden_files
         fi
         ;;
     * )
