@@ -34,3 +34,6 @@ alias kits.mamp.restart="kits mamp restart"
 #隐藏文件的显示与否
 alias kits.hiddenfiles.show="$KITSSHELL/filesystem.sh hiddenfiles show"
 alias kits.hiddenfiles.hide="$KITSSHELL/filesystem.sh hiddenfiles hide"
+
+#ssh秘钥 SOCK等重置
+alias kits.ssh.reset="$KITSSHELL/network.sh ssh reset"

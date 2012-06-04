@@ -35,9 +35,6 @@ case $1 in
     'itunes' )     #部分itunes操作
         osascript $OSASPORT itunes $2 $3
         ;;
-    'sshkey' )     #SSH秘钥处理
-        private sshkey $2
-        ;;
     'private' )    #私有的一些操作
         private $2 $3
         ;;
