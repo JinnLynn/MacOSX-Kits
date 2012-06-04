@@ -13,6 +13,8 @@ alias ssh.github="ssh -T git@github.com"
 # 改变路径
 alias to.kits="cd $KITS; pwd"
 alias to.shell="cd $KITSSHELL; pwd"
+alias to.desktop="cd ~/Desktop; pwd"
+alias to.scms="cd ~/Developer/SCMs"
 
 
 # KITS
@@ -39,6 +41,10 @@ alias kits.mamp.restart="kits mamp restart"
 # 隐藏文件的显示控制
 alias kits.hiddenfiles.show="$KITSSHELL/filesystem.sh hiddenfiles show"
 alias kits.hiddenfiles.hide="$KITSSHELL/filesystem.sh hiddenfiles hide"
+
+# 在Finder中打开文件夹
+# 参数如果为空 则打开当前工作目录
+alias kits.finder.open="$KITSSHELL/filesystem.sh finder open"
 
 # SSH秘钥 SOCK等重置
 alias kits.ssh.reset="$KITSSHELL/network.sh ssh reset"
