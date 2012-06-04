@@ -4,12 +4,13 @@
 #------------------------------------------------------------------------#
 
 #备份服务器SSH 如 backup@10.0.0.1
-BHOST=$($KITSSHELL/kits.sh private info_bhost)
+BHOST=backup@$JHOST
+
 #备份路径 远程服务器上的
 BDST=/volume1/Backup
 
 #SSH密钥文件 如 /Users/JinnLynn/.ssh/jkey
-SSHKEY=$($KITSSHELL/kits.sh private info_sshkey)
+SSHKEY=$JKEY
 
 #忽略的文件列表文件
 EXCLUDE=./excludes.txt
