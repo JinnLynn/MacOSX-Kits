@@ -22,6 +22,11 @@ function private() {
     fi
 }
 
+# 使用`预览`打开man内容
+function manp() {
+  man -t $1 | open -f -a /Applications/Preview.app
+}
+
 case $1 in
     'backup' )     #备份文件到NAS
         $KITSSHELL/backup/backup.sh
@@ -34,6 +39,9 @@ case $1 in
         ;;
     'itunes' )     #部分itunes操作
         osascript $OSASPORT itunes $2 $3
+        ;;
+    'manp' )
+        manp $2
         ;;
     'private' )    #私有的一些操作
         private $2 $3
