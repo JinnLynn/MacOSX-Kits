@@ -14,7 +14,7 @@ alias ssh.github="ssh -T git@github.com"
 alias to.kits="cd $KITS; pwd"
 alias to.shell="cd $KITSSHELL; pwd"
 alias to.desktop="cd ~/Desktop; pwd"
-alias to.scms="cd ~/Developer/SCMs"
+alias to.scms="cd ~/Developer/SCMs; pwd"
 
 
 # KITS
@@ -27,6 +27,9 @@ alias kits.genpac="kits genpac"
 # 使用`预览`打开man内容
 # $1 待查程序名 必须
 alias kits.manp="kits manp"
+
+# 锁定电脑
+alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # itunes
 # $1 类型 lyric = 获取当前播放音乐的歌词 rate = 给当前播放的歌曲评级
