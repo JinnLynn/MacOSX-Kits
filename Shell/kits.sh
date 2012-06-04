@@ -2,7 +2,7 @@
 
 #检查环境变量
 if [ -z $KITS ]; then
-    . $(cd $(dirname $0); pwd)/build-env.sh
+    . $(cd $(dirname $0); pwd)/profile.sh
 fi
 
 #Applescrit接口文件
