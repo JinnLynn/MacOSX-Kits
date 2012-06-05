@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # 是否显示隐藏的文件
 function hidden_files() {
     cmd='NO'
