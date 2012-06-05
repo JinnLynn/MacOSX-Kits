@@ -35,7 +35,7 @@ case $1 in
         $KITS/GenPAC/genpac.py
         ;;
     'mamp' )       #MAMP管理
-        $KITSSHELL/mamp.sh $2
+        $KITSSHELL/network.sh mamp $2
         ;;
     'itunes' )     #部分itunes操作
         osascript $OSASPORT itunes $2 $3
