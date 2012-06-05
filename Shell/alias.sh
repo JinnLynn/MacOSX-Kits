@@ -51,3 +51,8 @@ alias finder.hidden.hide="$KITSSHELL/filesystem.sh hiddenfiles hide"
 # 在Finder中打开文件夹
 # 参数如果为空 则打开当前工作目录
 alias finder.open="$KITSSHELL/filesystem.sh finder open"
+
+# git新建版本库
+# $1 必须 版本库名
+alias git.newrepo="$KITSSHELL/git.sh newrepo"
+alias git.newserverrepo="$KITSSHELL/git.sh newserverrepo"
