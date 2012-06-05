@@ -20,23 +20,21 @@ function ssh_reset() {
 
 # MAMP相关控制
 function mamp() {
-    mamp_bin="/Applications/MAMP/bin"
+    res="MAMP ok."
+    pushd /Applications/MAMP/bin/ > /dev/null
     if [[ "$1" = 'start' ]]; then
-        $mamp_bin/startMysql.sh
-        $mamp_bin/startApache.sh
+        ./start.sh
     elif [[ "$1" = 'stop' ]]; then
-        $mamp_bin/stopMysql.sh
-        $mamp_bin/stopApache.sh
+        ./stop.sh
     elif [[ "$1" = 'restart' ]]; then
-        $mamp_bin/stopMysql.sh
-        $mamp_bin/stopApache.sh
+        ./stop.sh
         sleep 1
-        $mamp_bin/startMysql.sh
-        $mamp_bin/startApache.sh
-    elif [[ -z "$1" ]]; then
-        echo "ERROR. Usage: <start|stop|restart>"
-        exit 1
+        ./start.sh
+    else
+        res="ERROR. Usage: <start|stop|restart>"
     fi 
+    popd > /dev/null
+    echo "$res"
 }
 
 case "$1" in
