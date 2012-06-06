@@ -43,6 +43,7 @@ alias kits.itunes="kits itunes"
 alias mamp.start="kits mamp start"
 alias mamp.stop="kits mamp stop"
 alias mamp.restart="kits mamp restart"
+alias mamp.isrunning="kits mamp isrunning"
 
 # 隐藏文件的显示控制
 alias finder.hidden.show="$KITSSHELL/filesystem.sh hiddenfiles show"
