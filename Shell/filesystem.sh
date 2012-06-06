@@ -39,6 +39,8 @@ function open_folder_in_finder() {
     # 执行成功激活Finder
     if [ "$?" = '0' ]; then
         osascript -e 'tell application "Finder" to activate'
+    else
+        echo "something error. $folder"
     fi
 }
 
