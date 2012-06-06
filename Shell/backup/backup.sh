@@ -96,11 +96,11 @@ cd $SCRIPTPATH
 [ -d "$LOGDIR" ] || mkdir "$LOGDIR"
 
 #日志文件
-LOGFILE="$LOGDIR/$(date +%Y%m%d-%H%M%S).log"
-# COUNTER=1
-# while [ -f "$LOGFILE" ]; do
-#     LOGFILE="$LOGDIR/$(date +%Y%m%d)-$COUNTER.log"
-#     COUNTER=$(($COUNTER+1))
-# done
+LOGFILE="$LOGDIR/$(date +%Y%m%d).log"
+COUNTER=1
+while [[ -f "$LOGFILE" ]]; do
+    LOGFILE="$LOGDIR/$(date +%Y%m%d)~$COUNTER.log"
+    COUNTER=$(($COUNTER+1))
+done
 
 backup | tee -a "$LOGFILE"
