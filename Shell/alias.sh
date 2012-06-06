@@ -18,7 +18,20 @@ alias to.kits="cd $KITS; pwd"
 alias to.shell="cd $KITSSHELL; pwd"
 alias to.desktop="cd ~/Desktop; pwd"
 alias to.scms="cd ~/Developer/SCMs; pwd"
+alias to.dev="cd ~/Developer; pwd"
+alias to.jeeker="cd ~/Developer/Web/Host/Jeeker.net; pwd"
+alias to.wendy="cd ~/Developer/Web/Host/Wendy.jeeker.net; pwd"
+alias to.afvisual="cd ~/Developer/Web/Host/Afvisual.com; pwd"
 
+# 在Finder中打开
+alias tof.kits="to.kits; finder.open"
+alias tof.shell="to.shell; finder.open"
+alias tof.desktop="to.desktop; finder.open"
+alias tof.scms="to.scms; finder.open"
+alias tof.dev="to.dev; finder.open"
+alias tof.jeeker="to.jeeker; finder.open"
+alias tof.wendy="to.wendy; finder.open"
+alias tof.afvisual="to.afvisual; finder.open"
 
 # KITS
 alias kits="kits.sh"
