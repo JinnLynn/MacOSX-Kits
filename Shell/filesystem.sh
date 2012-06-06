@@ -3,7 +3,7 @@
 # 是否显示隐藏的文件
 function hidden_files() {
     cmd='NO'
-    if [ "$1" = 'show' ]; then cmd='YES'; fi
+    if [[ "$1" = 'show' ]]; then cmd='YES'; fi
     defaults write com.apple.Finder AppleShowAllFiles $cmd
     osascript -e 'tell application "Finder" to quit'
     sleep 1
@@ -12,22 +12,26 @@ function hidden_files() {
 
 # 与Finder相关操作
 function finder() {
-    if [ "$1" = 'open' ]; then
+    if [[ "$1" = 'open' ]]; then
         open_folder_in_finder $2
     fi
 }
 
 # 在Finder中打开文件夹
+# BUG: 当文件夹名如.git、.ssh时无法打开
 function open_folder_in_finder() {
     # 如果: 无参数取当前工作目录；是文件取其所在文件夹路径
     folder=$1
-    if [ -z "$folder" ]; then
+    if [[ -z "$folder" || "$folder" = '.' ]]; then
         folder=$(pwd)
-    elif [ -f "$folder" ]; then
+    elif [[ -f "$folder" ]]; then
         folder=$(dirname $folder)
+    elif [[ ! -d "$folder" ]]; then
+        echo "ERROR. directory not found."
+        exit
     fi
-    # 避免当路径是'.'时Finder无法找到
-    if [ "$folder" = '.' ]; then folder=$(pwd); fi
+    # 转换为绝对路径
+    folder=$(cd $folder; pwd)
     cmdvar1='tell application "Finder" to open folder { "'
     cmdvar2='" }'
     CMD=$cmdvar1$folder$cmdvar2
