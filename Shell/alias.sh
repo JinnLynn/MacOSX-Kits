@@ -23,6 +23,9 @@ alias to.jeeker="cd ~/Developer/Web/Host/Jeeker.net; pwd"
 alias to.wendy="cd ~/Developer/Web/Host/Wendy.jeeker.net; pwd"
 alias to.afvisual="cd ~/Developer/Web/Host/Afvisual.com; pwd"
 
+# 前往当前Finder某个窗口所在目录
+alias to.finder="source $KITSSHELL/filesystem.sh finder where"
+
 # 在Finder中打开
 alias tof.kits="to.kits; finder.open"
 alias tof.shell="to.shell; finder.open"
