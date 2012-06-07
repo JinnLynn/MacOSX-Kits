@@ -11,6 +11,9 @@ export KITSSHELL="$KITS/Shell"
 
 export PATH="$KITSSHELL:$PATH"
 
+# bash提示符
+export PS1="\u@\h: \W\$"
+
 # 历史记录控制
 # erasedups = 不重复记录相同的命令
 # ignoredups = 不重复记录连续的相同命令
