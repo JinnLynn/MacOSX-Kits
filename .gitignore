@@ -4,8 +4,11 @@
 #日志
 *.log
 
-#私人脚本
+#私有信息
 private.sh
+
+#实验脚本
+lib.sh
 
 # Windows
 [Dd]esktop.ini
