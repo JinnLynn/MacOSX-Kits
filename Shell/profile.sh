@@ -12,7 +12,7 @@ export KITSSHELL="$KITS/Shell"
 export PATH="$KITSSHELL:$PATH"
 
 # bash提示符
-export PS1="\u@\h: \W\$"
+export PS1="\u@\h: \W\$ "
 
 # 历史记录控制
 # erasedups = 不重复记录相同的命令
