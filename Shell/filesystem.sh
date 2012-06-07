@@ -32,12 +32,10 @@ function open_folder_in_finder() {
     fi
     # 转换为绝对路径
     folder=$(cd $folder; pwd)
-    cmdvar1='tell application "Finder" to open folder { "'
-    cmdvar2='" }'
-    CMD=$cmdvar1$folder$cmdvar2
-    osascript -e "$CMD"
+    cmd=$(echo -n "tell application \"Finder\" to open folder { \"$folder\" }")
+    osascript -e "$cmd"
     # 执行成功激活Finder
-    if [ "$?" = '0' ]; then
+    if [[ $? -eq 0 ]]; then
         osascript -e 'tell application "Finder" to activate'
     else
         echo "something error. $folder"
@@ -55,5 +53,3 @@ case $1 in
         echo "kits: '$1' is not a kits command. See 'kits usage'."
         ;;
 esac
-
-#open_folder_in_Finder $1
