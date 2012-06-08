@@ -84,3 +84,9 @@ alias wifi.proxy="$KITSSHELL/wifi.sh proxy"
 # IP <manual|dhcp> [<IP> <SUBNET> <DNS>]
 # 当$1 = manual时 后面的参数必须
 alias wifi.ip="$KITSSHELL/wifi.sh ip"
+
+# squid 控制
+alias squid.start="$KITSSHELL/squid.sh start"
+alias squid.stop="$KITSSHELL/squid.sh stop"
+alias squid.restart="$KITSSHELL/squid.sh restart"
+alias squid.isrunning="$KITSSHELL/squid.sh isrunning"
