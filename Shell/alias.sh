@@ -72,8 +72,8 @@ alias finder.open="$KITSSHELL/filesystem.sh finder open"
 
 # git新建版本库
 # <REPONAME>
-alias git.newrepo="$KITSSHELL/git.sh newrepo"
-alias git.newserverrepo="$KITSSHELL/git.sh newserverrepo"
+alias git.nr="$KITSSHELL/git.sh newrepo"
+alias git.nsr="$KITSSHELL/git.sh newserverrepo"
 
 # WIFI控制
 # 启用与禁用 <on|off|reset>
