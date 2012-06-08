@@ -50,6 +50,82 @@ function mamp() {
     echo -e "$res"
 }
 
+# WIFI相关控制
+function wifi() {
+    # WIFI networkservice
+    wifins="Wi-Fi"
+    # WIFI device name
+    wifidn="en1"
+    case "$1" in
+        "power" )
+            case "$2" in
+                "off"|"on" )
+                    networksetup -setairportpower "$wifidn" $2
+                ;;
+                "reset" )
+                    wifi power off
+                    sleep 1
+                    wifi power on
+                ;;
+                * )
+                    echo "ERROR."
+                ;;
+            esac
+        ;;
+        "location"|"loc" )
+            loc=$2
+            if [[ "$loc" = 'auto' ]]; then loc="Automatic"; fi
+            networksetup -switchtolocation "$loc" >/dev/null
+            res
+        ;;
+        "proxy" )
+            case "$2" in
+                "all" )
+                    networksetup -setsocksfirewallproxy "$wifins" "$JPROXYSOCKSHOST" "$JPROXYSOCKSPORT" off
+                    networksetup -setsocksfirewallproxystate "$wifins" on
+                    networksetup -setautoproxystate "$wifins" off
+                    ;;
+                "auto" )
+                    networksetup -setsocksfirewallproxystate "$wifins" off
+                    networksetup -setautoproxyurl "$wifins" "$JPACURL"
+                    ;;
+                "off" )
+                    networksetup -setsocksfirewallproxystate "$wifins" off
+                    networksetup -setautoproxystate "$wifins" off
+                    ;;
+                * )
+                    echo "ERROR."
+                ;;
+            esac
+        ;;
+        "ip" )
+            case "$2" in
+                "manual" )
+                    if [[ -z "$3" || -z "$4" || -z "$5" ]]; then
+                        echo "ERROR. Missing args."
+                        exit
+                    fi
+                    networksetup -setmanual "$wifins" "$3" "$4" "$5"
+                    ;;
+                "dhcp" )
+                    networksetup -setdhcp "$wifins"
+                    ;;
+                * )
+                    echo "ERROR."
+                ;;
+            esac
+        ;;
+        "info" )
+            #echo "Location: $(networksetup -getcurrentlocation)"
+            #networksetup -getinfo "$wifins"
+            networksetup -getautoproxyurl "$wifins"
+        ;;
+        * )
+            echo "ERROR. Usage: <power|location|loc|proxy|ip> [ARGS]"
+        ;;
+    esac
+}
+
 case "$1" in
     'ssh' )
         if [[ "$2" = 'reset' ]]; then
@@ -58,6 +134,9 @@ case "$1" in
         ;;
     'mamp' )
         mamp $2
+        ;;
+    'wifi' )
+        wifi $2 $3 $4 $5 $6
         ;;
     * )
         echo "ERROR."

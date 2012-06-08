@@ -73,3 +73,14 @@ alias finder.open="$KITSSHELL/filesystem.sh finder open"
 # $1 必须 版本库名
 alias git.newrepo="$KITSSHELL/git.sh newrepo"
 alias git.newserverrepo="$KITSSHELL/git.sh newserverrepo"
+
+# WIFI控制
+# 启用与禁用 <on|off|reset>
+alias wifi.power="$KITSSHELL/network.sh wifi power"
+# 位置配置 <auto|LOCATION_NAME>
+alias wifi.loc="$KITSSHELL/network.sh wifi location"
+# 代理 <all|auto|off>
+alias wifi.proxy="$KITSSHELL/network.sh wifi proxy"
+# IP <manual|dhcp> [<IP> <SUBNET> <DNS>]
+# 当$1 = manual时 后面的参数必须
+alias wifi.ip="$KITSSHELL/network.sh wifi ip"
