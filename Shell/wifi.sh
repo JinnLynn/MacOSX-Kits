@@ -20,7 +20,7 @@ case "$1" in
                 $0 power on
             ;;
             * )
-                echo "ERROR."
+                echo "ERROR. Usage: wifi.sh power <off|on|reset>"
             ;;
         esac
     ;;
@@ -45,7 +45,7 @@ case "$1" in
                 networksetup -setautoproxystate "$wifins" off
                 ;;
             * )
-                echo "ERROR."
+                echo "ERROR. Usage: wifi.sh proxy <all|auto|off>"
             ;;
         esac
     ;;
@@ -62,7 +62,7 @@ case "$1" in
                 networksetup -setdhcp "$wifins"
                 ;;
             * )
-                echo "ERROR."
+                echo "ERROR. Usage: wifi.sh ip <manual|dhcp> [<IP SUBNET DNS>]"
             ;;
         esac
     ;;
