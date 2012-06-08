@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # 建立Kits的运行环境
-# 在~/.bash_profile 添加 source PATH/TO/profile.sh
+# 在~/.bash_profile 添加 `source PATH/TO/profile.sh`
 
 # 注意 这里不能用相对路径
 
-#K its所在目录
+# Kits所在目录
 export KITS="$HOME/Developer/Misc/MacOSX-Kits"
 export KITSSHELL="$KITS/Shell"
 
