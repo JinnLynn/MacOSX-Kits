@@ -44,15 +44,16 @@ alias kits.backup="kits backup"
 # 使用gfwlist生成自动代理配置文件
 alias kits.genpac="kits genpac"
 # 使用`预览`打开man内容
-# $1 待查程序名 必须
+# <APP_NAME>
 alias kits.manp="kits manp"
 
 # 锁定电脑
 alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # itunes
-# $1 类型 lyric = 获取当前播放音乐的歌词 rate = 给当前播放的歌曲评级
-# $2 如果$1=rate才有效 1~5
+# <lyric|rate> [RATE_NUM]
+# lyric = 获取当前播放音乐的歌词 rate = 给当前播放的歌曲评级
+# RATE_NUM 如果$1=rate才有效 1~5
 alias kits.itunes="kits itunes"
 
 # MAMP控制
@@ -62,15 +63,15 @@ alias mamp.restart="$KITSSHELL/mamp.sh restart"
 alias mamp.isrunning="$KITSSHELL/mamp.sh isrunning"
 
 # 隐藏文件的显示控制
-alias finder.hidden.show="$KITSSHELL/filesystem.sh hiddenfiles show"
-alias finder.hidden.hide="$KITSSHELL/filesystem.sh hiddenfiles hide"
+# [show|hide] 默认hide
+alias finder.hidden="$KITSSHELL/filesystem.sh hiddenfiles"
 
 # 在Finder中打开文件夹
-# 参数如果为空 则打开当前工作目录
+# [FOLDER_OR_FILE_NAME] 默认当前工作目录
 alias finder.open="$KITSSHELL/filesystem.sh finder open"
 
 # git新建版本库
-# $1 必须 版本库名
+# <REPONAME>
 alias git.newrepo="$KITSSHELL/git.sh newrepo"
 alias git.newserverrepo="$KITSSHELL/git.sh newserverrepo"
 
