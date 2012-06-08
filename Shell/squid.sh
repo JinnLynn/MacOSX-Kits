@@ -16,9 +16,9 @@ case "$1" in
         if [[ -n "$pid" ]]; then kill -9 $pid; fi
         ;;
     "restart" )
-        squid stop
+        squid.sh stop
         sleep 1
-        squid start
+        squid.sh start
         ;;
     "isrunning" )
         [[ -n "$pid" ]] && echo "squid is running." || echo "squid is not running"
