@@ -6,7 +6,7 @@ alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
 # SSH相关
 # SSH秘钥 SOCK等重置
-alias ssh.reset="$KITSSHELL/network.sh ssh reset"
+alias ssh.reset="$KITSSHELL/ssh.sh reset"
 # SSH快速连接
 alias ssh.home="ssh $JHOST"
 alias ssh.scm="ssh scm@$JHOST"
@@ -56,10 +56,10 @@ alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Re
 alias kits.itunes="kits itunes"
 
 # MAMP控制
-alias mamp.start="kits mamp start"
-alias mamp.stop="kits mamp stop"
-alias mamp.restart="kits mamp restart"
-alias mamp.isrunning="kits mamp isrunning"
+alias mamp.start="$KITSSHELL/mamp.sh start"
+alias mamp.stop="$KITSSHELL/mamp.sh stop"
+alias mamp.restart="$KITSSHELL/mamp.sh restart"
+alias mamp.isrunning="$KITSSHELL/mamp.sh isrunning"
 
 # 隐藏文件的显示控制
 alias finder.hidden.show="$KITSSHELL/filesystem.sh hiddenfiles show"
@@ -76,11 +76,11 @@ alias git.newserverrepo="$KITSSHELL/git.sh newserverrepo"
 
 # WIFI控制
 # 启用与禁用 <on|off|reset>
-alias wifi.power="$KITSSHELL/network.sh wifi power"
+alias wifi.power="$KITSSHELL/wifi.sh power"
 # 位置配置 <auto|LOCATION_NAME>
-alias wifi.loc="$KITSSHELL/network.sh wifi location"
+alias wifi.loc="$KITSSHELL/wifi.sh location"
 # 代理 <all|auto|off>
-alias wifi.proxy="$KITSSHELL/network.sh wifi proxy"
+alias wifi.proxy="$KITSSHELL/wifi.sh proxy"
 # IP <manual|dhcp> [<IP> <SUBNET> <DNS>]
 # 当$1 = manual时 后面的参数必须
-alias wifi.ip="$KITSSHELL/network.sh wifi ip"
+alias wifi.ip="$KITSSHELL/wifi.sh ip"
