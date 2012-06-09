@@ -76,6 +76,8 @@ alias finder.open="$KITSSHELL/filesystem.sh finder open"
 alias git.nr="$KITSSHELL/git.sh newrepo"
 alias git.nsr="$KITSSHELL/git.sh newserverrepo"
 
+alias git.scms.pull="$KITSSHELL/git.sh pullallscms"
+
 # WIFI控制
 # 启用与禁用 <on|off|reset>
 alias wifi.power="$KITSSHELL/wifi.sh power"

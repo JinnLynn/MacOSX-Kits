@@ -52,12 +52,29 @@ function new_server_repo() {
 EOF
 }
 
+# 更新~/Developer/SCMs下的所有版本库
+function pull_all_scms() {
+    pushd ~/Developer/SCMs >/dev/null
+    for item in *; do
+        if [[ -d "$item" && -d "$item/.git" ]]; then
+            cd $item
+            echo "$item update..."
+            git pull
+            cd -  >/dev/null
+        fi
+    done 
+    popd >/dev/null
+}
+
 case "$1" in
     'newrepo' )
         new_repo $2
         ;;
     'newserverrepo' )
         new_server_repo $2
+        ;;
+    'pullallscms' )
+        pull_all_scms
         ;;
     * )
         echo "ERROR. Usage: <newrepo|newserverrepo> [arg]"
