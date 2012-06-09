@@ -22,6 +22,9 @@ export HISTCONTROL=erasedups
 # 运行多个Shell时退出合并历史记录
 shopt -s histappend
 
+# 设置颜色显示
+export CLICOLOR=1
+
 # 载入私有信息
 if [[ -f $KITSSHELL/private.sh ]]; then 
     source $KITSSHELL/private.sh
