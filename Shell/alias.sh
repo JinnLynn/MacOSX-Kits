@@ -1,5 +1,6 @@
 
-alias ll="ls -h -l"
+alias ll="ls -lGh"
+alias la="ls -lAGh"
 
 # Sublime Text 2的命令行模式
 alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
