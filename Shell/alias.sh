@@ -55,7 +55,7 @@ alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Re
 # <lyric|rate> [RATE_NUM]
 # lyric = 获取当前播放音乐的歌词 rate = 给当前播放的歌曲评级
 # RATE_NUM 如果$1=rate才有效 1~5
-alias kits.itunes="kits itunes"
+alias kits.itunes="$KITSSHELL/itunes.sh"
 
 # MAMP控制
 alias mamp.start="$KITSSHELL/mamp.sh start"
