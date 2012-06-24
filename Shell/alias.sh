@@ -12,6 +12,7 @@ alias ssh.reset="$KITSSHELL/ssh.sh reset"
 alias ssh.home="ssh $JHOST"
 alias ssh.scm="ssh scm@$JHOST"
 alias ssh.work="ssh jinnlynn@172.16.5.14"
+alias ssh.workscm="ssh scm@172.16.5.14"
 alias ssh.github="ssh -T git@github.com"
 
 # 改变路径
