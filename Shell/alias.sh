@@ -58,6 +58,13 @@ alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Re
 # RATE_NUM 如果$1=rate才有效 1~5
 alias kits.itunes="$KITSSHELL/itunes.sh"
 
+alias itunes.lyric="$KITSSHELL/itunes.sh lyric"
+alias itunes.rate="$KITSSHELL/itunes.sh rate"
+
+# iPhone同步与弹出
+alias iphone.sync="$KITSSHELL/itunes.sh sync"
+alias iphone.eject="$KITSSHELL/itunes.sh eject"
+
 # MAMP控制
 alias mamp.start="$KITSSHELL/mamp.sh start"
 alias mamp.stop="$KITSSHELL/mamp.sh stop"
