@@ -40,6 +40,7 @@ function single_backup() {
     
     #清除旧的增量备份数据
     rsync --delete -a $SCRIPTPATH/.emptydir/ $BHOST:$BDIR
+    
     #同步文件
     if [ "$3" = 'nas' ]; then
         #同步NAS上文件

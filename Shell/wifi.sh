@@ -9,6 +9,7 @@ wifins="Wi-Fi"
 # WIFI device name
 wifidn="en1"
 case "$1" in
+    # WIFI的电源控制
     "power" )
         case "$2" in
             "off"|"on" )
@@ -24,9 +25,10 @@ case "$1" in
             ;;
         esac
     ;;
+    # 地点配置
     "location"|"loc" )
         loc=$2
-        if [[ "$loc" = 'auto' ]]; then loc="Automatic"; fi
+        if [[ "$loc" = 'auto' || "$loc" = '' ]]; then loc="Automatic"; fi
         networksetup -switchtolocation "$loc" >/dev/null
     ;;
     "proxy" )
