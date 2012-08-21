@@ -28,7 +28,7 @@ on run argv
             set rating of current track to _rate * 20
             set _cur_title to (get name of current track)
             set _cur_artist to (get artist of current track)
-            return "The rating of '" & _cur_title & " by " & _cur_title & "' is " & _rate & " now."
+            return "The rating of '" & _cur_title & " by " & _cur_artist & "' is " & _rate & " now."
         # 同步iPhone
         else if _command = "sync" then
             repeat with s in sources
