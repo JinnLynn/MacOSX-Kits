@@ -54,12 +54,13 @@ alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Re
 
 # itunes
 # <lyric|rate> [RATE_NUM]
-# lyric = 获取当前播放音乐的歌词 rate = 给当前播放的歌曲评级
+# lyric = 获取当前播放音乐的歌词 rate = 给当前播放的歌曲评级 info = 当前信息
 # RATE_NUM 如果$1=rate才有效 1~5
 alias kits.itunes="$KITSSHELL/itunes.sh"
 
 alias itunes.lyric="$KITSSHELL/itunes.sh lyric"
 alias itunes.rate="$KITSSHELL/itunes.sh rate"
+alias itunes.info="$KITSSHELL/itunes.sh info"
 
 # iPhone同步与弹出
 alias iphone.sync="$KITSSHELL/itunes.sh sync"

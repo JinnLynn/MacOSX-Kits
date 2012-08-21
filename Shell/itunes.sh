@@ -2,7 +2,7 @@
 
 on run argv
 
-    set _errormsg to "ERROR. Usage: itunes.sh <lyric|rate> [ARGS]"
+    set _errormsg to "ERROR. Usage: itunes.sh <lyric|rate|info> [ARGS]"
     
     set _argvCount to count of argv
 
@@ -39,6 +39,14 @@ on run argv
             repeat with s in sources
                if (kind of s is iPod) then eject s
             end repeat
+        else if _command = "info" then
+            if _isplaying = false then return "iTunes is not playing. "
+            set _cur_title to (get name of current track)
+            set _cur_artist to (get artist of current track)
+            set _rate to (rating of current track / 20)
+            set _album to (album of current track)
+            set _plays to (played count of current track) 
+            return "The playing song info: \n" & _cur_title & " BY " & _cur_artist & " FROM " & _album & "\nRating: " & _rate & "  Played count: " & _plays
         else
             return _errormsg
         end if
