@@ -54,6 +54,11 @@ alias kits.manp="kits manp"
 # 锁定电脑
 alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
+# 同步
+# kits.sync SOURCE TARGET
+alias kits.sync="rsync -av --force --delete --ignore-errors --delete-excluded --exclude-from='$KITSSHELL/cfg/sync_exclude.lst'"
+alias kits.sync.all="rsync -av --force --delete --ignore-errors"
+
 # itunes
 # <lyric|rate> [RATE_NUM]
 # lyric = 获取当前播放音乐的歌词 rate = 给当前播放的歌曲评级 info = 当前信息
