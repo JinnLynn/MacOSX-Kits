@@ -60,6 +60,7 @@ function pull_all_scms() {
             cd $item
             echo "$item update..."
             git pull
+            echo ""
             cd -  >/dev/null
         fi
     done 

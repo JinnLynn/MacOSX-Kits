@@ -10,10 +10,12 @@ alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 alias ssh.reset="$KITSSHELL/ssh.sh reset"
 # SSH快速连接
 alias ssh.home="ssh $JHOST"
+alias ssh.homeroot="ssh root@$JHOST"
 alias ssh.scm="ssh scm@$JHOST"
 alias ssh.work="ssh jinnlynn@172.16.5.14"
 alias ssh.workscm="ssh scm@172.16.5.14"
 alias ssh.github="ssh -T git@github.com"
+alias ssh.ubuntu="ssh jinnlynn@10.211.55.14"
 
 # 改变路径
 alias to.kits="cd $KITS; pwd"
@@ -21,7 +23,7 @@ alias to.shell="cd $KITSSHELL; pwd"
 alias to.desktop="cd ~/Desktop; pwd"
 alias to.scms="cd ~/Developer/SCMs; pwd"
 alias to.dev="cd ~/Developer; pwd"
-alias to.jeeker="cd ~/Developer/Web/Host/Jeeker.net; pwd"
+alias to.jeeker="cd ~/Developer/Web/Jeeker; pwd"
 alias to.wendy="cd ~/Developer/Web/Host/Wendy.jeeker.net; pwd"
 alias to.afvisual="cd ~/Developer/Web/Host/Afvisual.com; pwd"
 
@@ -106,3 +108,16 @@ alias squid.start="$KITSSHELL/squid.sh start"
 alias squid.stop="$KITSSHELL/squid.sh stop"
 alias squid.restart="$KITSSHELL/squid.sh restart"
 alias squid.isrunning="$KITSSHELL/squid.sh isrunning"
+
+alias notify="$KITS/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier"
+
+# Gude
+alias gd="~/Developer/Misc/Gude/gd"
+alias gd.init="gd init"
+alias gd.add="gd add"
+alias gd.build="gd build"
+alias gd.publish="gd publish"
+alias gd.serve="gd serve"
+alias gd.repub="gd.build; gd.publish"
+
+alias xcode.clean="rm -rf ~/Library/Developer/Xcode/DerivedData"

@@ -8,8 +8,9 @@
 # Kits所在目录
 export KITS="$HOME/Developer/Misc/MacOSX-Kits"
 export KITSSHELL="$KITS/Shell"
+export KITSBIN="$KITS/bin"
 
-export PATH="$KITSSHELL:$PATH"
+export PATH="$KITSSHELL:$KITSBIN:$PATH:$KITSBIN/terminal-notifier.app/Contents/MacOS"
 
 # bash提示符
 export PS1="\u@\h: \W\$ "
