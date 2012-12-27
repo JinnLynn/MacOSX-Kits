@@ -59,6 +59,9 @@ alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Re
 alias kits.sync="rsync -av --force --delete --ignore-errors --delete-excluded --exclude-from='$KITSSHELL/cfg/sync_exclude.lst'"
 alias kits.sync.all="rsync -av --force --delete --ignore-errors"
 
+# 清除右键菜单Open With重复项
+alias kits.clear.openwith="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user; killall Finder"
+
 # itunes
 # <lyric|rate> [RATE_NUM]
 # lyric = 获取当前播放音乐的歌词 rate = 给当前播放的歌曲评级 info = 当前信息
