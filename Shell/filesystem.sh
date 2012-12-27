@@ -5,9 +5,7 @@ function hidden_files() {
     cmd='NO'
     if [[ "$1" = 'show' ]]; then cmd='YES'; fi
     defaults write com.apple.Finder AppleShowAllFiles $cmd
-    osascript -e 'tell application "Finder" to quit'
-    sleep 1
-    osascript -e 'tell application "Finder" to activate'
+    killall Finder
 }
 
 # 与Finder相关操作
