@@ -46,7 +46,7 @@ alias kits="kits.sh"
 # 备份
 alias kits.backup="kits backup"
 # 使用gfwlist生成自动代理配置文件
-alias kits.genpac="kits genpac"
+alias kits.genpac="kits genpac && scp $KITS/GenPAC/AutoProxy.pac root@$JHOME:/volume1/web/assets/pac.js && ssh root@$JHOME 'chmod 644 /volume1/web/assets/pac.js'"
 # 使用`预览`打开man内容
 # <APP_NAME>
 alias kits.manp="kits manp"
