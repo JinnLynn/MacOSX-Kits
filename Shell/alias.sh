@@ -105,6 +105,8 @@ alias wifi.off="wifi.power off"
 alias wifi.reset="wifi.power reset"
 # 位置配置 <auto|LOCATION_NAME>
 alias wifi.loc="$KITSSHELL/wifi.sh location"
+alias wifi.loc.auto="wifi.loc auto"
+alias wifi.loc.ascfj="wifi.loc ASCFJ"
 # 代理 <all|auto|off>
 alias wifi.proxy="$KITSSHELL/wifi.sh proxy"
 # IP <manual|dhcp> [<IP> <SUBNET> <DNS>]

@@ -29,7 +29,7 @@ case "$1" in
     "location"|"loc" )
         loc=$2
         if [[ "$loc" = 'auto' || "$loc" = '' ]]; then loc="Automatic"; fi
-        networksetup -switchtolocation "$loc" >/dev/null
+        scselect "$loc" >/dev/null
     ;;
     "proxy" )
         case "$2" in
