@@ -6,25 +6,34 @@
 # 支持以#开始的注释
 # ---------------------------------------------------- #
 
-#备份iTunes
+# 备份iTunes
 /Users/JinnLynn/Music/iTunes/ JMBP.iTunes
 
-#备份Developer
-/Users/JinnLynn/Developer/ JMBP.Developer
-
-#备份Documents
+# 备份Documents
 /Users/JinnLynn/Documents/ JMBP.Documents
 
-#备份Applications
+# 备份Applications
 /Applications/ JMBP.Applications
 
-#备份Pictures
+# 备份Pictures
 /Users/JinnLynn/Pictures/ JMBP.Pictures
 
-#JMBPWin
+# 备份Application Support
+/tmp/kits-backup-Application-Support/ JMBP.Library/Application-Support
+
+# 备份字典
+/Users/JinnLynn/Library/Dictionaries/ JMBP.Library/Dictionaries
+
+# 备份系统程序配置 Preferences
+/Users/JinnLynn/Library/Preferences/ JMBP.Library/Preferences
+
+# 备份Developer
+/Users/JinnLynn/Developer/ JMBP.Developer
+
+# JMBPWin
 /Volumes/BOOTCAMP/Users/JinnLynn/Developer/ JMBPWin.Developer
 
-#JNAS SCMs
+# JNAS SCMs
 /volume1/DevCenter/SCMs/ JNAS.SCMs nas
 
 # 最后必须留空一行

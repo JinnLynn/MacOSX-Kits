@@ -66,7 +66,7 @@ function backup() {
     while read LINE
     do
         if [ "${LINE:0:1}" != "" -a "${LINE:0:1}" != "#" ]; then
-            single_backup $LINE 
+            single_backup $LINE
         fi
     done < task.txt
 
