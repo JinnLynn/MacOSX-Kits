@@ -130,4 +130,9 @@ alias gd.publish="gd publish"
 alias gd.serve="gd serve"
 alias gd.repub="gd.build; gd.publish"
 
-alias xcode.clean="rm -rf ~/Library/Developer/Xcode/DerivedData"
+# 清理Xcode临时文件
+alias clean.xcode="rm -rf ~/Library/Developer/Xcode/DerivedData"
+# 清空DNS缓存
+alias clean.dns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+# 清除右键菜单Open With重复项
+alias clean.openwith="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user; killall Finder"
