@@ -1,11 +1,14 @@
-#生成的Shell脚本链接文件
+#生成的临时文件
 *.*l
+*.pyc
+
 
 #日志
 *.log
 
 #私有信息
 private.sh
+privacy.py
 
 #实验脚本
 lib.sh
