@@ -6,11 +6,11 @@ if [ -z $KITS ]; then
 fi
 
 #私有操作
-function private() {
-    if [ -f $KITSSHELL/private.sh ]; then 
-        . $KITSSHELL/private.sh $1 $2
+function privacy() {
+    if [ -f $KITSSHELL/privacy.sh ]; then 
+        . $KITSSHELL/privacy.sh $1 $2
     else
-        echo 'kits: private is not a kits command.'
+        echo 'kits: privacy is not a kits command.'
     fi
 }
 

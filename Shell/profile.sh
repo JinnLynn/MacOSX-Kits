@@ -27,8 +27,8 @@ shopt -s histappend
 export CLICOLOR=1
 
 # 载入私有信息
-if [[ -f $KITSSHELL/private.sh ]]; then 
-    source $KITSSHELL/private.sh
+if [[ -f $KITSSHELL/privacy.sh ]]; then 
+    source $KITSSHELL/privacy.sh
 fi
 
 # 载入别名

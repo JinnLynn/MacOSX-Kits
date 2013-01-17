@@ -1,14 +1,12 @@
-#生成的临时文件
+#临时文件
 *.*l
 *.pyc
-
 
 #日志
 *.log
 
 #私有信息
-private.sh
-privacy.py
+privacy.*
 
 #实验脚本
 lib.sh
