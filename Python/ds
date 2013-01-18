@@ -177,13 +177,12 @@ class DownloadStation:
             self.die('arguments error')
         uris = ','.join(link_or_file) if isinstance(link_or_file, list) else link_or_file
         try:
-            if os.path.isfile(link_or_file):
+            if os.path.isfile(uris):
                 # 使用file参数似乎有问题 自己读
-                with open(link_or_file, 'r') as fp:
+                with open(uris, 'r') as fp:
                     uris = ','.join(map(lambda s: s.strip('\n \t\r'), fp.readlines()))
         except:
             pass
-
         data = { 'api':     'SYNO.DownloadStation.Task',
                  'method':  'create',
                  'uri':     uris
@@ -357,9 +356,8 @@ class DownloadStation:
 def main():
     parser = ArgumentParser(prog = 'ds', description = 'Synology NAS Download Station Tool.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + DS_VERSION)
-    subparsers = parser.add_subparsers( title = 'subcommands', 
-                                        dest = 'sub_cmd')
-
+    subparsers = parser.add_subparsers(title = 'subcommands', dest = 'sub_cmd')
+ 
     # 任务信息
     sub_info_parser = subparsers.add_parser('info', help = 'show task infomation')
     sub_info_parser.add_argument('--simple', action='store_true', default = False, help = 'only show task id and title')
