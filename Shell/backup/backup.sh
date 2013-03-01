@@ -4,7 +4,7 @@
 #------------------------------------------------------------------------#
 
 #备份服务器SSH 如 backup@10.0.0.1
-BHOST=backup@$JHOST
+BHOST=root@$JHOST
 
 #备份路径 远程服务器上的
 BDST=/volume1/Backup
@@ -28,7 +28,7 @@ LOGDIR=./log
 function single_backup() {
     #被修改回删除的文件保存处理 每天生成一个目录
     BDIR="$BDST/$2/$(date +0%u)"
-    OPTS="-av --force --ignore-errors --delete --backup --backup-dir=$BDIR"
+    OPTS="-avh --force --ignore-errors --delete --backup --backup-dir=$BDIR"
     SSH_OPT="ssh -i $SSHKEY"
     EXCULDE_OPT="--exclude-from=$EXCLUDE"
 
