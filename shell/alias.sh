@@ -43,7 +43,7 @@ alias kits="kits.sh"
 alias kits.backup="kits backup"
 
 # 使用gfwlist生成自动代理配置文件
-alias kits.pac.gen="kits genpac && cp $KITS/GenPAC/AutoProxy.pac $JPACGIST/pac.js && cp $JPACGIST/pac.js $JJEEKER_DEPLOY/assets/"
+alias kits.pac.gen="kits genpac && cp $KITS/extra/genpac/AutoProxy.pac $JPACGIST/pac.js && cp $JPACGIST/pac.js $JJEEKER_DEPLOY/assets/"
 alias kits.pac.pub="pushd $JPACGIST >/dev/null && kits.pac.gen && git commit -a -m 'updated' && git push && popd >/dev/null"
 # 使用`预览`打开man内容
 # <APP_NAME>
@@ -54,7 +54,7 @@ alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Re
 
 # 同步
 # kits.sync SOURCE TARGET
-alias kits.sync="rsync -avh --force --delete --ignore-errors --delete-excluded --exclude-from='$KITSSHELL/cfg/sync_exclude.lst'"
+alias kits.sync="rsync -avh --force --delete --ignore-errors --delete-excluded --exclude-from='$KITS/cfg/sync-exclude.lst'"
 alias kits.sync.all="rsync -avh --force --delete --ignore-errors"
 
 # 网址测试
@@ -143,7 +143,7 @@ alias nas.kits.renew="ssh.home.root 'cd /root && rm -rf nas-kits && git clone /g
 alias nas.led.power.off="ssh.home.root 'echo \6>/dev/ttyS1'"
 alias nas.led.power.on="ssh.home.root 'echo \4>/dev/ttyS1'"
 # Download Station
-alias nas.ds="$KITS/Python/ds"
+alias nas.ds="$KITS/python/ds"
 alias nas.ds.create="nas.ds create"
 alias nas.ds.emule="nas.ds emule"
 alias nas.ds.clean="nas.ds clean"

@@ -24,10 +24,10 @@ case $1 in
         if [ ! -L /tmp/kits-backup-Application-Support ]; then
             ln -s "/Users/JinnLynn/Library/Application Support/" "/tmp/kits-backup-Application-Support"
         fi
-        $KITSSHELL/backup/backup.sh
+        $KITS/extra/backup/backup.sh
         ;;
     'genpac' )     #通过GenPAC生成自动代理配置文件
-        $KITS/GenPAC/genpac.py
+        $KITS/extra/genpac/genpac.py
         ;;
     'manp' )
         manp $2

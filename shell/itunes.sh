@@ -15,7 +15,7 @@ on run argv
         # 获取当前播放歌曲的歌词
         if _command = "lyric" then
             reveal current track
-            do shell script "osascript $KITS/FetchLyric/FetchLyric.applescript"
+            do shell script "osascript $KITS/extra/fetch-lyric/FetchLyric.applescript"
             set _cur_title to (get name of current track)
             set _cur_artist to (get artist of current track)
             return "The lyric of '" & _cur_title & " by " & _cur_artist & "' will be fetched."

@@ -7,7 +7,7 @@
 
 # Kits所在目录
 export KITS="$HOME/Developer/Misc/MacOSX-Kits"
-export KITSSHELL="$KITS/Shell"
+export KITSSHELL="$KITS/shell"
 export KITSBIN="$KITS/bin"
 
 export NASKITS="$HOME/Developer/Misc/NAS-Kits"
