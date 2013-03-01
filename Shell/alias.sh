@@ -2,51 +2,49 @@
 alias ll="ls -lGh"
 alias la="ls -lAGh"
 
-# Sublime Text 2的命令行模式
-alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
-
 # SSH相关
 # SSH秘钥 SOCK等重置
 alias ssh.reset="$KITSSHELL/ssh.sh reset"
 # SSH快速连接
 alias ssh.home="ssh $JHOST"
-alias ssh.homeroot="ssh root@$JHOST"
-alias ssh.scm="ssh scm@$JHOST"
+alias ssh.home.root="ssh root@$JHOST"
+alias ssh.home.scm="ssh scm@$JHOST"
 alias ssh.work="ssh jinnlynn@172.16.5.14"
-alias ssh.workscm="ssh scm@172.16.5.14"
+alias ssh.work.scm="ssh scm@172.16.5.14"
 alias ssh.github="ssh -T git@github.com"
 alias ssh.ubuntu="ssh jinnlynn@10.211.55.14"
+alias ssh.aws="ssh -i $JEC2KEY $JEC2USR@$JEC2SERVER"
 
 # 改变路径
-alias to.kits="cd $KITS; pwd"
-alias to.shell="cd $KITSSHELL; pwd"
-alias to.desktop="cd ~/Desktop; pwd"
-alias to.scms="cd ~/Developer/SCMs; pwd"
-alias to.dev="cd ~/Developer; pwd"
-alias to.jeeker="cd ~/Developer/Web/Jeeker; pwd"
-alias to.wendy="cd ~/Developer/Web/Host/Wendy.jeeker.net; pwd"
-alias to.afvisual="cd ~/Developer/Web/Host/Afvisual.com; pwd"
+alias to.kits="cd $KITS && pwd"
+alias to.shell="cd $KITSSHELL && pwd"
+alias to.desktop="cd ~/Desktop && pwd"
+alias to.scms="cd ~/Developer/SCMs && pwd"
+alias to.dev="cd ~/Developer && pwd"
+alias to.jeeker="cd ~/Developer/Web/Jeeker && pwd"
 
 # 前往当前Finder某个窗口所在目录
 alias to.finder="source $KITSSHELL/filesystem.sh finder where"
 
 # 在Finder中打开
-alias tof.kits="to.kits; finder.open"
-alias tof.shell="to.shell; finder.open"
-alias tof.desktop="to.desktop; finder.open"
-alias tof.scms="to.scms; finder.open"
-alias tof.dev="to.dev; finder.open"
-alias tof.jeeker="to.jeeker; finder.open"
-alias tof.wendy="to.wendy; finder.open"
-alias tof.afvisual="to.afvisual; finder.open"
+alias tof.kits="to.kits && finder.open"
+alias tof.shell="to.shell && finder.open"
+alias tof.desktop="to.desktop && finder.open"
+alias tof.scms="to.scms && finder.open"
+alias tof.dev="to.dev && finder.open"
+alias tof.jeeker="to.jeeker && finder.open"
+alias tof.wendy="to.wendy && finder.open"
+alias tof.afvisual="to.afvisual && finder.open"
 
 # KITS
 alias kits="kits.sh"
 
 # 备份
 alias kits.backup="kits backup"
+
 # 使用gfwlist生成自动代理配置文件
-alias kits.genpac="kits genpac && scp $KITS/GenPAC/AutoProxy.pac root@$JHOME:/volume1/web/assets/pac.js && ssh root@$JHOME 'chmod 644 /volume1/web/assets/pac.js'"
+alias kits.pac.gen="kits genpac && cp $KITS/GenPAC/AutoProxy.pac $JPACGIST/pac.js && cp $JPACGIST/pac.js $JJEEKER_DEPLOY/assets/"
+alias kits.pac.pub="pushd $JPACGIST >/dev/null && kits.pac.gen && git commit -a -m 'updated' && git push && popd >/dev/null"
 # 使用`预览`打开man内容
 # <APP_NAME>
 alias kits.manp="kits manp"
@@ -56,11 +54,18 @@ alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Re
 
 # 同步
 # kits.sync SOURCE TARGET
-alias kits.sync="rsync -av --force --delete --ignore-errors --delete-excluded --exclude-from='$KITSSHELL/cfg/sync_exclude.lst'"
-alias kits.sync.all="rsync -av --force --delete --ignore-errors"
+alias kits.sync="rsync -avh --force --delete --ignore-errors --delete-excluded --exclude-from='$KITSSHELL/cfg/sync_exclude.lst'"
+alias kits.sync.all="rsync -avh --force --delete --ignore-errors"
 
-# 清除右键菜单Open With重复项
-alias kits.clear.openwith="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user; killall Finder"
+# 网址测试
+alias kits.url="curl -o /dev/null -s -w '\nCode\tConn\tTran\tTotal\tSize\tURL\n%{http_code}\t%{time_connect}\t%{time_starttransfer}\t%{time_total}\t%{size_download}\t%{url_effective}\n\n'"
+alias kits.url.nas="kits.url $JURL_NAS"
+alias kits.url.pac="kits.url $JURL_PAC"
+
+# 查看IP
+alias kits.ip="curl -s http://ip.3322.net"
+
+alias kits.back="cd - >/dev/null"
 
 # itunes
 # <lyric|rate> [RATE_NUM]
@@ -128,7 +133,20 @@ alias gd.add="gd add"
 alias gd.build="gd build"
 alias gd.publish="gd publish"
 alias gd.serve="gd serve"
-alias gd.repub="gd.build; gd.publish"
+alias gd.local="gd build -lp"
+alias gd.remote="gd publish -b"
+
+# NAS
+alias nas.kits.update="cd $NASKITS && git push && ssh.home.root 'cd /root/nas-kits && git pull' && kits.back"
+alias nas.kits.renew="ssh.home.root 'cd /root && rm -rf nas-kits && git clone /git/personal/nas-kits.git"
+
+alias nas.led.power.off="ssh.home.root 'echo \6>/dev/ttyS1'"
+alias nas.led.power.on="ssh.home.root 'echo \4>/dev/ttyS1'"
+# Download Station
+alias nas.ds="$KITS/Python/ds"
+alias nas.ds.create="nas.ds create"
+alias nas.ds.emule="nas.ds emule"
+alias nas.ds.clean="nas.ds clean"
 
 # 清理Xcode临时文件
 alias clean.xcode="rm -rf ~/Library/Developer/Xcode/DerivedData"

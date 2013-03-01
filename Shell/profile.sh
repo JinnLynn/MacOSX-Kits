@@ -10,6 +10,8 @@ export KITS="$HOME/Developer/Misc/MacOSX-Kits"
 export KITSSHELL="$KITS/Shell"
 export KITSBIN="$KITS/bin"
 
+export NASKITS="$HOME/Developer/Misc/NAS-Kits"
+
 export PATH="$KITSSHELL:$KITSBIN:$PATH:$KITSBIN/terminal-notifier.app/Contents/MacOS"
 
 # bash提示符
