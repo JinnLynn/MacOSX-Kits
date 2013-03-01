@@ -1,6 +1,7 @@
 
 alias ll="ls -lGh"
 alias la="ls -lAGh"
+alias cd-="cd - >/dev/null"
 
 # SSH相关
 # SSH秘钥 SOCK等重置
@@ -44,7 +45,7 @@ alias kits.backup="kits backup"
 
 # 使用gfwlist生成自动代理配置文件
 alias kits.pac.gen="kits genpac && cp $KITS/extra/genpac/AutoProxy.pac $JPACGIST/pac.js && cp $JPACGIST/pac.js $JJEEKER_DEPLOY/assets/"
-alias kits.pac.pub="pushd $JPACGIST >/dev/null && kits.pac.gen && git commit -a -m 'updated' && git push && popd >/dev/null"
+alias kits.pac.pub="cd $JPACGIST && kits.pac.gen && git commit -a -m 'updated' && git push && cd-"
 # 使用`预览`打开man内容
 # <APP_NAME>
 alias kits.manp="kits manp"
@@ -64,8 +65,6 @@ alias kits.url.pac="kits.url $JURL_PAC"
 
 # 查看IP
 alias kits.ip="curl -s http://ip.3322.net"
-
-alias kits.back="cd - >/dev/null"
 
 # itunes
 # <lyric|rate> [RATE_NUM]
@@ -137,11 +136,11 @@ alias gd.local="gd build -lp"
 alias gd.remote="gd publish -b"
 
 # NAS
-alias nas.kits.update="cd $NASKITS && git push && ssh.home.root 'cd /root/nas-kits && git pull' && kits.back"
+alias nas.kits.update="cd $NASKITS && git push && ssh.home.root 'cd /root/nas-kits && git pull' && cd-"
 alias nas.kits.renew="ssh.home.root 'cd /root && rm -rf nas-kits && git clone /git/personal/nas-kits.git"
 
-alias nas.led.power.off="ssh.home.root 'echo \6>/dev/ttyS1'"
-alias nas.led.power.on="ssh.home.root 'echo \4>/dev/ttyS1'"
+alias nas.ip="ssh.home.root 'curl -s http://ip.3322.net'"
+
 # Download Station
 alias nas.ds="$KITS/python/ds"
 alias nas.ds.create="nas.ds create"
