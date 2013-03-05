@@ -4,12 +4,9 @@
 
 # Kits相关 KITS在../dotfiles/bashrc.sh中配置
 
-export KITSSHELL="$KITS/shell"
-export KITSBIN="$KITS/bin"
-
 export NASKITS="$HOME/Developer/Misc/NAS-Kits"
 
-export PATH="$KITSSHELL:$KITSBIN:$PATH:$KITSBIN/terminal-notifier.app/Contents/MacOS"
+export PATH="$KITS/shell:$KITS/bin:$PATH:$KITS/bin/terminal-notifier.app/Contents/MacOS"
 
 # bash提示符
 export PS1="\u@\h: \W\$ "
@@ -26,11 +23,11 @@ shopt -s histappend
 export CLICOLOR=1
 
 # 载入私有信息
-if [[ -f $KITSSHELL/privacy.sh ]]; then 
-    source $KITSSHELL/privacy.sh
+if [[ -f $KITS/shell/privacy.sh ]]; then 
+    source $KITS/shell/privacy.sh
 fi
 
 # 载入别名
-if [[ -f $KITSSHELL/alias.sh ]]; then
-    source $KITSSHELL/alias.sh
+if [[ -f $KITS/shell/alias.sh ]]; then
+    source $KITS/shell/alias.sh
 fi

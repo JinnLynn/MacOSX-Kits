@@ -7,8 +7,8 @@ fi
 
 #私有操作
 function privacy() {
-    if [ -f $KITSSHELL/privacy.sh ]; then 
-        . $KITSSHELL/privacy.sh $1 $2
+    if [ -f $KITS/shell/privacy.sh ]; then 
+        . $KITS/shell/privacy.sh $1 $2
     else
         echo 'kits: privacy is not a kits command.'
     fi
