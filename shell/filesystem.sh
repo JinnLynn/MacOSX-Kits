@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# 是否显示隐藏的文件
-function hidden_files() {
-    cmd='NO'
-    if [[ "$1" = 'show' ]]; then cmd='YES'; fi
-    defaults write com.apple.Finder AppleShowAllFiles $cmd
-    killall Finder
-}
-
 # 与Finder相关操作
 function finder() {
     case "$1" in
@@ -83,9 +75,6 @@ function to_finder_directory()
 }
 
 case $1 in
-    'hiddenfiles' )     #隐藏文件的显示与隐藏
-        hidden_files $2
-        ;;
     'finder' )
         finder $2 $3
         ;;

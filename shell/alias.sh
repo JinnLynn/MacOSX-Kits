@@ -89,8 +89,12 @@ alias mamp.restart="$KITSSHELL/mamp.sh restart"
 alias mamp.isrunning="$KITSSHELL/mamp.sh isrunning"
 
 # 隐藏文件的显示控制
-# [show|hide] 默认hide
-alias finder.hidden="$KITSSHELL/filesystem.sh hiddenfiles"
+alias finder.hidden.show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias finder.hidden.hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# 桌面图标隐藏显示
+alias desktop.hide="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias desktop.show="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 # 在Finder中打开文件夹
 # [FOLDER_OR_FILE_NAME] 默认当前工作目录
