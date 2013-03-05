@@ -30,6 +30,9 @@
 # 备份Developer
 /Users/JinnLynn/Developer/ JMBP.Developer
 
+# Apps
+/Volumes/ExtraHD/Apps/ JMBP.Apps
+
 # JMBPWin
 /Volumes/BOOTCAMP/Users/JinnLynn/Developer/ JMBPWin.Developer
 
