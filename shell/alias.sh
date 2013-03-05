@@ -3,7 +3,7 @@ alias ll="ls -lGh"
 alias la="ls -lAGh"
 alias cd-="cd - >/dev/null"
 
-alias reload!=". ~/.bashrc"
+alias reload!="[[ -f ~/.bashrc ]] && source ~/.bashrc"
 
 # SSH相关
 # SSH秘钥 SOCK等重置
