@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [[ -z $KITS ]]; then
+   export KITS="$HOME/Developer/Misc/MacOSX-Kits"
+fi
+
+# 软链接
+# 如果目标是文件或文件夹 备份
+# 如果目标已经是链接，删除，重新生成链接
+function symbolic_link() {
+    if [[ ! -L "$2" ]]; then
+        if [[ -f "$2" || -d "$2" ]]; then
+            mv "$2" "$2-bak" 
+            echo "BACKUP: "$2" -> "$2"-bak"
+        fi
+    elif [[ -L "$2" ]]; then
+        rm -f "$2"
+    fi
+    ln -s "$1" "$2" 
+}
+
+# profile处理
+symbolic_link $KITS/dotfiles/bash_profile.sh ~/.bash_profile
+symbolic_link $KITS/dotfiles/bashrc.sh ~/.bashrc
+
+# git配置
+git config --global user.email "eatfishlin@gmail.com"
+git config --global user.name "JinnLynn"
+git config --global push.default simple
