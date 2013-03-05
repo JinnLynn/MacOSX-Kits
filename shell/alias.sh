@@ -3,6 +3,8 @@ alias ll="ls -lGh"
 alias la="ls -lAGh"
 alias cd-="cd - >/dev/null"
 
+alias reload!=". ~/.bashrc"
+
 # SSH相关
 # SSH秘钥 SOCK等重置
 alias ssh.reset="$KITSSHELL/ssh.sh reset"
@@ -136,8 +138,8 @@ alias gd.local="gd build -lp"
 alias gd.remote="gd publish -b"
 
 # NAS
-alias nas.kits.update="cd $NASKITS && git push && ssh.home.root 'cd /root/nas-kits && git pull' && cd-"
-alias nas.kits.renew="ssh.home.root 'cd /root && rm -rf nas-kits && git clone /git/personal/nas-kits.git"
+alias nas.kits.update="cd $NASKITS && git push && ssh.home.root 'cd /volume1/homes/root/nas-kits && git pull' && cd-"
+alias nas.kits.reset="cd $NASKITS && git push -f && ssh.home.root 'cd /volume1/homes/root && rm -rf nas-kits && git clone /git/personal/nas-kits.git' && cd-"
 
 alias nas.ip="ssh.home.root 'curl -s http://ip.3322.net'"
 
