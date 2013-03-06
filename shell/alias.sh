@@ -30,14 +30,12 @@ alias to.jeeker="cd ~/Developer/Web/Jeeker && pwd"
 alias to.finder="source $KITS/shell/filesystem.sh finder where"
 
 # 在Finder中打开
-alias tof.kits="to.kits && finder.open"
-alias tof.shell="to.shell && finder.open"
-alias tof.desktop="to.desktop && finder.open"
-alias tof.scms="to.scms && finder.open"
-alias tof.dev="to.dev && finder.open"
-alias tof.jeeker="to.jeeker && finder.open"
-alias tof.wendy="to.wendy && finder.open"
-alias tof.afvisual="to.afvisual && finder.open"
+alias tof.kits="open $KITS"
+alias tof.shell="open $KITS/shell"
+alias tof.desktop="open ~/Desktop"
+alias tof.scms="open ~/Developer/SCMs"
+alias tof.dev="open ~/Developer"
+alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 
 # KITS
 alias kits="kits.sh"
