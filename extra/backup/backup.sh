@@ -18,6 +18,9 @@ EXCLUDE=./excludes.txt
 #日志目录
 LOGDIR=./log
 
+# rsync路径
+RSYNC=/usr/local/bin/rsync
+
 #配置结束
 #------------------------------------------------------------------------#
 
@@ -39,7 +42,7 @@ function single_backup() {
     $SSH_OPT $BHOST "[ -d $BDST/$2 ] || mkdir $BDST/$2" < /dev/null
     
     #清除旧的增量备份数据
-    rsync --delete -a $SCRIPTPATH/.emptydir/ $BHOST:$BDIR
+    $RSYNC --delete -a $SCRIPTPATH/.emptydir/ $BHOST:$BDIR
     
     #同步文件
     if [ "$3" = 'nas' ]; then
@@ -47,7 +50,7 @@ function single_backup() {
         $SSH_OPT $BHOST "rsync $OPTS $1 $BDST/$2/current"
     else
         #同步本地文件
-        rsync $OPTS $EXCULDE_OPT -e "$SSH_OPT" $1 $BHOST:$BDST/$2/current
+        $RSYNC $OPTS $EXCULDE_OPT -e "$SSH_OPT" $1 $BHOST:$BDST/$2/current
     fi
     
     echo "------------------------------------------------"
