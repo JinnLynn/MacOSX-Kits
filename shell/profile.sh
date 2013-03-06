@@ -23,11 +23,7 @@ shopt -s histappend
 export CLICOLOR=1
 
 # 载入私有信息
-if [[ -f $KITS/shell/privacy.sh ]]; then 
-    source $KITS/shell/privacy.sh
-fi
+[[ -f $KITS/shell/privacy.sh ]] && . $KITS/shell/privacy.sh
 
 # 载入别名
-if [[ -f $KITS/shell/alias.sh ]]; then
-    source $KITS/shell/alias.sh
-fi
+[[ -f $KITS/shell/alias.sh ]] && . $KITS/shell/alias.sh
