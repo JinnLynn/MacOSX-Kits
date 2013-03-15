@@ -1,4 +1,5 @@
 #!/bin/bash
+umask 022
 
 if [[ -z $KITS ]]; then
    export KITS="$HOME/Developer/Misc/MacOSX-Kits"
@@ -22,6 +23,12 @@ function symbolic_link() {
 # profile处理
 symbolic_link $KITS/dotfiles/bash_profile.sh ~/.bash_profile
 symbolic_link $KITS/dotfiles/bashrc.sh ~/.bashrc
+
+# sublime text
+symbolic_link "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" $KITS/bin/subl
+
+# 下列需要root权限
+symbolic_link $KITS/dotfiles/hosts /etc/hosts
 
 # git配置
 git config --global user.email "eatfishlin@gmail.com"

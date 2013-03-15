@@ -11,6 +11,8 @@ privacy.*
 #实验脚本
 lib.sh
 
+bin/subl
+
 # Windows
 [Dd]esktop.ini
 [Tt]humbs.db
