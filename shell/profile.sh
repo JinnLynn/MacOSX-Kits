@@ -5,6 +5,7 @@
 # Kits相关 KITS在../dotfiles/bashrc.sh中配置
 
 export NASKITS="$HOME/Developer/Misc/NAS-Kits"
+export RPIKITS="$HOME/Developer/Misc/RPi-Kits"
 
 export PATH="$KITS/shell:$KITS/bin:$PATH:$KITS/bin/terminal-notifier.app/Contents/MacOS"
 

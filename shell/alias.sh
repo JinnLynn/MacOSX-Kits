@@ -17,6 +17,7 @@ alias ssh.work.scm="ssh scm@172.16.5.14"
 alias ssh.github="ssh -T git@github.com"
 alias ssh.ubuntu="ssh jinnlynn@10.211.55.14"
 alias ssh.aws="ssh -i $JEC2KEY $JEC2USR@$JEC2SERVER"
+alias ssh.rpi="ssh pi@$JRPI"
 
 # 改变路径
 alias to.kits="cd $KITS && pwd"
@@ -65,6 +66,9 @@ alias kits.url.pac="kits.url $JURL_PAC"
 
 # 查看IP
 alias kits.ip="curl -s http://ip.3322.net"
+
+# VNC
+alias kits.vnc="open /System/Library/CoreServices/Screen\ Sharing.app"
 
 # itunes
 # <lyric|rate> [RATE_NUM]
@@ -139,9 +143,18 @@ alias gd.serve="gd serve"
 alias gd.local="gd build -lp"
 alias gd.remote="gd publish -b"
 
+# 清理Xcode临时文件
+alias clean.xcode="rm -rf ~/Library/Developer/Xcode/DerivedData"
+# 清空DNS缓存
+alias clean.dns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+# 清除右键菜单Open With重复项
+alias clean.openwith="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user; killall Finder"
+
+
+# =========================================================
 # NAS
-alias nas.kits.update="cd $NASKITS && git push && ssh.home.root 'cd /volume1/homes/root/nas-kits && git pull' && cd-"
-alias nas.kits.reset="cd $NASKITS && git push -f && ssh.home.root 'cd /volume1/homes/root && rm -rf nas-kits && git clone /git/personal/nas-kits.git' && cd-"
+
+alias nas.kits.update="kits.sync $NASKITS/ root@$JHOST:/root/nas-kits"
 
 alias nas.ip="ssh.home.root 'curl -s http://ip.3322.net'"
 
@@ -151,9 +164,9 @@ alias nas.ds.create="nas.ds create"
 alias nas.ds.emule="nas.ds emule"
 alias nas.ds.clean="nas.ds clean"
 
-# 清理Xcode临时文件
-alias clean.xcode="rm -rf ~/Library/Developer/Xcode/DerivedData"
-# 清空DNS缓存
-alias clean.dns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
-# 清除右键菜单Open With重复项
-alias clean.openwith="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user; killall Finder"
+
+# =========================================================
+# RPi
+
+alias rpi.kits.update="kits.sync $RPIKITS/ pi@$JRPI:/home/pi/rpi-kits"
+alias rpi.vnc="open vnc://$JRPI"
