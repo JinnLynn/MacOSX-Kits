@@ -26,6 +26,7 @@ alias to.desktop="cd ~/Desktop && pwd"
 alias to.scms="cd ~/Developer/SCMs && pwd"
 alias to.dev="cd ~/Developer && pwd"
 alias to.jeeker="cd ~/Developer/Web/Jeeker && pwd"
+alias to.gude="cd ~/Developer/Misc/Gude && pwd"
 
 # 前往当前Finder某个窗口所在目录
 alias to.finder="source $KITS/shell/filesystem.sh finder where"
@@ -134,6 +135,7 @@ alias squid.isrunning="$KITS/shell/squid.sh isrunning"
 alias notify="$KITS/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier"
 
 # Gude
+alias gd.reinstall="to.gude && python setup.py install && cd -"
 alias gd="~/Developer/Misc/Gude/gd"
 alias gd.init="gd init"
 alias gd.add="gd add"
@@ -150,12 +152,20 @@ alias clean.dns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 # 清除右键菜单Open With重复项
 alias clean.openwith="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user; killall Finder"
 
+# python 虚拟环境
+alias pyenv.ls="lsvirtualenv"
+alias pyenv.mk="mkvirtualenv"
+alias pyenv.mk.tmp="mktmpenv"
+alias pyenv.cp="cpvirtualenv"
+alias pyenv.rm="rmvirtualenv"
+alias pyenv.lssp="lssitepackages"
+alias pyenv.setpath="setvirtualenvproject"
+alias pyenv.on="workon"
+alias pyenv.quit="deactivate"
 
 # =========================================================
 # NAS
-
 alias nas.kits.update="kits.sync $NASKITS/ root@$JHOST:/root/nas-kits"
-
 alias nas.ip="ssh.home.root 'curl -s http://ip.3322.net'"
 
 # Download Station
@@ -164,9 +174,11 @@ alias nas.ds.create="nas.ds create"
 alias nas.ds.emule="nas.ds emule"
 alias nas.ds.clean="nas.ds clean"
 
+alias nas.ip.ddns="dig +short $JHOST_DDNS1; dig +short $JHOST_DDNS2; dig +short $JHOST_DDNS3"
+alias nas.ip.host="dig +short $JHOST"
+
 
 # =========================================================
 # RPi
-
 alias rpi.kits.update="kits.sync $RPIKITS/ pi@$JRPI:/home/pi/rpi-kits"
 alias rpi.vnc="open vnc://$JRPI"

@@ -23,6 +23,16 @@ shopt -s histappend
 # 设置颜色显示
 export CLICOLOR=1
 
+# pip 要求在虚拟环境中才能运行
+export PIP_REQUIRE_VIRTUALENV=true
+# pip 自动使用启动中的虚拟环境
+export PIP_RESPECT_VIRTUALENV=true
+
+# virtualenvwrapper 环境
+export WORKON_HOME=~/.virtualenvs
+[[ ! -d $WORKON_HOME ]] && mkdir $WORKON_HOME
+[[ -f /usr/local/bin/virtualenvwrapper.sh ]] && . /usr/local/bin/virtualenvwrapper.sh
+
 # 载入私有信息
 [[ -f $KITS/shell/privacy.sh ]] && . $KITS/shell/privacy.sh
 
