@@ -1,14 +1,21 @@
 # MacOSX-Kits
 
-一些个人在Mac OSX下使用的小工具，可能是Shell Script、AppleScript、Python等。
+个人在OSX终端下的配置或小工具，可能是Shell Script、AppleScript、Python等。
+
+## INSTALLATION
+
+```
+git clone git://github.com/JinnLynn/MacOSX-Kits.git ~/.kits
+cd ~/.kits
+./setup
+```
 
 ## USAGE
 
-使用说明见相应目录下的README文件，或在[Jeeker.net][1]或也能找到更为详细的说明文章。
+绝大部分的脚本功能都可以通过别名访问，具体查看`shell\alias.sh`中的注释。
 
-## Copyright and license
+## LICENCE
 
-Copyright 2012 [Jeeker.net][1], Licensed under [CC BY 3.0][2].
+Licenced under the MIT licence.
 
-[1]:http://jeeker.net
-[2]:http://creativecommons.org/licenses/by/3.0/
+http://jeeker.net
