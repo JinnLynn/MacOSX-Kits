@@ -21,7 +21,4 @@ if [[ "$(whoami)" = "root" ]]; then
     _kits_symbolic_link $KITS/dotfiles/hosts /etc/hosts
 fi
 
-# git配置
-git config --global user.email "eatfishlin@gmail.com"
-git config --global user.name "JinnLynn"
-git config --global push.default simple
+echo "Kits installed."
