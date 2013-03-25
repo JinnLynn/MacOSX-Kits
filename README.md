@@ -20,8 +20,8 @@ cd ~/.kits && git pull && git submodule update --init && ./setup
 
 绝大部分的脚本功能都可以通过别名访问，具体查看`shell\alias.sh`中的注释。
 
-## LICENCE
+## LICENSE
 
-The MIT licence. 
+The MIT license. 
 
 For more infomation, please visist http://jeeker.net.
