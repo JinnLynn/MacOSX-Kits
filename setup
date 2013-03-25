@@ -1,34 +1,25 @@
 #!/bin/bash
 umask 022
 
-if [[ -z $KITS ]]; then
-   export KITS="$HOME/Developer/Misc/MacOSX-Kits"
-fi
+KITS_CONFIG_PATH=~/.kits_path
+SETUP_DIR=$(cd $(dirname $0); pwd)
 
-# 软链接
-# 如果目标是文件或文件夹 备份
-# 如果目标已经是链接，删除，重新生成链接
-function symbolic_link() {
-    if [[ ! -L "$2" ]]; then
-        if [[ -f "$2" || -d "$2" ]]; then
-            mv "$2" "$2-bak" 
-            echo "BACKUP: "$2" -> "$2"-bak"
-        fi
-    elif [[ -L "$2" ]]; then
-        rm -f "$2"
-    fi
-    ln -s "$1" "$2" 
-}
+echo "export KITS=$SETUP_DIR" > $KITS_CONFIG_PATH
+
+. $KITS_CONFIG_PATH
+. $KITS/shell/common.sh
 
 # profile处理
-symbolic_link $KITS/dotfiles/bash_profile.sh ~/.bash_profile
-symbolic_link $KITS/dotfiles/bashrc.sh ~/.bashrc
+_kits_symbolic_link $KITS/dotfiles/bash_profile.sh ~/.bash_profile
+_kits_symbolic_link $KITS/dotfiles/bashrc.sh ~/.bashrc
 
 # sublime text
-symbolic_link "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" $KITS/bin/subl
+_kits_symbolic_link "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" $KITS/bin/subl
 
 # 下列需要root权限
-symbolic_link $KITS/dotfiles/hosts /etc/hosts
+if [[ "$(whoami)" = "root" ]]; then
+    _kits_symbolic_link $KITS/dotfiles/hosts /etc/hosts
+fi
 
 # git配置
 git config --global user.email "eatfishlin@gmail.com"

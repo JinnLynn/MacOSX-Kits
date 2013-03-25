@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# 注意 这里不能用相对路径
-
-# Kits相关 KITS在../dotfiles/bashrc.sh中配置
+#! 这里不能用相对路径
+#! KITS 将在~/.kits_path中 如果不存在该文件运行setup即可生成
 
 export NASKITS="$HOME/Developer/Misc/NAS-Kits"
 export RPIKITS="$HOME/Developer/Misc/RPi-Kits"
 
-export PATH="$KITS/shell:$KITS/bin:$PATH:$KITS/bin/terminal-notifier.app/Contents/MacOS"
+export PATH="$KITS/bin:$PATH"
 
 # bash提示符
 export PS1="\u@\h: \W\$ "
@@ -29,12 +28,17 @@ export PIP_REQUIRE_VIRTUALENV=true
 export PIP_RESPECT_VIRTUALENV=true
 
 # virtualenvwrapper 环境
-export WORKON_HOME=~/.virtualenvs
-[[ ! -d $WORKON_HOME ]] && mkdir $WORKON_HOME
-[[ -f /usr/local/bin/virtualenvwrapper.sh ]] && . /usr/local/bin/virtualenvwrapper.sh
+if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
+    export WORKON_HOME=~/.virtualenvs
+    [[ ! -d $WORKON_HOME ]] && mkdir $WORKON_HOME
+    . /usr/local/bin/virtualenvwrapper.sh
+fi
 
 # 载入私有信息
 [[ -f $KITS/shell/privacy.sh ]] && . $KITS/shell/privacy.sh
+
+# 载入kits
+[[ -f $KITS/shell/kits.sh ]] && . $KITS/shell/kits.sh
 
 # 载入别名
 [[ -f $KITS/shell/alias.sh ]] && . $KITS/shell/alias.sh

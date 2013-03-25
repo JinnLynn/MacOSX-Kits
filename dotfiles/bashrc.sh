@@ -1,4 +1,4 @@
-
-# kits
-export KITS="$HOME/Developer/Misc/MacOSX-Kits"
-source "$KITS/shell/profile.sh"
+# Kits
+KITS_PATH=~/.kits_path
+[[ -f $KITS_PATH ]] && . $KITS_PATH && . $KITS/shell/profile.sh
+[[ ! -f $KITS_PATH ]] && echo "kits error: $KITS_CONFIG not found, please run 'setup' first."

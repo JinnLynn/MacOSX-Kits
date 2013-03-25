@@ -3,7 +3,7 @@ alias ll="ls -lGh"
 alias la="ls -lAGh"
 alias cd-="cd - >/dev/null"
 
-alias reload!="[[ -f ~/.bashrc ]] && source ~/.bashrc"
+alias reload!="[[ -f ~/.bashrc ]] && . ~/.bashrc"
 
 # SSH相关
 # SSH秘钥 SOCK等重置
@@ -32,6 +32,7 @@ alias to.gude="cd ~/Developer/Misc/Gude && pwd"
 alias to.finder="source $KITS/shell/filesystem.sh finder where"
 
 # 在Finder中打开
+alias tof="open ."
 alias tof.kits="open $KITS"
 alias tof.shell="open $KITS/shell"
 alias tof.desktop="open ~/Desktop"
@@ -39,18 +40,15 @@ alias tof.scms="open ~/Developer/SCMs"
 alias tof.dev="open ~/Developer"
 alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 
-# KITS
-alias kits="kits.sh"
-
 # 备份
-alias kits.backup="kits backup"
+alias kits.backup="kits_backup"
 
 # 使用gfwlist生成自动代理配置文件
-alias kits.pac.gen="kits genpac && cp $KITS/extra/genpac/AutoProxy.pac $JPACGIST/pac.js && cp $JPACGIST/pac.js $JJEEKER_DEPLOY/assets/"
+alias kits.pac.gen="kits_genpac && cp $KITS/extra/genpac/AutoProxy.pac $JPACGIST/pac.js && cp $JPACGIST/pac.js $JJEEKER_DEPLOY/assets/"
 alias kits.pac.pub="cd $JPACGIST && kits.pac.gen && git commit -a -m 'updated' && git push && cd-"
 # 使用`预览`打开man内容
 # <APP_NAME>
-alias kits.manp="kits manp"
+alias kits.manp="kit_manp"
 
 # 锁定电脑
 alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
