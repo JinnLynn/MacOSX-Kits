@@ -59,3 +59,8 @@ function kits_man() {
         ;;
     esac
 }
+
+# 别名查找
+function kits_alias_find() {
+   alias | awk -F '=' {'print $1'} | awk {'print $2'} | grep "$1"
+}

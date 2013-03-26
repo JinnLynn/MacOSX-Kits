@@ -4,6 +4,7 @@ alias la="ls -lAGh"
 alias cd-="cd - >/dev/null"
 
 alias reload!="[[ -f ~/.bashrc ]] && . ~/.bashrc"
+alias alias.find="kits_alias_find"
 
 # SSH相关
 # SSH秘钥 SOCK等重置
