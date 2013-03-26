@@ -44,8 +44,8 @@ alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 alias kits.backup="kits_backup"
 
 # 使用gfwlist生成自动代理配置文件
-alias kits.pac.gen="kits_genpac && cp $KITS/extra/genpac/AutoProxy.pac $JPACGIST/pac.js && cp $JPACGIST/pac.js $JJEEKER_DEPLOY/assets/"
-alias kits.pac.pub="cd $JPACGIST && kits.pac.gen && git commit -a -m 'updated' && git push && cd-"
+alias pac.gen="kits_pac_gen"
+alias pac.pub="kits_pac_pub"
 # 使用`预览`打开man内容
 # <APP_NAME>
 alias kits.manp="kit_manp"
@@ -163,7 +163,7 @@ alias pyenv.quit="deactivate"
 
 # =========================================================
 # NAS
-alias nas.kits.update="kits.sync $NASKITS/ root@$JHOST:/root/nas-kits"
+alias nas.kits.update="kits.sync $NASKITS/ root@$JHOST:/root/.kits"
 alias nas.ip="ssh.home.root 'curl -s http://ip.3322.net'"
 
 # Download Station
@@ -178,5 +178,5 @@ alias nas.ip.host="dig +short $JHOST"
 
 # =========================================================
 # RPi
-alias rpi.kits.update="kits.sync $RPIKITS/ pi@$JRPI:/home/pi/rpi-kits"
+alias rpi.kits.update="kits.sync $RPIKITS/ pi@$JRPI:/home/pi/.kits"
 alias rpi.vnc="open vnc://$JRPI"
