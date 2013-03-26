@@ -40,7 +40,22 @@ function kits_pac_pub() {
     popd > /dev/null
 }
 
-# 使用`预览`打开man内容
-function kits_manp() {
-    man -t $1 | open -f -a /Applications/Preview.app
+# 使用Preview | more | dash打开man内容
+function kits_man() {
+    error="ERROR. Usage: kits_man [-p|-m|-d] COMMAND_NAME"
+    [[ -z "$2" ]] && echo "$error" && return 1
+    case $1 in
+        "-p" )
+            man -t $2 | open -f -a /Applications/Preview.app
+        ;;
+        "-m" )
+            man $2 | more
+        ;;
+        "-d" )
+            open "dash://man:$2"
+        ;;
+        * )
+            echo $error
+        ;;
+    esac
 }

@@ -46,9 +46,13 @@ alias kits.backup="kits_backup"
 # 使用gfwlist生成自动代理配置文件
 alias pac.gen="kits_pac_gen"
 alias pac.pub="kits_pac_pub"
-# 使用`预览`打开man内容
-# <APP_NAME>
-alias kits.manp="kit_manp"
+
+# 使用`预览`浏览man内容
+alias man.p="kits_man -p"
+# 使用`more`浏览man内容
+alias man.m="kits_man -m"
+# 使用`dash`浏览man内容
+alias man.d="kits_man -d"
 
 # 锁定电脑
 alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
