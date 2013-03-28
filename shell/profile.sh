@@ -19,6 +19,9 @@ export HISTCONTROL=erasedups
 # 运行多个Shell时退出合并历史记录
 shopt -s histappend
 
+# 总是展开别名
+shopt -s expand_aliases
+
 # 设置颜色显示
 export CLICOLOR=1
 
