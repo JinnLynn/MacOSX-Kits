@@ -6,10 +6,7 @@
 
 # 备份文件到NAS
 function kits_backup() {
-    if [ ! -L /tmp/kits-backup-Application-Support ]; then
-        ln -s "/Users/JinnLynn/Library/Application Support/" "/tmp/kits-backup-Application-Support"
-    fi
-    $KITS/extra/backup/backup.sh
+    $KITS/extra/backup/backup.py
 }
 
 # 使用GenPAC生成自动代理配置文件

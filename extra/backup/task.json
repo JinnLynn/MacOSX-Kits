@@ -1,0 +1,34 @@
+[
+    {
+        "name"  : "JMBP.iTunes",
+        "src"   : "~/Music/iTunes/"
+    },
+    {
+        "name"  : "JMBP.Documents",
+        "src"   : "~/Documents/"
+    },
+    {
+        "name"  : "JMBP.Pictures",
+        "src"   : "~/Pictures/"
+    },
+    {
+        "name"  : "JMBP.Library",
+        "src"   : "~/Library/"
+    },
+    {
+        "name"  : "JMBP.Developer",
+        "src"   : "~/Developer/"
+    },
+    {
+        "name"  : "JMBP.Apps",
+        "src"   : "/Volumes/ExtraHD/Apps/"
+    },
+    {
+        "name"  : "JMBPWin.Developer",
+        "src"   : "/Volumes/BOOTCAMP/Users/JinnLynn/Developer/"
+    },
+    {
+        "name"  : "JMBP.Applications",
+        "src"   : "/Applications/"
+    }
+]

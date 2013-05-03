@@ -1,2 +1,7 @@
+desktop.ini
+thumbs.db
+$RECYCLE.BIN/
 .DS_Store
-.emptydir
+._*
+.Spotlight-V100
+.Trashes
