@@ -19,6 +19,7 @@ alias ssh.github="ssh -T git@github.com"
 alias ssh.ubuntu="ssh jinnlynn@10.211.55.14"
 alias ssh.aws="ssh -i $JEC2KEY $JEC2USR@$JEC2SERVER"
 alias ssh.rpi="ssh pi@$JRPI"
+alias ssh.corp="ssh root@$JCORP"
 
 # 改变路径
 alias to.kits="cd $KITS && pwd"
@@ -138,8 +139,9 @@ alias squid.isrunning="$KITS/shell/squid.sh isrunning"
 alias notify="$KITS/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier"
 
 # Gude
-alias gd.reinstall="to.gude && python setup.py install && cd -"
-alias gd="~/Developer/Misc/Gude/gd"
+alias gd.env="pve.on gude && to.gude"
+alias gd.install="gd.env && python setup.py install && cd -"
+alias gd="gude"
 alias gd.init="gd init"
 alias gd.add="gd add"
 alias gd.build="gd build"
@@ -156,15 +158,16 @@ alias clean.dns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 alias clean.openwith="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user; killall Finder"
 
 # python 虚拟环境
-alias pyenv.ls="lsvirtualenv"
-alias pyenv.mk="mkvirtualenv"
-alias pyenv.mk.tmp="mktmpenv"
-alias pyenv.cp="cpvirtualenv"
-alias pyenv.rm="rmvirtualenv"
-alias pyenv.lssp="lssitepackages"
-alias pyenv.setpath="setvirtualenvproject"
-alias pyenv.on="workon"
-alias pyenv.quit="deactivate"
+alias pve.name="[[ -d \"\$VIRTUAL_ENV\" ]] && basename \$VIRTUAL_ENV || echo \"no VIRTUAL_ENV\""
+alias pve.ls="lsvirtualenv"
+alias pve.mk="mkvirtualenv"
+alias pve.mk.tmp="mktmpenv"
+alias pve.cp="cpvirtualenv"
+alias pve.rm="rmvirtualenv"
+alias pve.lssp="lssitepackages"
+alias pve.setpath="setvirtualenvproject"
+alias pve.on="workon"
+alias pve.quit="deactivate"
 
 # =========================================================
 # NAS
@@ -185,3 +188,9 @@ alias nas.ip.host="dig +short $JHOST"
 # RPi
 alias rpi.kits.update="kits.sync $RPIKITS/ pi@$JRPI:/home/pi/.kits"
 alias rpi.vnc="open vnc://$JRPI"
+
+
+# ========================================================
+# corp server
+# 更新 不同步文件所有者及其所在用户组
+alias corp.update="rsync -rlptDvh --force --delete --ignore-errors --exclude-from='$KITS/cfg/sync-exclude.lst' $JCORP_DATA root@$JCORP:/data/"
