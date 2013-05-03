@@ -70,7 +70,7 @@ class RSync(object):
                         progress, finished_num, total_num, 
                         util.hrData(finished_size), util.hrData(speed) ))
 
-    def run(self, exact=False):
+    def run(self, exact=True):
         # 精确统计需先dry-run
         total_num = 0
         total_size = 0
