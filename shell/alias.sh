@@ -139,7 +139,7 @@ alias squid.isrunning="$KITS/shell/squid.sh isrunning"
 alias notify="$KITS/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier"
 
 # Gude
-alias gd.env="pve.on gude && to.gude"
+alias gd.env="pve.on gude"
 alias gd.install="gd.env && python setup.py install && cd -"
 alias gd="gude"
 alias gd.init="gd init"
