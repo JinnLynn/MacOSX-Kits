@@ -70,7 +70,7 @@ function to_finder_directory()
         fi
     fi
     cmd=$(echo -n "tell application \"Finder\" to get POSIX path of (folder of window $win_num as alias)")
-    cd $(osascript -e "$cmd")
+    cd "$(osascript -e "$cmd")"
     echo "go to $(pwd)"
 }
 
