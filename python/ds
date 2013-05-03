@@ -79,12 +79,13 @@ class DownloadStation:
         return res
 
     def login(self):
-        data = { 'api':     'SYNO.API.Auth',
-                 'method':  'login',
-                 'version': 2,
-                 'account': NAS_USR,
-                 'passwd':  NAS_PWD,
-                 'session': 'DownloadStation',
+        data = { 
+            'api':     'SYNO.API.Auth',
+            'method':  'login',
+            'version': 2,
+            'account': NAS_USR,
+            'passwd':  NAS_PWD,
+            'session': 'DownloadStation',
         }
         res = self.post('auth.cgi', data)
         if not self.isSuccess(res):
