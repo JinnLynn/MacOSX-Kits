@@ -11,11 +11,11 @@ _std_pipe = {
     }
 
 class RSync(object):
-    def __init__(self, source, destination, backup_dir=None, exclude=None, 
-        compress=True, rsync=_rsync_bin, output_progress=True):
+    def __init__(self, source, destination, rsync=_rsync_bin, backup_dir=None, 
+        exclude=None, compress=True, progress=True):
         self.source = source
         self.destination = destination
-        self.output_progress = output_progress
+        self.output_enabled = progress
         self.default_cmd = [rsync, '-a', '--force', '--delete', '--ignore-errors']
 
         if compress:
@@ -29,7 +29,7 @@ class RSync(object):
                 self.default_cmd.append('--exclude={}'.format(exclude))
 
     def output(self, msg, new_line=False):
-        if not self.output_progress:
+        if not self.output_enabled:
             return
         if new_line:
             core.stdout(msg)
@@ -67,12 +67,8 @@ class RSync(object):
         if progress<0 or progress>1:
             progress = 1.0
         self.output('{:.2%} ({}/{}) {} | {}/s'.format(
-                        progress, 
-                        finished_num, 
-                        total_num, 
-                        util.hrData(finished_size),
-                        util.hrData(speed)
-                        ))
+                        progress, finished_num, total_num, 
+                        util.hrData(finished_size), util.hrData(speed) ))
 
     def run(self, exact=False):
         # 精确统计需先dry-run
