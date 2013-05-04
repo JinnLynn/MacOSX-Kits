@@ -72,15 +72,14 @@ def backup(task):
     kits.stdout('Backup {}'.format(task['name']))
     try:
         rsync = kits.rsync.RSync(task['src'], task['dst'], backup_dir=task['bak'], exclude=EXCLUDE)
-        total, size, spend = rsync.run()
+        total, size, elapsed = rsync.run()
         if size != 0:
-            logger.info('Backup finished. Num: %d, Size: %s, Spend: %ds, Speed: %s, Name: %s, Source: %s',
-                total, kits.util.hrData(size), int(spend),
-                kits.util.hrData(float(size) / spend),
-                task['name'], task['src'])
+            logger.info('%s backup finished. Num: %d, Size: %s, Elapsed: %s, Speed: %s, Source: %s',
+                task['name'], total, kits.util.hrData(size), kits.util.hrTime(elapsed),
+                kits.util.hrData(float(size) / elapsed), task['src'])
         else:
-            logger.info('Backup finished, already up-to-date. Name: %s, Source: %s', 
-                task['name'], task['src'])
+            logger.info('%s backup finished, already up-to-date. Elapsed: %s, Source: %s',
+                task['name'], kits.util.hrTime(elapsed), task['src'])
         kits.stdout('')
     except KeyboardInterrupt, e:
         kits.exit('\n\nCanceled.')
