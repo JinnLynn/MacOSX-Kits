@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-import os, shutil, re, time, json, subprocess
+import sys, os, shutil, re, time, json, subprocess
 from pprint import pprint
 
 import kits
@@ -17,6 +17,8 @@ BDST = '/volume1/Backup'
 EXCLUDE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'excludes.txt')
 
 logger = kits.getLogger('backup')
+
+_exact_progress = True
 
 def parseTasks():
     task_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), TASK_FILE)
@@ -72,7 +74,7 @@ def backup(task):
     kits.stdout('Backup {}'.format(task['name']))
     try:
         rsync = kits.rsync.RSync(task['src'], task['dst'], backup_dir=task['bak'], exclude=EXCLUDE)
-        total, size, elapsed = rsync.run()
+        total, size, elapsed = rsync.run(exact_progress=_exact_progress)
         if size != 0:
             logger.info('%s backup finished. Num: %d, Size: %s, Elapsed: %s, Speed: %s, Source: %s',
                 task['name'], total, kits.util.hrData(size), kits.util.hrTime(elapsed),
@@ -90,6 +92,9 @@ def main():
     if not BHOST:
         logger.error('BHOST is non-existent.')
         kits.die()
+    if '--no-exact-progress' in sys.argv:
+        global _exact_progress
+        _exact_progress = False
     tasks = parseTasks()
     prepare(tasks)
     map(lambda t: backup(t), tasks)

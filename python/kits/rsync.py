@@ -70,11 +70,11 @@ class RSync(object):
                         progress, finished_num, total_num, 
                         util.hrData(finished_size), util.hrData(speed) ))
 
-    def run(self, exact=True):
+    def run(self, exact_progress=True):
         # 精确统计需先dry-run
         total_num = 0
         total_size = 0
-        if exact:
+        if exact_progress:
             total_num, total_size = self.dryRun()
         self.output('Checking...')
         start_time = time.time()
@@ -98,7 +98,7 @@ class RSync(object):
                     finished_size = finished_size + size
                     m = re.findall(r'to-check=(\d+)/(\d+)', res)
                     finished_num = int(m[0][1]) - int(m[0][0])
-                    if not exact:
+                    if not exact_progress:
                         total_num = int(m[0][1])
                     self.outputProgressMsg(finished_num, total_num, finished_size, start_time)
         except Exception, e:

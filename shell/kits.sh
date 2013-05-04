@@ -6,7 +6,7 @@
 
 # 备份文件到NAS
 function kits_backup() {
-    $KITS/extra/backup/backup.py
+    $KITS/extra/backup/backup.py $1
 }
 
 # 使用GenPAC生成自动代理配置文件
