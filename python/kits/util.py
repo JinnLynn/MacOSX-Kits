@@ -14,6 +14,20 @@ def hrData(byte):
         unit = 'GB'
     return '{:.2f}{}'.format(size, unit)
 
+def hrTime(seconds):
+    try:
+        seconds = int(seconds)
+    except Exception, e:
+        seconds = 0
+    h = 0
+    m = 0
+    s = seconds % 60
+    m = int(seconds / 60)
+    if m >= 60:
+        m = m % 60
+        h = int(m / 60)
+    return '{:02d}:{:02d}:{:02d}'.format(h,m,s)
+
 def getTerminalSize():
     env = os.environ
     def ioctl_GWINSZ(fd):
