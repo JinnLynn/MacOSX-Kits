@@ -34,7 +34,8 @@ def parseTasks():
     new_tasks = []
     task_names = []
     for task in tasks:
-        src = os.path.expanduser(task.get('src', '')).strip()
+        src = task.get('src', '').strip()
+        src = os.path.expanduser(src)
         name = task.get('name', '').strip('/')
         if not src or not name:
             continue
@@ -64,7 +65,12 @@ def prepare(tasks):
     for task in tasks:
         dst_dir = os.path.dirname(task['bak'])
         rm_oldbaks.append('[[ ! -d {} ]] && mkdir {}; rm -rf {}/*'.format(dst_dir, dst_dir, task['bak']))
-    rm_oldbaks_cmd = 'ssh {}@{} "{}"'.format(BUSER, BHOST, '; '.join(rm_oldbaks))
+    rm_oldbaks_cmd = ['ssh']
+    if SSHKEY is not None:
+        rm_oldbaks_cmd.extend(['-i', '"{}"'.format(SSHKEY)])
+    rm_oldbaks_cmd.append('{}@{}'.format(BUSER, BHOST))
+    rm_oldbaks_cmd.append('"{}"'.format('; '.join(rm_oldbaks)))
+    rm_oldbaks_cmd = ' '.join(rm_oldbaks_cmd)
     try:
         subprocess.check_call(rm_oldbaks_cmd, shell=True)
     except KeyboardInterrupt, e:
