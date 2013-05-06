@@ -57,6 +57,7 @@ class RSync(object):
             proc = subprocess.Popen(cmd, shell=True, **_std_pipe)
             ret = proc.wait()
             if ret!=0:
+                core.getLogger('kits.rsync').error(proc.stderr.read())
                 raise subprocess.CalledProcessError(ret, cmd)
             res = proc.stdout.read()
             total_num = int(re.findall(r'Number of files: (\d+)', res)[0])
