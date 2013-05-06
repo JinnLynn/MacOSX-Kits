@@ -16,9 +16,12 @@ BDST = '/volume1/Backup'
 # 忽略文件
 EXCLUDE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'excludes.txt')
 
-logger = kits.getLogger('backup')
+SSHKEY = os.environ.get('JKEY', None)
+
+logger = None
 
 _exact_progress = True
+_quiet = False
 
 def parseTasks():
     task_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), TASK_FILE)
@@ -55,7 +58,8 @@ def parseTasks():
     return new_tasks
 
 def prepare(tasks):
-    kits.stdoutCR('Preparing...')
+    if not _quiet:
+        kits.stdoutCR('Preparing...')
     rm_oldbaks = []
     for task in tasks:
         dst_dir = os.path.dirname(task['bak'])
@@ -68,33 +72,41 @@ def prepare(tasks):
     except Exception, e:
         logger.error(e)
     else:
-        kits.stdoutCR('Prepare, done.\n\n')
+        if not _quiet:
+            kits.stdoutCR('Prepare, done.\n\n')
 
 def backup(task):
-    kits.stdout('Backup {}'.format(task['name']))
+    if not _quiet:
+        kits.stdout('Backup {}'.format(task['name']))
     try:
-        rsync = kits.rsync.RSync(task['src'], task['dst'], backup_dir=task['bak'], exclude=EXCLUDE)
+        rsync = kits.rsync.RSync(task['src'], task['dst'], sshkey=SSHKEY, 
+            backup_dir=task['bak'], exclude=EXCLUDE, quiet=_quiet)
         total, size, elapsed = rsync.run(exact_progress=_exact_progress)
         if size != 0:
-            logger.info('%s backup finished. Num: %d, Size: %s, Elapsed: %s, Speed: %s, Source: %s',
+            logger.info('%s backup finished. Num: %d, Size: %s Elapsed: %s, Speed: %s, Source: %s',
                 task['name'], total, kits.util.hrData(size), kits.util.hrTime(elapsed),
                 kits.util.hrData(float(size) / elapsed), task['src'])
         else:
             logger.info('%s backup finished, already up-to-date. Elapsed: %s, Source: %s',
                 task['name'], kits.util.hrTime(elapsed), task['src'])
-        kits.stdout('')
+        if not _quiet:
+            kits.stdout('')
     except KeyboardInterrupt, e:
         kits.exit('\n\nCanceled.')
     except Exception, e:
         logger.error(e)
+        raise e
 
 def main():
+    global _exact_progress, _quiet, logger
+    if '--no-exact-progress' in sys.argv:
+        _exact_progress = False
+    if '--quiet' in sys.argv:
+        _quiet = True 
+    logger = kits.getLogger('backup', stdout=False if _quiet else True)
     if not BHOST:
         logger.error('BHOST is non-existent.')
         kits.die()
-    if '--no-exact-progress' in sys.argv:
-        global _exact_progress
-        _exact_progress = False
     tasks = parseTasks()
     prepare(tasks)
     map(lambda t: backup(t), tasks)

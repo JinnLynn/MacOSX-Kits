@@ -3,6 +3,8 @@ import os, subprocess, time, re
 
 import core, util
 
+from pprint import pprint
+
 _rsync_bin = '/usr/local/bin/rsync'
 _std_pipe = {
         'stdin'     : subprocess.PIPE,
@@ -11,41 +13,51 @@ _std_pipe = {
     }
 
 class RSync(object):
-    def __init__(self, source, destination, rsync=_rsync_bin, backup_dir=None, 
-        exclude=None, compress=True, progress=True):
+    def __init__(self, source, destination, rsync=_rsync_bin, sshkey=None,
+        backup_dir=None, exclude=None, compress=True, quiet=False):
         self.source = source
         self.destination = destination
-        self.output_enabled = progress
+        self.quiet = quiet
         self.default_cmd = [rsync, '-a', '--force', '--delete', '--ignore-errors']
 
         if compress:
             self.default_cmd.append('-z')
         if backup_dir is not None:
-            self.default_cmd.extend(['--backup', '--backup-dir={}'.format(backup_dir)])
+            self.default_cmd.extend(['--backup', '--backup-dir="{}"'.format(backup_dir)])
         if exclude is not None:
             if os.path.isfile(exclude):
                 self.default_cmd.append('--exclude-from={}'.format(exclude))
             else:
-                self.default_cmd.append('--exclude={}'.format(exclude))
+                self.default_cmd.append('--exclude="{}"'.format(exclude))
+        if sshkey is not None:
+            self.default_cmd.append('--rsh="/usr/bin/ssh -i {}"'.format(sshkey))
 
     def output(self, msg, new_line=False):
-        if not self.output_enabled:
+        if self.quiet:
             return
         if new_line:
             core.stdout(msg)
         else:
             core.stdoutCR(msg)
 
+    def toCmd(self, *args):
+        # 自信转换 否则--rsh命令中包含空格会被subprocess.list2cmd转换错误
+        cmd = list(self.default_cmd)
+        for arg in args:
+            cmd.append(arg)
+        cmd.append('"{}"'.format(self.source))
+        cmd.append('"{}"'.format(self.destination))
+        return ' '.join(cmd)
+
     def dryRun(self):
         # DRY-RUN 获取文件数及所有文件大小
         self.output('Counting files number...')
-        cmd = list(self.default_cmd)
-        cmd.extend(['--stats', '--dry-run', self.source, self.destination])
         try:
-            proc = subprocess.Popen(cmd, **_std_pipe)
+            cmd = self.toCmd('--stats', '--dry-run')
+            proc = subprocess.Popen(cmd, shell=True, **_std_pipe)
             ret = proc.wait()
             if ret!=0:
-                raise subprocess.CalledProcessError(ret, ' '.join(cmd))
+                raise subprocess.CalledProcessError(ret, cmd)
             res = proc.stdout.read()
             total_num = int(re.findall(r'Number of files: (\d+)', res)[0])
             total_size = int(re.findall(r'Total file size: (\d+)', res)[0])
@@ -79,16 +91,16 @@ class RSync(object):
         self.output('Checking...')
         start_time = time.time()
         finished_size = 0
-        cmd = list(self.default_cmd)
-        cmd.extend(['--progress', self.source, self.destination])
         try:
-            proc = subprocess.Popen(cmd, **_std_pipe)
+            cmd = self.toCmd('--progress')
+            proc = subprocess.Popen(cmd, shell=True, **_std_pipe)
             while True:
                 retcode = proc.poll()
                 if retcode is not None:
                     # rsync未成功执行
                     if retcode != 0:
-                        raise subprocess.CalledProcessError(retcode, ' '.join(cmd))
+                        core.getLogger('kits.rsync').error(proc.stderr.read())
+                        raise subprocess.CalledProcessError(retcode, cmd)
                     break
                 res = proc.stdout.readline().strip()
                 # print(output)
