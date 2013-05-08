@@ -193,4 +193,4 @@ alias rpi.vnc="open vnc://$JRPI"
 # ========================================================
 # corp server
 # 更新 不同步文件所有者及其所在用户组
-alias corp.update="rsync -rlptDvh --force --delete --ignore-errors --exclude-from='$KITS/cfg/sync-exclude.lst' $JCORP_DATA root@$JCORP:/data/"
+alias corp.update="rsync -rLptDvh --force --delete --ignore-errors --exclude-from='$KITS/cfg/sync-exclude.lst' $JCORP_DATA root@$JCORP:/data/"
