@@ -17,16 +17,10 @@ function kits_pac_gen() {
 # 生成pac并发布
 function kits_pac_pub() {
     gist_repo=~/Developer/Misc/Gist/5001700
-    host_path=~/Developer/Web/Jeeker
     # push到gist要求的改变数量
     push_changed=10
     # 生成
     kits_pac_gen
-    # 拷贝到gist repo
-    cp $KITS/extra/genpac/AutoProxy.pac $gist_repo/pac.js
-    # 拷贝到Jeeker目录
-    cp $gist_repo/pac.js $host_path/static/assets/
-    cp $gist_repo/pac.js $host_path/deploy/assets/
     pushd $gist_repo > /dev/null
     # 当改变达到一定数量时自动push到gist
     if [[ $(git diff --numstat pac.js | awk '{print $1}') -gt $push_changed ]]; then 
