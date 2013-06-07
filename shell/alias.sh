@@ -8,7 +8,7 @@ alias alias.find="kits_alias_find"
 
 # SSH相关
 # SSH秘钥 SOCK等重置
-alias ssh.reset="$KITS/shell/ssh.sh reset"
+alias ssh.reset="kits_ssh_reset"
 # SSH快速连接
 alias ssh.home="ssh $JHOST"
 alias ssh.home.root="ssh root@$JHOST"
@@ -17,9 +17,15 @@ alias ssh.work="ssh jinnlynn@172.16.5.14"
 alias ssh.work.scm="ssh scm@172.16.5.14"
 alias ssh.github="ssh -T git@github.com"
 alias ssh.ubuntu="ssh jinnlynn@10.211.55.14"
-alias ssh.aws="ssh -i $JEC2KEY $JEC2USR@$JEC2SERVER"
+alias ssh.aws="ssh $JEC2USR@$JEC2SERVER"
 alias ssh.rpi="ssh pi@$JRPI"
 alias ssh.corp="ssh root@$JCORP"
+
+# SOCKS 代理
+alias proxy.start="kits_ssh_proxy start"
+alias proxy.stop="kits_ssh_proxy stop"
+alias proxy.isrunning="kits_ssh_proxy isrunning"
+alias proxy.watch="kits_ssh_proxy watch"
 
 # 改变路径
 alias to.kits="cd $KITS && pwd"
@@ -63,6 +69,10 @@ alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Re
 # kits.sync SOURCE TARGET
 alias kits.sync="rsync -avh --force --delete --ignore-errors --delete-excluded --exclude-from='$KITS/cfg/sync-exclude.lst'"
 alias kits.sync.all="rsync -avh --force --delete --ignore-errors"
+# 同步到web服务器 不同步文件所有者及其所在用户组 包含链接所指向内容
+alias kits.sync.to.server="rsync -rLptDhv --stats --force --delete --ignore-errors --progress --exclude=.git/ --exclude-from='$KITS/cfg/sync-exclude.lst'"
+# 同步到Windows 不同步权限和设备文件
+alias kits.sync.to.win="rsync -rLthv --stats --force --delete --ignore-errors --progress --exclude=.git/ --exclude-from='$KITS/cfg/sync-exclude.lst'"
 
 # 网址测试
 alias kits.url="curl -o /dev/null -s -w '\nCode\tConn\tTran\tTotal\tSize\tURL\n%{http_code}\t%{time_connect}\t%{time_starttransfer}\t%{time_total}\t%{size_download}\t%{url_effective}\n\n'"
@@ -93,6 +103,7 @@ alias iphone.eject="$KITS/shell/itunes.sh eject"
 alias mamp.start="$KITS/shell/mamp.sh start"
 alias mamp.stop="$KITS/shell/mamp.sh stop"
 alias mamp.restart="$KITS/shell/mamp.sh restart"
+alias mamp.reload="$KITS/shell/mamp.sh reload"
 alias mamp.isrunning="$KITS/shell/mamp.sh isrunning"
 
 # 隐藏文件的显示控制
@@ -186,11 +197,17 @@ alias nas.ip.host="dig +short $JHOST"
 
 # =========================================================
 # RPi
-alias rpi.kits.update="kits.sync $RPIKITS/ pi@$JRPI:/home/pi/.kits"
+alias rpi.update="kits.sync.to.server ~/Developer/Web/server.rpi/ pi@$JRPI:/data/"
 alias rpi.vnc="open vnc://$JRPI"
 
 
 # ========================================================
 # corp server
-# 更新 不同步文件所有者及其所在用户组
-alias corp.update="rsync -rLptDh --stats --force --delete --ignore-errors --exclude-from='$KITS/cfg/sync-exclude.lst' $JCORP_DATA root@$JCORP:/data/"
+alias corp.update="kits.sync.to.server $JCORP_DATA root@$JCORP:/data/"
+
+# ========================================================
+# jeeker server (aws)
+alias aws.update="kits.sync.to.server ~/Developer/Web/server.jeeker/ ubuntu@$JEC2SERVER:/data/"
+
+#
+alias iis.update="kits.sync.to.win ~/Developer/Web/sites/citypuzzle.org/ /Volumes/C/inetpub/wwwroot/"
