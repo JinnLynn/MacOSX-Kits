@@ -14,7 +14,7 @@ _std_pipe = {
 
 class RSync(object):
     def __init__(self, source, destination, rsync=_rsync_bin, sshkey=None,
-        backup_dir=None, exclude=None, compress=True, quiet=False):
+        backup_dir=None, exclude=None, compress=False, quiet=False):
         self.source = source
         self.destination = destination
         self.quiet = quiet
