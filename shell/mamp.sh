@@ -17,6 +17,9 @@ case "$1" in
         sleep 1
         ./start.sh
         ;;
+    "reload" )
+        /Applications/MAMP/Library/bin/apachectl graceful
+        ;;
     "isrunning" )
         [[ $(ps -ec | grep -c "httpd") -gt 0 ]] && echo "Apache is running." || echo "Apache is not running."
         [[ $(ps -ec | grep -c "mysqld") -gt 0 ]] && echo "MySQL is running." || echo "MySQL is not running."
