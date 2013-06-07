@@ -22,6 +22,7 @@ case "$1" in
         done
         echo '重新安装秘钥...'
         ssh-add $JKEY
+        ssh-add ~/.ssh/jSSHChinaKey
         ;;
     * )
         echo "ERROR. Usage: ssh.sh <reset>"
