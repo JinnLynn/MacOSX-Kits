@@ -24,7 +24,7 @@ alias ssh.corp="ssh root@$JCORP"
 # SOCKS 代理
 alias proxy.start="kits_ssh_proxy start"
 alias proxy.stop="kits_ssh_proxy stop"
-alias proxy.isrunning="kits_ssh_proxy isrunning"
+alias proxy.alive="kits_ssh_proxy alive"
 alias proxy.watch="kits_ssh_proxy watch"
 
 # 改变路径
