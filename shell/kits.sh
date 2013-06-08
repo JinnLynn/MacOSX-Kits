@@ -4,6 +4,11 @@
 [[ -z $KITS ]] && [[ -f ~/.bashrc ]] && . ~/.bashrc
 [[ -z $KITS ]] && echo 'load kits fail.' && return 1
 
+# 加载inc下所有sh文件
+for _f in `ls $KITS/shell/inc/*.sh`; do 
+    . $_f
+done 
+
 # 备份文件到NAS
 function kits_backup() {
     $KITS/extra/backup/backup.py $1
