@@ -13,9 +13,9 @@ function kits_squid() {
             [[ -n "$pid" ]] && kill -9 $pid
             ;;
         "restart" )
-            squid.sh stop
+            kits_squid stop
             sleep 1
-            squid.sh start
+            kits_squid start
             ;;
         "alive" )
             [[ -n "$pid" ]]; _kits_check "Squid"
