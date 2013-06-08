@@ -4,16 +4,13 @@ function kits_mamp() {
     mamp_path="/Applications/MAMP"
     pushd $mamp_path/bin/ > /dev/null
     case "$1" in
-        "start" )
-            ./start.sh
+        "start" | "restart" )
+            kits_mamp stop
+            sleep 1
+            ./start.sh > /dev/null
             ;;
         "stop" )
-            ./stop.sh
-            ;;
-        "restart" )
-            ./stop.sh
-            sleep 1
-            ./start.sh
+            ./stop.sh  > /dev/null
             ;;
         "reload" )
             $mamp_path/Library/bin/apachectl graceful

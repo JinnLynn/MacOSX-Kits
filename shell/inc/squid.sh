@@ -6,16 +6,13 @@ function kits_squid() {
     conf=~/Library/Preferences/squid.conf
 
     case "$1" in
-        "start" )
+        "start" | "restart" )
+            kits_squid stop
+            sleep 1
             /usr/local/squid/sbin/squid -f $conf
             ;;
         "stop" )
             [[ -n "$pid" ]] && kill -9 $pid
-            ;;
-        "restart" )
-            kits_squid stop
-            sleep 1
-            kits_squid start
             ;;
         "alive" )
             [[ -n "$pid" ]]; _kits_check "Squid"
