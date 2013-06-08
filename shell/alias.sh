@@ -100,11 +100,11 @@ alias iphone.sync="$KITS/shell/itunes.sh sync"
 alias iphone.eject="$KITS/shell/itunes.sh eject"
 
 # MAMP控制
-alias mamp.start="$KITS/shell/mamp.sh start"
-alias mamp.stop="$KITS/shell/mamp.sh stop"
-alias mamp.restart="$KITS/shell/mamp.sh restart"
-alias mamp.reload="$KITS/shell/mamp.sh reload"
-alias mamp.isrunning="$KITS/shell/mamp.sh isrunning"
+alias mamp.start="kits_mamp start"
+alias mamp.stop="kits_mamp stop"
+alias mamp.restart="kits_mamp restart"
+alias mamp.reload="kits_mamp reload"
+alias mamp.alive="kits_mamp alive"
 
 # 隐藏文件的显示控制
 alias finder.hidden.show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
@@ -127,25 +127,25 @@ alias git.scms.pull="$KITS/shell/git.sh pullallscms"
 
 # WIFI控制
 # 启用与禁用 <on|off|reset>
-alias wifi.power="$KITS/shell/wifi.sh power"
+alias wifi.power="kits_wifi power"
 alias wifi.on="wifi.power on"
 alias wifi.off="wifi.power off"
 alias wifi.reset="wifi.power reset"
 # 位置配置 <auto|LOCATION_NAME>
-alias wifi.loc="$KITS/shell/wifi.sh location"
+alias wifi.loc="kits_wifi location"
 alias wifi.loc.auto="wifi.loc auto"
 alias wifi.loc.ascfj="wifi.loc ASCFJ"
 # 代理 <all|auto|off>
-alias wifi.proxy="$KITS/shell/wifi.sh proxy"
+alias wifi.proxy="kits_wifi proxy"
 # IP <manual|dhcp> [<IP> <SUBNET> <DNS>]
 # 当$1 = manual时 后面的参数必须
-alias wifi.ip="$KITS/shell/wifi.sh ip"
+alias wifi.ip="kits_wifi ip"
 
 # squid 控制
-alias squid.start="$KITS/shell/squid.sh start"
-alias squid.stop="$KITS/shell/squid.sh stop"
-alias squid.restart="$KITS/shell/squid.sh restart"
-alias squid.isrunning="$KITS/shell/squid.sh isrunning"
+alias squid.start="kits_squid start"
+alias squid.stop="kits_squid stop"
+alias squid.restart="kits_squid restart"
+alias squid.alive="kits_squid alive"
 
 alias notify="$KITS/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier"
 
