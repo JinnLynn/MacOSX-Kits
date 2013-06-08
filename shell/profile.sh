@@ -40,6 +40,9 @@ fi
 # 载入私有信息
 [[ -f $KITS/shell/privacy.sh ]] && . $KITS/shell/privacy.sh
 
+# 载入通用命令
+[[ -f $KITS/shell/common.sh ]] && . $KITS/shell/common.sh
+
 # 载入kits
 [[ -f $KITS/shell/kits.sh ]] && . $KITS/shell/kits.sh
 

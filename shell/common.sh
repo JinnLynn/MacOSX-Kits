@@ -25,6 +25,18 @@ function _kits_symbolic_link() {
     ln -s "$1" "$2" 
 }
 
+# 输出检查结果字符串
+# 使用方法: 判断语句; _kits_check "说明文字"
+# 如: [[ 0 -eq 0 ]]; _kits_check "0=0?"
+function _kits_check() {
+    ret=$?
+    ok="\033[32m✔\033[39m"
+    fail="\033[31m✘\033[39m"
+    for (( i = 0; i < 40; i++ )); do echo -n " "; done
+    [[ $ret -eq 0 ]] && echo -en "$ok" || echo -en "$fail"
+    [[ ! -z "$1" ]] && echo -e "\r$1"
+}
+
 function _kits_doforever() {
     if [[ -z "$1" || -z "$2" ]]; then
         echo "Usage: <DELAY> <COMMAND>"
