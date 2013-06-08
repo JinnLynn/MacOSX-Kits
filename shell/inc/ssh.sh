@@ -42,7 +42,7 @@ function kits_ssh_proxy() {
                 [[ ! -z "$p" ]] && kill -9 $p
             done
             ;;
-        "isrunning" )
+        "alive" )
             # 查找autossh进程
             ret=`ps aux | grep autossh | grep -c $mp`
             [[ $ret -gt 0 ]]; _kits_check "autossh"
