@@ -30,18 +30,24 @@ function kits_ssh_proxy() {
     case "$1" in
         "start" | "restart" )
             kits_ssh_proxy stop
-            autossh -M $mp -f -N -D $JPROXY_SOCKS_PORT -i "$JPROXY_SERVER_KEY" $JPROXY_SERVER
+            autossh -M $mp -f -N -D $JPROXY_SOCKS_PORT -i "$JPROXY_SERVER_KEY" $JPROXY_SERVER_USR@$JPROXY_SERVER
             ;;
         "stop" )
-            pid=`ps aux | grep ssh | grep $mp:127.0.0.1:$mp | awk '{print $2}'`
-            [[ ! -z "$pid" ]] && kill $pid
+            # 杀死SSH进程
+            for p in `ps aux | grep ssh | grep $mp:127.0.0.1:$mp | awk '{print $2}'`; do 
+                [[ ! -z "$p" ]] && kill -9 $p
+            done
+            # 如果SSH没有成功连接, 前述的进程将不存在，需手动杀死autossh进程
+            for p in `ps aux | grep autossh | grep $mp | awk '{print $2}'`; do 
+                [[ ! -z "$p" ]] && kill -9 $p
+            done
             ;;
         "isrunning" )
-            # 查找进程
-            ret=`ps aux | grep ssh | grep -c $mp:127.0.0.1:$mp`
-            # 查找打开的端口 可能较慢
-            # ret=`netstat -a | grep -c "$JPROXY_SOCKS_PORT"`
-            [[ $ret -gt 0 ]] && echo "Proxy is running." || echo "Proxy is not running."
+            # 查找autossh进程
+            ret=`ps aux | grep autossh | grep -c $mp`
+            [[ $ret -gt 0 ]]; _kits_check "autossh"
+            ret=`lsof -i:$JPROXY_SOCKS_PORT`
+            [[ ! -z "$ret" ]]; _kits_check "SOCKS[127.0.0.1:$JPROXY_SOCKS_PORT]"
             ;;
         "watch" )
             watch -n 1 "lsof -i:$JPROXY_SOCKS_PORT"
