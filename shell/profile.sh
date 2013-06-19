@@ -6,7 +6,8 @@
 export NASKITS="$HOME/Developer/Misc/NAS-Kits"
 export RPIKITS="$HOME/Developer/Misc/RPi-Kits"
 
-export PATH="$KITS/bin:$PATH"
+# export PATH="$KITS/bin:$PATH"
+export PATH="$KITS/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 
 # bash提示符
 export PS1="\u@\h: \W\$ "
