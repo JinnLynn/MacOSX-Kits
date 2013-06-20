@@ -13,8 +13,10 @@ _std_pipe = {
     }
 
 class RSync(object):
-    def __init__(self, source, destination, rsync=_rsync_bin, sshkey=None,
-        backup_dir=None, exclude=None, compress=False, quiet=False):
+    def __init__(self, source, destination, rsync=_rsync_bin, 
+        sshkey=None, backup_dir=None, 
+        filter_rule=None, include=None, exclude=None,
+        compress=False, quiet=False):
         self.source = source
         self.destination = destination
         self.quiet = quiet
@@ -24,11 +26,26 @@ class RSync(object):
             self.default_cmd.append('-z')
         if backup_dir is not None:
             self.default_cmd.extend(['--backup', '--backup-dir="{}"'.format(backup_dir)])
+        if filter_rule is not None:
+            if isinstance(filter_rule, basestring):
+                filter_rule = [filter_rule]
+            if isinstance(filter_rule, list):
+                for fr in filter_rule:
+                    self.default_cmd.append('--filter="{}"'.format(fr))
+        if include is not None:
+            if isinstance(include, basestring):
+                include = [include]
+            if isinstance(include, list):
+                for i in include:
+                    cmd = '--include-from' if os.path.isfile(i) else '--include'
+                    self.default_cmd.append('{}="{}"'.format(cmd, i))
         if exclude is not None:
-            if os.path.isfile(exclude):
-                self.default_cmd.append('--exclude-from={}'.format(exclude))
-            else:
-                self.default_cmd.append('--exclude="{}"'.format(exclude))
+            if isinstance(exclude, basestring):
+                exclude = [exclude]
+            if isinstance(exclude, list):
+                for ex in exclude:
+                    cmd = '--exclude-from' if os.path.isfile(ex) else '--exclude'
+                    self.default_cmd.append('{}="{}"'.format(cmd, ex))
         if sshkey is not None:
             self.default_cmd.append('--rsh="/usr/bin/ssh -i {}"'.format(sshkey))
 
@@ -41,7 +58,7 @@ class RSync(object):
             core.stdoutCR(msg)
 
     def toCmd(self, *args):
-        # 自信转换 否则--rsh命令中包含空格会被subprocess.list2cmd转换错误
+        # 自行转换 否则--rsh命令中包含空格会被subprocess.list2cmd转换错误
         cmd = list(self.default_cmd)
         for arg in args:
             cmd.append(arg)

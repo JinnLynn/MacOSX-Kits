@@ -6,34 +6,26 @@ from pprint import pprint
 import kits
 kits.setDefaultEncodingUTF8()
 
-TASK_FILE = 'task.json'
-# 备份服务器
-BHOST = os.environ.get('JHOME', '')
-# 备份服务器用户名
-BUSER = 'root'
-# 备份路径 远程服务器上的
-BDST = '/volume1/Backup'
-# 忽略文件
-EXCLUDE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'excludes.txt')
+config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.yaml')
+config = kits.loadYAML(config_file)
 
-SSHKEY = os.environ.get('JKEY', None)
+config['backup_server'] = os.environ.get('JHOME', '')
+config['backup_user'] = 'root'
+config['backup_dst'] = '/volume1/Backup' 
+config['ssh_key'] = os.environ.get('JKEY', None)
 
 logger = None
-
 _exact_progress = True
 _quiet = False
 
 def parseTasks():
-    task_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), TASK_FILE)
-    with open(task_file, 'r') as fp:
-        tasks = json.load(fp)
     weekday = int(time.strftime('%w'))
     if weekday == 0:
         weekday = 7
     weekday = '{:02d}'.format(weekday)
     new_tasks = []
     task_names = []
-    for task in tasks:
+    for task in config['tasks']:
         src = task.get('src', '').strip()
         src = os.path.expanduser(src)
         name = task.get('name', '').strip('/')
@@ -48,13 +40,14 @@ def parseTasks():
             kits.die()
         task_names.append(name)
 
-        dst = '{}@{}:{}'.format(BUSER, BHOST, os.path.join(BDST, name, 'current'))
-        backup_dir = os.path.join(BDST, name, weekday)
+        dst = '{}@{}:{}'.format(config['backup_user'], config['backup_server'], os.path.join(config['backup_dst'], name, 'current'))
+        backup_dir = os.path.join(config['backup_dst'], name, weekday)
         new_tasks.append({
-            'src'   : src,
-            'dst'   : dst,
-            'bak'   : backup_dir,
-            'name'  : name
+            'src'       : src,
+            'dst'       : dst,
+            'bak'       : backup_dir,
+            'name'      : name,
+            'filter'    : task.get('filter', []),
         })
     return new_tasks
 
@@ -66,9 +59,9 @@ def prepare(tasks):
         dst_dir = os.path.dirname(task['bak'])
         rm_oldbaks.append('[[ ! -d {} ]] && mkdir {}; rm -rf {}/*'.format(dst_dir, dst_dir, task['bak']))
     rm_oldbaks_cmd = ['ssh']
-    if SSHKEY is not None:
-        rm_oldbaks_cmd.extend(['-i', '"{}"'.format(SSHKEY)])
-    rm_oldbaks_cmd.append('{}@{}'.format(BUSER, BHOST))
+    if config['ssh_key'] is not None:
+        rm_oldbaks_cmd.extend(['-i', '"{}"'.format(config['ssh_key'])])
+    rm_oldbaks_cmd.append('{}@{}'.format(config['backup_user'], config['backup_server']))
     rm_oldbaks_cmd.append('"{}"'.format('; '.join(rm_oldbaks)))
     rm_oldbaks_cmd = ' '.join(rm_oldbaks_cmd)
     try:
@@ -85,8 +78,11 @@ def backup(task):
     if not _quiet:
         kits.stdout('Backup {}'.format(task['name']))
     try:
-        rsync = kits.rsync.RSync(task['src'], task['dst'], sshkey=SSHKEY, 
-            backup_dir=task['bak'], exclude=EXCLUDE, quiet=_quiet)
+        task['filter'].extend(config['global_filter'])
+        rsync = kits.rsync.RSync(task['src'], task['dst'], sshkey=config['ssh_key'], backup_dir=task['bak'], 
+            filter_rule=task['filter'], quiet=_quiet)
+        # print(rsync.toCmd('--stats', '--dry-run'))
+        # return
         total, size, elapsed = rsync.run(exact_progress=_exact_progress)
         if size != 0:
             logger.info('%s backup finished. Num: %d, Size: %s Elapsed: %s, Speed: %s, Source: %s',
@@ -101,7 +97,8 @@ def backup(task):
         kits.exit('\n\nCanceled.')
     except Exception, e:
         logger.error(e)
-        raise e
+        kits.stdout('{} backup fail.'.format(task['name']));
+        # raise e
 
 def main():
     global _exact_progress, _quiet, logger
@@ -110,8 +107,8 @@ def main():
     if '--quiet' in sys.argv:
         _quiet = True 
     logger = kits.getLogger('backup', stdout=False if _quiet else True)
-    if not BHOST:
-        logger.error('BHOST is non-existent.')
+    if not config['backup_server']:
+        logger.error('backup_server is non-existent.')
         kits.die()
     tasks = parseTasks()
     prepare(tasks)

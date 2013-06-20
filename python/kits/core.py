@@ -2,6 +2,7 @@
 import sys, os, logging
 
 import util
+import yaml
 
 _log_dir = os.path.expanduser('~/Library/Logs/net.jeeker.kits')
 _loggers = {}
@@ -69,3 +70,11 @@ def getLogger(name, level=logging.INFO, stdout=True):
         logger.addHandler(stdout_handle)
     _loggers.update({name:logger})
     return logger
+
+def loadYAML(doc):
+    if not isinstance(doc, basestring):
+        raise TypeError('MUST BE string')
+    if os.path.isfile(doc):
+        with open(doc, 'r') as fp:
+            return yaml.load(fp)
+    return yaml.loadYAML(doc)
