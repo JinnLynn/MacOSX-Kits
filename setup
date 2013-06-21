@@ -7,12 +7,12 @@ SETUP_DIR=$(cd $(dirname $0); pwd)
 echo "export KITS=$SETUP_DIR" > $KITS_CONFIG_PATH
 
 . $KITS_CONFIG_PATH
-. $KITS/shell/common.sh
+. $KITS/shell/sub/_common.sh
 
 # profile处理
 _kits_symbolic_link $KITS/dotfiles/bash_profile.sh ~/.bash_profile
 _kits_symbolic_link $KITS/dotfiles/bashrc.sh ~/.bashrc
-_kits_symbolic_link $KITS/dotfiles/kits_cron.sh ~/.kits_cron
+_kits_symbolic_link $KITS/shell/cron.sh ~/.kits_cron
 
 # sublime text
 _kits_symbolic_link "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" $KITS/bin/subl
