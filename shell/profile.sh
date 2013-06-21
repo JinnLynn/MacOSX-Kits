@@ -42,7 +42,7 @@ fi
 # export AUTOSSH_DEBUG="1"
 export AUTOSSH_LOGLEVEL="7"
 export AUTOSSH_LOGFILE="/Users/JinnLynn/Library/Logs/autossh.log"
-[[ ! -f AUTOSSH_LOGFILE ]] && touch AUTOSSH_LOGFILE
+[[ ! -f $AUTOSSH_LOGFILE ]] && touch $AUTOSSH_LOGFILE
 # 该参数值越小，能较少长时间无法连接SSH后再次连接的间隔时间
 export AUTOSSH_POLL="30"
 
