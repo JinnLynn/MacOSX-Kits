@@ -38,14 +38,19 @@ if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
     . /usr/local/bin/virtualenvwrapper.sh
 fi
 
+# autossh
+# export AUTOSSH_DEBUG="1"
+export AUTOSSH_LOGLEVEL="7"
+export AUTOSSH_LOGFILE="/Users/JinnLynn/Library/Logs/autossh.log"
+[[ ! -f AUTOSSH_LOGFILE ]] && touch AUTOSSH_LOGFILE
+# 该参数值越小，能较少长时间无法连接SSH后再次连接的间隔时间
+export AUTOSSH_POLL="30"
+
 # 载入私有信息
 [[ -f $KITS/shell/privacy.sh ]] && . $KITS/shell/privacy.sh
 
-# 载入通用命令
-[[ -f $KITS/shell/common.sh ]] && . $KITS/shell/common.sh
-
-# 载入kits
-[[ -f $KITS/shell/kits.sh ]] && . $KITS/shell/kits.sh
+# 加载inc下所有sh文件
+for _f in `ls $KITS/shell/sub/*.sh`; do . $_f; done 
 
 # 载入别名
 [[ -f $KITS/shell/alias.sh ]] && . $KITS/shell/alias.sh

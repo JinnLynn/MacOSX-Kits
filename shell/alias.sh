@@ -49,7 +49,7 @@ alias tof.dev="open ~/Developer"
 alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 
 # 备份
-alias kits.backup="kits_backup"
+alias kits.backup="$KITS/extra/backup/backup.py"
 
 # 使用gfwlist生成自动代理配置文件
 alias pac.gen="kits_pac_gen"
@@ -89,15 +89,15 @@ alias kits.vnc="open /System/Library/CoreServices/Screen\ Sharing.app"
 # <lyric|rate> [RATE_NUM]
 # lyric = 获取当前播放音乐的歌词 rate = 给当前播放的歌曲评级 info = 当前信息
 # RATE_NUM 如果$1=rate才有效 1~5
-alias kits.itunes="$KITS/shell/itunes.sh"
+alias kits.itunes="$KITS/shell/extra/itunes.sh"
 
-alias itunes.lyric="$KITS/shell/itunes.sh lyric"
-alias itunes.rate="$KITS/shell/itunes.sh rate"
-alias itunes.info="$KITS/shell/itunes.sh info"
+alias itunes.lyric="$KITS/shell/extra/itunes.sh lyric"
+alias itunes.rate="$KITS/shell/extra/itunes.sh rate"
+alias itunes.info="$KITS/shell/extra/itunes.sh info"
 
 # iPhone同步与弹出
-alias iphone.sync="$KITS/shell/itunes.sh sync"
-alias iphone.eject="$KITS/shell/itunes.sh eject"
+alias iphone.sync="$KITS/shell/extra/itunes.sh sync"
+alias iphone.eject="$KITS/shell/extra/itunes.sh eject"
 
 # MAMP控制
 alias mamp.start="kits_mamp start"

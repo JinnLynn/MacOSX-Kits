@@ -1,8 +1,4 @@
 
-##
-# SSH相关
-##
-
 # 重置SSH相关
 function kits_ssh_reset() {
     echo "列出当前系统秘钥..."

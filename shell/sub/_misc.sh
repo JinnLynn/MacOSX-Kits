@@ -1,17 +1,3 @@
-#!/usr/bin/env bash
-
-# 检查环境变量
-[[ -z $KITS ]] && [[ -f ~/.bashrc ]] && . ~/.bashrc
-[[ -z $KITS ]] && echo 'load kits fail.' && return 1
-
-# 加载inc下所有sh文件
-for _f in `ls $KITS/shell/sub/*.sh`; do . $_f; done 
-
-# 备份文件到NAS
-function kits_backup() {
-    $KITS/extra/backup/backup.py $1
-}
-
 # 使用GenPAC生成自动代理配置文件
 function kits_pac_gen() {
     python $KITS/extra/genpac/genpac.py

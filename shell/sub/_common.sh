@@ -38,10 +38,7 @@ function _kits_check() {
 }
 
 function _kits_doforever() {
-    if [[ -z "$1" || -z "$2" ]]; then
-        echo "Usage: <DELAY> <COMMAND>"
-        exit
-    fi
+    [[ -z "$1" || -z "$2" ]] && echo "Usage: <DELAY> <COMMAND>" && return
 
     while true;
         do $2
