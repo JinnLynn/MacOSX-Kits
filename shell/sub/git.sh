@@ -13,29 +13,20 @@ DEF_GITIGNORE=$(cat <<EOF
 EOF)
 
 # 在本地创建新的git repo
-function new_repo() {
-    if [ -z "$1" ]; then
-        echo "ERROR. USAGE: <reponame>"
-        exit
-    fi
-    if [ -d "$1" ]; then
-        echo "ERROR. '$1' existed."
-        exit
-    fi
+function kits_git_new_repo() {
+    [[ -z "$1" ]] && echo "ERROR. USAGE: <reponame>" && return
+    [[ -d "$1" ]] && echo "ERROR. '$1' existed." && return 
     git init $1
     cd $1
-    touch README.md
+    echo $1 > README.md
     echo -e "$DEF_GITIGNORE" > .gitignore
     git add .
-    git commit -m 'First commit.'
+    git commit -m 'first commit.'
 }
 
 # 在服务端创建新的git repo ( --bare )
-function new_server_repo() {
-    if [ -z "$1" ]; then
-        echo "ERROR. USAGE: <reponame>"
-        exit
-    fi
+function kits_git_new_server_repo() {
+    [[ -z "$1" ]] && echo "ERROR. USAGE: <reponame>" && return
     # 确保是以.git结尾
     reponame=$1
     if [ ! -z "${reponame##*\.git}" ]; then
@@ -53,31 +44,15 @@ EOF
 }
 
 # 更新~/Developer/SCMs下的所有版本库
-function pull_all_scms() {
+function kits_pull_all_scms() {
     pushd ~/Developer/SCMs >/dev/null
     for item in *; do
         if [[ -d "$item" && -d "$item/.git" ]]; then
             cd $item
-            echo "$item update..."
-            git pull
-            echo ""
+            git pull > /dev/null
+            _kits_check "$item update..."
             cd -  >/dev/null
         fi
     done 
     popd >/dev/null
 }
-
-case "$1" in
-    'newrepo' )
-        new_repo $2
-        ;;
-    'newserverrepo' )
-        new_server_repo $2
-        ;;
-    'pullallscms' )
-        pull_all_scms
-        ;;
-    * )
-        echo "ERROR. Usage: <newrepo|newserverrepo> [arg]"
-        ;;
-esac

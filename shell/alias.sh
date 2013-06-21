@@ -120,10 +120,10 @@ alias finder.open="$KITS/shell/filesystem.sh finder open"
 
 # git新建版本库
 # <REPONAME>
-alias git.nr="$KITS/shell/git.sh newrepo"
-alias git.nsr="$KITS/shell/git.sh newserverrepo"
+alias git.nr="kits_git_new_repo"
+alias git.nsr="kits_git_new_server_repo"
 
-alias git.scms.pull="$KITS/shell/git.sh pullallscms"
+alias git.scms.pull="kits_pull_all_scms"
 
 # WIFI控制
 # 启用与禁用 <on|off|reset>
