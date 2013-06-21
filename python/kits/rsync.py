@@ -20,7 +20,7 @@ class RSync(object):
         self.source = source
         self.destination = destination
         self.quiet = quiet
-        self.default_cmd = [rsync, '-a', '--force', '--delete', '--ignore-errors']
+        self.default_cmd = [rsync, '-a', '--force', '--delete', '--ignore-errors', '--delete-excluded']
 
         if compress:
             self.default_cmd.append('-z')
