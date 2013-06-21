@@ -37,7 +37,7 @@ alias to.jeeker="cd ~/Developer/Web/Jeeker && pwd"
 alias to.gude="cd ~/Developer/Misc/Gude && pwd"
 
 # 前往当前Finder某个窗口所在目录
-alias to.finder="source $KITS/shell/filesystem.sh finder where"
+alias to.finder="kits_finder_to"
 
 # 在Finder中打开
 alias tof="open ."
@@ -113,10 +113,6 @@ alias finder.hidden.hide="defaults write com.apple.finder AppleShowAllFiles -boo
 # 桌面图标隐藏
 alias desktop.hide="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias desktop.show="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
-# 在Finder中打开文件夹
-# [FOLDER_OR_FILE_NAME] 默认当前工作目录
-alias finder.open="$KITS/shell/filesystem.sh finder open"
 
 # git新建版本库
 # <REPONAME>
