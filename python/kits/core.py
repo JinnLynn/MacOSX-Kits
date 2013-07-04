@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 import sys, os, logging
+import json
 
-import util
 import yaml
+import util
+import keychain
 
 _log_dir = os.path.expanduser('~/Library/Logs/net.jeeker.kits')
 _loggers = {}
+
+check_ok = util.colorStringGreen('✔')
+check_fail = util.colorStringRed('✘')
 
 def setDefaultEncodingUTF8():
     reload(sys)
@@ -78,3 +83,14 @@ def loadYAML(doc):
         with open(doc, 'r') as fp:
             return yaml.load(fp)
     return yaml.loadYAML(doc)
+
+def privacyData(name):
+    data = keychain.retrieve(name, 'data')
+    try:
+        return json.loads(data)
+    except TypeError, e:
+        return data
+    except ValueError, e:
+        return data
+    except Exception, e:
+        raise e
