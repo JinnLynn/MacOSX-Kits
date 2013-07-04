@@ -88,3 +88,20 @@ function kits_home_router() {
             ;;
     esac
 }
+
+# 访问NAS共享
+function kits_home_nas_share() {
+    local_port="55030"
+    remote_ip="127.0.0.1"
+    remote_port="548"
+    case "$1" in
+        "open" )
+            kits_home_nas_share close
+            ssh -f -N -L $local_port:$remote_ip:$remote_port $JHOME
+            open afp://local.jeeker.net:$local_port
+            ;;
+        "close" )
+            _kits_free_port $local_port
+            ;;
+    esac
+}
