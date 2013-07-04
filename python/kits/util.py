@@ -48,3 +48,9 @@ def getTerminalSize():
     if not cr:
         cr = (env.get('LINES', 25), env.get('COLUMNS', 80))
     return int(cr[1]), int(cr[0])
+
+def colorStringGreen(s):
+    return '\033[32m{}\033[39m'.format(s)
+
+def colorStringRed(s):
+    return '\033[31m{}\033[39m'.format(s)
