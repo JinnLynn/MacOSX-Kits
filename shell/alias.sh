@@ -48,6 +48,14 @@ alias tof.scms="open ~/Developer/SCMs"
 alias tof.dev="open ~/Developer"
 alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 
+# VNC
+alias home.vnc.open="kits_home_vnc_xiaolu open"
+alias home.vnc.close="kits_home_vnc_xiaolu close"
+
+# 家 路由器管理
+alias home.router.open="kits_home_router open"
+alias home.router.close="kits_home_router close"
+
 # 备份
 alias kits.backup="$KITS/extra/backup/backup.py"
 
@@ -178,7 +186,7 @@ alias pve.quit="deactivate"
 
 # =========================================================
 # NAS
-alias nas.kits.update="kits.sync $NASKITS/ root@$JHOST:/root/.kits"
+alias nas.kits.update="kits.sync $NASKITS/ root@$JHOST:/volume1/homes/JinnLynn/.kits"
 alias nas.ip="ssh.home.root 'curl -s http://ip.3322.net'"
 
 # Download Station

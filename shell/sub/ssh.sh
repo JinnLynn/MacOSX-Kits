@@ -26,6 +26,7 @@ function kits_ssh_proxy() {
     case "$1" in
         "start" | "restart" )
             kits_ssh_proxy stop
+            _kits_free_port $mp
             autossh -M $mp -f -N -D $JPROXY_SOCKS_PORT -i "$JPROXY_SERVER_KEY" $JPROXY_SERVER_USR@$JPROXY_SERVER
             ;;
         "stop" )
@@ -46,9 +47,44 @@ function kits_ssh_proxy() {
             [[ ! -z "$ret" ]]; _kits_check "SOCKS[127.0.0.1:$JPROXY_SOCKS_PORT]"
             ;;
         "watch" )
-            watch -n 1 "lsof -i:$JPROXY_SOCKS_PORT"
+            # watch -n 1 "lsof -i:$JPROXY_SOCKS_PORT"
+            python $KITS/python/port-traffic-monitor.py
             ;;
         * )
+            ;;
+    esac
+}
+
+# VNC XiaoLu
+function kits_home_vnc_xiaolu() {
+    local_port="55010"
+    remote_ip="10.95.27.4"
+    remote_port="5900"
+    case "$1" in
+        "open" )
+            kits_vnc_xiaolu close
+            ssh -f -N -L $local_port:$remote_ip:$remote_port root@$JHOME
+            open vnc://local.jeeker.net:$local_port
+            ;;
+        "close" )
+            _kits_free_port $local_port
+            ;;
+    esac
+}
+
+# 访问家里的路由器
+function kits_home_router() {
+    local_port="55020"
+    remote_ip="10.95.27.10"
+    remote_port="80"
+    case "$1" in
+        "open" )
+            kits_visit_home_router close
+            ssh -f -N -L $local_port:$remote_ip:$remote_port root@$JHOME
+            open http://local.jeeker.net:$local_port
+            ;;
+        "close" )
+            _kits_free_port $local_port
             ;;
     esac
 }
