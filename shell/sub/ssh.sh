@@ -55,53 +55,18 @@ function kits_ssh_proxy() {
     esac
 }
 
-# VNC XiaoLu
-function kits_home_vnc_xiaolu() {
-    local_port="55010"
-    remote_ip="10.95.27.4"
-    remote_port="5900"
+# 本地端口转发
+# 参数 open|close 本地端口 远程ip 远程端口
+function kits_home_local_port_forward() {
+    [[ -z "$1" || -z "$2" ]] && return 1
     case "$1" in
         "open" )
-            kits_home_vnc_xiaolu close
-            ssh -f -N -L $local_port:$remote_ip:$remote_port root@$JHOME
-            open vnc://local.jeeker.net:$local_port
+            [[ -z "$3" || -z "$4" ]] && return 1
+            _kits_free_port $2
+            ssh -fN -L $2:$3:$4 $JHOME
             ;;
         "close" )
-            _kits_free_port $local_port
-            ;;
-    esac
-}
-
-# 访问家里的路由器
-function kits_home_router() {
-    local_port="55020"
-    remote_ip="10.95.27.10"
-    remote_port="80"
-    case "$1" in
-        "open" )
-            kits_home_router close
-            ssh -f -N -L $local_port:$remote_ip:$remote_port root@$JHOME
-            open http://local.jeeker.net:$local_port
-            ;;
-        "close" )
-            _kits_free_port $local_port
-            ;;
-    esac
-}
-
-# 访问NAS共享
-function kits_home_nas_share() {
-    local_port="55030"
-    remote_ip="127.0.0.1"
-    remote_port="548"
-    case "$1" in
-        "open" )
-            kits_home_nas_share close
-            ssh -f -N -L $local_port:$remote_ip:$remote_port $JHOME
-            open afp://local.jeeker.net:$local_port
-            ;;
-        "close" )
-            _kits_free_port $local_port
+            _kits_free_port $2
             ;;
     esac
 }

@@ -48,13 +48,19 @@ alias tof.scms="open ~/Developer/SCMs"
 alias tof.dev="open ~/Developer"
 alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 
-# VNC
-alias home.vnc.open="kits_home_vnc_xiaolu open"
-alias home.vnc.close="kits_home_vnc_xiaolu close"
-
-# 家 路由器管理
-alias home.router.open="kits_home_router open"
-alias home.router.close="kits_home_router close"
+# 家
+# 本地端口转发
+alias home.lpf="kits_home_local_port_forward open"
+alias home.lpf.close="kits_home_local_port_forward close"
+# xiaolu VNC
+alias home.vnc="home.lpf 55010 10.95.27.4 5900 && open vnc://localhost:55010"
+alias home.vnc.close="home.lpf.close 55010"
+# 路由器管理
+alias home.router="home.lpf 55020 10.95.27.10 80 && open http://localhost:55020"
+alias home.router.close="home.lpf.close 55020"
+# NAS share
+alias home.nas.share="home.lpf 55030 10.95.27.1 548 && open afp://localhost:55030"
+alias home.nas.share.close="home.lpf.close 55030"
 
 # 备份
 alias kits.backup="$KITS/extra/backup/backup.py"
