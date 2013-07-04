@@ -45,3 +45,19 @@ function _kits_doforever() {
         sleep $1
     done
 }
+
+# 获取一个未使用的网络端口
+function _kits_unused_port() {
+    [[ -z "$JPORT_START" ]] && export JPORT_START="55000"
+    while true; do
+        JPORT_START=$(($JPORT_START+1))
+        [[ -z `lsof -i:$JPORT_START` ]] && echo $JPORT_START && return
+    done
+}
+
+# 释放被占用的端口(kill 正在使用端口的进程)
+function _kits_free_port() {
+    [[ -z "$1" ]] && return
+    pid=`lsof -i:$1 | grep -m 1 $1 | awk '{print $2}'`
+    [[ ! -z "$pid" ]] && kill -9 $pid
+}
