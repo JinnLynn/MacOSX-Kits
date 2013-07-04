@@ -62,7 +62,7 @@ function kits_home_vnc_xiaolu() {
     remote_port="5900"
     case "$1" in
         "open" )
-            kits_vnc_xiaolu close
+            kits_home_vnc_xiaolu close
             ssh -f -N -L $local_port:$remote_ip:$remote_port root@$JHOME
             open vnc://local.jeeker.net:$local_port
             ;;
@@ -79,7 +79,7 @@ function kits_home_router() {
     remote_port="80"
     case "$1" in
         "open" )
-            kits_visit_home_router close
+            kits_home_router close
             ssh -f -N -L $local_port:$remote_ip:$remote_port root@$JHOME
             open http://local.jeeker.net:$local_port
             ;;
