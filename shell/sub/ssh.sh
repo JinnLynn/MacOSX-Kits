@@ -18,6 +18,7 @@ function kits_ssh_reset() {
     echo '重新安装秘钥...'
     ssh-add $JKEY
     ssh-add ~/.ssh/jSSHChinaKey
+    ssh-add $JCP_KEY
 }
 
 # ssh代理
@@ -56,17 +57,17 @@ function kits_ssh_proxy() {
 }
 
 # 本地端口转发
-# 参数 open|close 本地端口 远程ip 远程端口
+# 参数 open|close 本地端口:远程ip:远程端口
 function kits_home_local_port_forward() {
     [[ -z "$1" || -z "$2" ]] && return 1
+    port=`echo $2 | awk -F ':' '{print $1}'`
     case "$1" in
         "open" )
-            [[ -z "$3" || -z "$4" ]] && return 1
-            _kits_free_port $2
-            ssh -fN -L $2:$3:$4 $JHOME
+            _kits_free_port $port
+            ssh -fN -L $2 $JHOME
             ;;
         "close" )
-            _kits_free_port $2
+            _kits_free_port $port
             ;;
     esac
 }

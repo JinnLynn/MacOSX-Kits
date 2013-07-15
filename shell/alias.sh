@@ -20,6 +20,8 @@ alias ssh.ubuntu="ssh jinnlynn@10.211.55.14"
 alias ssh.aws="ssh $JEC2USR@$JEC2SERVER"
 alias ssh.rpi="ssh pi@$JRPI"
 alias ssh.corp="ssh root@$JCORP"
+# citypuzzle.org
+alias ssh.cp="ssh adminvip@$JCP_HOST"
 
 # SOCKS 代理
 alias proxy.start="kits_ssh_proxy start"
@@ -53,13 +55,13 @@ alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 alias home.lpf="kits_home_local_port_forward open"
 alias home.lpf.close="kits_home_local_port_forward close"
 # xiaolu VNC
-alias home.vnc="home.lpf 55010 10.95.27.4 5900 && open vnc://localhost:55010"
+alias home.vnc="home.lpf 55010:10.95.27.4:5900 && open vnc://localhost:55010"
 alias home.vnc.close="home.lpf.close 55010"
 # 路由器管理
-alias home.router="home.lpf 55020 10.95.27.10 80 && open http://localhost:55020"
+alias home.router="home.lpf 55020:10.95.27.10:80 && open http://localhost:55020"
 alias home.router.close="home.lpf.close 55020"
 # NAS share
-alias home.nas.share="home.lpf 55030 10.95.27.1 548 && open afp://localhost:55030"
+alias home.nas.share="home.lpf 55030:10.95.27.1:548 && open afp://localhost:55030"
 alias home.nas.share.close="home.lpf.close 55030"
 
 # 备份
@@ -67,7 +69,7 @@ alias kits.backup="$KITS/extra/backup/backup.py"
 
 # 使用gfwlist生成自动代理配置文件
 alias pac.gen="kits_pac_gen"
-alias pac.pub="kits_pac_pub"
+alias pac.update="pac.gen; corp.update"
 
 # 使用`预览`浏览man内容
 alias man.p="kits_man -p"
