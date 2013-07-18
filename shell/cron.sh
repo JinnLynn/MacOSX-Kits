@@ -18,3 +18,8 @@ function kits_cron_backup() {
 function kits_cron_hourlynotify {
     python $KITS/python/funcs.py hourlyNotify
 }
+
+# pac
+function kits_cron_pac() {
+    pac.update
+}
