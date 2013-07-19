@@ -21,5 +21,5 @@ function kits_cron_hourlynotify {
 
 # pac
 function kits_cron_pac() {
-    pac.update
+    kits_pac_update
 }
