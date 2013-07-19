@@ -1,25 +1,3 @@
-# 使用GenPAC生成自动代理配置文件
-function kits_pac_gen() {
-    python $KITS/extra/genpac/genpac.py
-}
-
-# 生成pac并发布
-function kits_pac_pub() {
-    gist_repo=~/Developer/Misc/Gist/5001700
-    # push到gist要求的改变数量
-    push_changed=10
-    # 生成
-    kits_pac_gen
-    pushd $gist_repo > /dev/null
-    # 当改变达到一定数量时自动push到gist
-    if [[ $(git diff --numstat pac.js | awk '{print $1}') -gt $push_changed ]]; then 
-        git commit -a -m 'updated' 
-        git push 
-        echo 'gist updated.'
-    fi
-    popd > /dev/null
-}
-
 # 使用Preview | more | dash打开man内容
 function kits_man() {
     error="ERROR. Usage: kits_man [-p|-m|-d] COMMAND_NAME"

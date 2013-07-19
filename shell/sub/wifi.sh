@@ -36,7 +36,7 @@ function kits_wifi() {
                     ;;
                 "auto" )
                     networksetup -setsocksfirewallproxystate "$wifins" off
-                    networksetup -setautoproxyurl "$wifins" "$JPACURL"
+                    networksetup -setautoproxyurl "$wifins" "$JPAC_URL"
                     ;;
                 "off" )
                     networksetup -setsocksfirewallproxystate "$wifins" off

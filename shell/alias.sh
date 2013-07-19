@@ -69,7 +69,7 @@ alias kits.backup="$KITS/extra/backup/backup.py"
 
 # 使用gfwlist生成自动代理配置文件
 alias pac.gen="kits_pac_gen"
-alias pac.update="pac.gen; corp.update"
+alias pac.update="kits_pac_update"
 
 # 使用`预览`浏览man内容
 alias man.p="kits_man -p"
@@ -93,7 +93,7 @@ alias kits.sync.to.win="rsync -rLthv --stats --force --delete --ignore-errors --
 # 网址测试
 alias kits.url="curl -o /dev/null -s -w '\nCode\tConn\tTran\tTotal\tSize\tURL\n%{http_code}\t%{time_connect}\t%{time_starttransfer}\t%{time_total}\t%{size_download}\t%{url_effective}\n\n'"
 alias kits.url.nas="kits.url $JURL_NAS"
-alias kits.url.pac="kits.url $JURL_PAC"
+alias kits.url.pac="kits.url $JPAC_URL"
 
 # 查看IP
 alias kits.ip="curl -s http://ip.3322.net"
@@ -195,16 +195,14 @@ alias pve.quit="deactivate"
 # =========================================================
 # NAS
 alias nas.kits.update="kits.sync $NASKITS/ root@$JHOST:/volume1/homes/JinnLynn/.kits"
-alias nas.ip="ssh.home.root 'curl -s http://ip.3322.net'"
+alias nas.ip="ssh.home 'curl -s http://ip.3322.net'"
+alias nas.ip.host="dig +short $JHOST"
 
 # Download Station
 alias nas.ds="$KITS/python/ds"
 alias nas.ds.create="nas.ds create"
 alias nas.ds.emule="nas.ds emule"
 alias nas.ds.clean="nas.ds clean"
-
-alias nas.ip.ddns="dig +short $JHOST_DDNS1; dig +short $JHOST_DDNS2; dig +short $JHOST_DDNS3"
-alias nas.ip.host="dig +short $JHOST"
 
 
 # =========================================================
