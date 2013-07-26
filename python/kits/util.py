@@ -2,8 +2,10 @@
 import os
 
 def hrData(byte):
-    if isinstance(byte, (str, unicode)):
-        byte = int(byte) if byte.isnumeric() else 0
+    try:
+        byte = int(byte)
+    except:
+        byte = 0
     size = byte / 1024.0
     unit = 'KB'
     if size > 1024:
@@ -12,6 +14,9 @@ def hrData(byte):
     if size > 1024:
         size = size / 1024.0
         unit = 'GB'
+    if size > 1024:
+        size = size / 1024.0
+        unit = 'TB'
     return '{:.2f}{}'.format(size, unit)
 
 def hrTime(seconds):

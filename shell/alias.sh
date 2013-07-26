@@ -192,9 +192,12 @@ alias pve.setpath="setvirtualenvproject"
 alias pve.on="workon"
 alias pve.quit="deactivate"
 
+# SSD状态
+alias status.ssd="$KITS/python/ssd-status.py"
+
 # =========================================================
 # NAS
-alias nas.kits.update="kits.sync $NASKITS/ root@$JHOST:/volume1/homes/JinnLynn/.kits"
+alias nas.kits.update="kits.sync.to.server $NASKITS/ root@$JHOST:/tmp/kits/"
 alias nas.ip="ssh.home 'curl -s http://ip.3322.net'"
 alias nas.ip.host="dig +short $JHOST"
 
