@@ -14,12 +14,15 @@ function kits_cron_backup() {
     kits.backup --quiet --no-exact-progress
 }
 
-# 整点报时
-function kits_cron_hourlynotify {
+# 每小时的计划任务
+function kits_cron_hourly() {
+    # 整点报时
     python $KITS/python/funcs.py hourlyNotify
+    # PAC更新
+    kits_pac_update
 }
 
-# pac
-function kits_cron_pac() {
-    kits_pac_update
+# 每分钟的计划任务
+function kits_cron_minutely() {
+
 }
