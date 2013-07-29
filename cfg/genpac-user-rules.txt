@@ -1,0 +1,19 @@
+! genpac 自定义的规则
+
+@@sina.com
+@@163.com
+
+twitter.com
+youtube.com
+
+||mail.google.com
+||maps.google.com
+cocosbuilder.com
+wikipedia.org
+www.google.com
+code.google.com
+sourceforge.net
+
+! 不是必须的
+uploaded.net
+feedly.net
