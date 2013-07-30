@@ -70,6 +70,7 @@ alias kits.backup="$KITS/extra/backup/backup.py"
 # 使用gfwlist生成自动代理配置文件
 alias pac.gen="kits_pac_gen"
 alias pac.update="kits_pac_update"
+alias pac.effect="kits_pac_effective_immediately"
 
 # 使用`预览`浏览man内容
 alias man.p="kits_man -p"
@@ -190,7 +191,7 @@ alias pve.rm="rmvirtualenv"
 alias pve.lssp="lssitepackages"
 alias pve.setpath="setvirtualenvproject"
 alias pve.on="workon"
-alias pve.quit="deactivate"
+alias pve.exit="deactivate"
 
 # SSD状态
 alias status.ssd="$KITS/python/ssd-status.py"
