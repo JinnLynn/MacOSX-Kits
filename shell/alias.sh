@@ -93,12 +93,12 @@ alias kits.lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Re
 
 # 同步
 # kits.sync SOURCE TARGET
-alias kits.sync="rsync -avh --force --delete --ignore-errors --delete-excluded --exclude-from='$KITS/cfg/sync-exclude.lst'"
+alias kits.sync="rsync -avh --force --delete --ignore-errors --delete-excluded --exclude-from='$KITS/config/sync-exclude.lst'"
 alias kits.sync.all="rsync -avh --force --delete --ignore-errors"
 # 同步到web服务器 不同步文件所有者及其所在用户组 包含链接所指向内容
-alias kits.sync.to.server="rsync -rLptDhv --stats --force --delete --ignore-errors --progress --exclude=.git/ --exclude-from='$KITS/cfg/sync-exclude.lst'"
+alias kits.sync.to.server="rsync -rLptDhv --stats --force --delete --ignore-errors --progress --exclude=.git/ --exclude-from='$KITS/config/sync-exclude.lst'"
 # 同步到Windows 不同步权限和设备文件
-alias kits.sync.to.win="rsync -rLthv --stats --force --delete --ignore-errors --progress --exclude=.git/ --exclude-from='$KITS/cfg/sync-exclude.lst'"
+alias kits.sync.to.win="rsync -rLthv --stats --force --delete --ignore-errors --progress --exclude=.git/ --exclude-from='$KITS/config/sync-exclude.lst'"
 
 # 网址测试
 alias kits.url="curl -o /dev/null -s -w '\nCode\tConn\tTran\tTotal\tSize\tURL\n%{http_code}\t%{time_connect}\t%{time_starttransfer}\t%{time_total}\t%{size_download}\t%{url_effective}\n\n'"

@@ -12,6 +12,7 @@ cocosbuilder.com
 wikipedia.org
 www.google.com
 code.google.com
+googlecode.com
 sourceforge.net
 
 ! 不是必须的

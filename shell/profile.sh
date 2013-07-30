@@ -50,7 +50,7 @@ export AUTOSSH_POLL="30"
 [[ -f $KITS/shell/privacy.sh ]] && . $KITS/shell/privacy.sh
 
 # 加载inc下所有sh文件
-for _f in `ls $KITS/shell/sub/*.sh`; do . $_f; done 
+for _f in `ls $KITS/shell/commands/*.sh`; do . $_f; done 
 
 # 载入别名
 [[ -f $KITS/shell/alias.sh ]] && . $KITS/shell/alias.sh

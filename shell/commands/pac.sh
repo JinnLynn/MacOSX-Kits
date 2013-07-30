@@ -1,6 +1,6 @@
 # 使用GenPAC生成自动代理配置文件
 function kits_pac_gen() {
-    genpac --config-from=$KITS/cfg/genpac-config.ini --verbose
+    genpac --config-from=$KITS/config/genpac-config.ini --verbose
 }
 
 # 生成pac并更新
@@ -11,11 +11,11 @@ function kits_pac_update() {
     push_changed=10
     personal_pac=~/.kits/tmp/pac.js
     # 生成 一个人使用，包括自定义规则的pac文件
-    genpac --config-from=$KITS/cfg/genpac-config.ini --output=$personal_pac
+    genpac --config-from=$KITS/config/genpac-config.ini --output=$personal_pac
     # 上传服务器
     scp $personal_pac $JPAC_SERVER
     # 生成 干净的仅包含gfwlist规则的pac文件
-    genpac --config-from=$KITS/cfg/genpac-config.ini --output=$gist_repo/pac.js --user-rule-from=''
+    genpac --config-from=$KITS/config/genpac-config.ini --output=$gist_repo/pac.js --user-rule-from=''
     pushd $gist_repo > /dev/null
     # 当改变达到一定数量时自动push到gist
     if [[ $(git diff --numstat pac.js | awk '{print $1}') -gt $push_changed ]]; then 

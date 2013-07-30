@@ -12,7 +12,7 @@ function kits_ssh_proxy() {
         "start" | "restart" )
             kits_ssh_proxy stop
             _kits_free_port $mp
-            autossh -M $mp -fNg -D $JPROXY_SOCKS_PORT -i "$JPROXY_SERVER_KEY" $JPROXY_SERVER_USR@$JPROXY_SERVER
+            autossh -M $mp -fN -D $JPROXY_SOCKS_PORT -i "$JPROXY_SERVER_KEY" $JPROXY_SERVER_USR@$JPROXY_SERVER
             ;;
         "stop" )
             # 杀死SSH进程
@@ -42,7 +42,7 @@ function kits_ssh_proxy() {
 
 # privoxy
 function kits_privoxy() {
-    cfg=$KITS/cfg/privoxy
+    cfg=$KITS/config/privoxy
     case "$1" in
         "start" | "restart" )
             kits_privoxy stop
