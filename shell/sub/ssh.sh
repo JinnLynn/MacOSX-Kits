@@ -21,41 +21,6 @@ function kits_ssh_reset() {
     ssh-add $JCP_KEY
 }
 
-# ssh代理
-function kits_ssh_proxy() {
-    mp="55000"
-    case "$1" in
-        "start" | "restart" )
-            kits_ssh_proxy stop
-            _kits_free_port $mp
-            autossh -M $mp -fNg -D $JPROXY_SOCKS_PORT -i "$JPROXY_SERVER_KEY" $JPROXY_SERVER_USR@$JPROXY_SERVER
-            ;;
-        "stop" )
-            # 杀死SSH进程
-            for p in `ps aux | grep ssh | grep $mp:127.0.0.1:$mp | awk '{print $2}'`; do 
-                [[ ! -z "$p" ]] && kill -9 $p
-            done
-            # 如果SSH没有成功连接, 前述的进程将不存在，需手动杀死autossh进程
-            for p in `ps aux | grep autossh | grep $mp | awk '{print $2}'`; do 
-                [[ ! -z "$p" ]] && kill -9 $p
-            done
-            ;;
-        "alive" )
-            # 查找autossh进程
-            ret=`ps aux | grep autossh | grep -c $mp`
-            [[ $ret -gt 0 ]]; _kits_check "autossh"
-            ret=`lsof -i:$JPROXY_SOCKS_PORT`
-            [[ ! -z "$ret" ]]; _kits_check "SOCKS[127.0.0.1:$JPROXY_SOCKS_PORT]"
-            ;;
-        "watch" )
-            # watch -n 1 "lsof -i:$JPROXY_SOCKS_PORT"
-            python $KITS/python/port-traffic-monitor.py
-            ;;
-        * )
-            ;;
-    esac
-}
-
 # 本地端口转发
 # 参数 open|close 本地端口:远程ip:远程端口
 function kits_home_local_port_forward() {

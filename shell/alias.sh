@@ -23,11 +23,20 @@ alias ssh.corp="ssh root@$JCORP"
 # citypuzzle.org
 alias ssh.cp="ssh adminvip@$JCP_HOST"
 
-# SOCKS 代理
+# 代理相关
+# ssh 端口转发
 alias proxy.start="kits_ssh_proxy start"
 alias proxy.stop="kits_ssh_proxy stop"
-alias proxy.alive="kits_ssh_proxy alive"
 alias proxy.watch="kits_ssh_proxy watch"
+alias proxy.alive="kits_proxy_alive"
+# privoxy
+alias privoxy.start="kits_privoxy start"
+alias privoxy.stop="kits_privoxy stop"
+# squid
+alias squid.start="kits_squid start"
+alias squid.stop="kits_squid stop"
+alias squid.restart="kits_squid restart"
+alias squid.alive="kits_squid alive"
 
 # 改变路径
 alias to.kits="cd $KITS && pwd"
@@ -153,12 +162,6 @@ alias wifi.proxy="kits_wifi proxy"
 # IP <manual|dhcp> [<IP> <SUBNET> <DNS>]
 # 当$1 = manual时 后面的参数必须
 alias wifi.ip="kits_wifi ip"
-
-# squid 控制
-alias squid.start="kits_squid start"
-alias squid.stop="kits_squid stop"
-alias squid.restart="kits_squid restart"
-alias squid.alive="kits_squid alive"
 
 alias notify="$KITS/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier"
 

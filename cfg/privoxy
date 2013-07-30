@@ -1,0 +1,6 @@
+listen-address  0.0.0.0:9528
+forward-socks5              /    127.0.0.1:9527  .
+forward           172.16.*.*/    .
+forward          192.168.*.*/    .
+forward             10.*.*.*/    .
+forward            127.*.*.*/    .
