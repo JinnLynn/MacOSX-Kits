@@ -3,7 +3,7 @@ alias ll="ls -lGh"
 alias la="ls -lAGh"
 alias cd-="cd - >/dev/null"
 
-alias reload!="[[ -f ~/.bashrc ]] && . ~/.bashrc"
+alias reload!="exec $SHELL" # "[[ -f ~/.bashrc ]] && . ~/.bashrc"
 alias alias.find="kits_alias_find"
 
 # SSH相关
