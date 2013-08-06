@@ -17,7 +17,7 @@ function kits_cron_backup() {
 # 每小时的计划任务
 function kits_cron_hourly() {
     # 整点报时
-    python $KITS/python/funcs.py hourlyNotify
+    # python $KITS/python/funcs.py hourlyNotify
     # PAC更新
     kits_pac_update
 }
