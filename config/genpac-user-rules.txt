@@ -17,4 +17,4 @@ sourceforge.net
 
 ! 不是必须的
 uploaded.net
-feedly.net
+feedly.com
