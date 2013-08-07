@@ -31,12 +31,9 @@ export PIP_REQUIRE_VIRTUALENV=true
 # pip 自动使用启动中的虚拟环境
 export PIP_RESPECT_VIRTUALENV=true
 
-# virtualenvwrapper 环境
-if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
-    export WORKON_HOME=~/.virtualenvs
-    [[ ! -d $WORKON_HOME ]] && mkdir $WORKON_HOME
-    . /usr/local/bin/virtualenvwrapper.sh
-fi
+# virtualenvwrapper
+[[ ! -z "$(which virtualenvwrapper_lazy.sh)" ]] && 
+    . "$(which virtualenvwrapper_lazy.sh)"
 
 # autossh
 # export AUTOSSH_DEBUG="1"
@@ -49,7 +46,7 @@ export AUTOSSH_POLL="30"
 # 载入私有信息
 [[ -f $KITS/shell/privacy.sh ]] && . $KITS/shell/privacy.sh
 
-# 加载inc下所有sh文件
+# 加载commands下所有sh文件
 for _f in `ls $KITS/shell/commands/*.sh`; do . $_f; done 
 
 # 载入别名

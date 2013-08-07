@@ -185,16 +185,28 @@ alias clean.dns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 alias clean.openwith="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user; killall Finder"
 
 # python 虚拟环境
-alias pve.name="[[ -d \"\$VIRTUAL_ENV\" ]] && basename \$VIRTUAL_ENV || echo \"no VIRTUAL_ENV\""
-alias pve.ls="lsvirtualenv"
+# 建立
 alias pve.mk="mkvirtualenv"
 alias pve.mk.tmp="mktmpenv"
-alias pve.cp="cpvirtualenv"
-alias pve.rm="rmvirtualenv"
-alias pve.lssp="lssitepackages"
-alias pve.setpath="setvirtualenvproject"
+# 建立 基于python3
+alias pve3.mk="pve.mk --python=/usr/local/bin/python3"
+alias pve3.mk.tmp="pve.mk.tmp --python=/usr/local/bin/python3"
+# 启用与退出
 alias pve.on="workon"
 alias pve.exit="deactivate"
+# 名称 列表 目录 拷贝 删除
+alias pve.name="[[ -d \"\$VIRTUAL_ENV\" ]] && basename \$VIRTUAL_ENV || echo \"no VIRTUAL_ENV\""
+alias pve.ls="lsvirtualenv"
+alias pve.ls.sp="lssitepackages"
+alias pve.cd="cdvirtualenv"
+alias pve.cd.sp="cdsitepackages"
+alias pve.cd.proj="cdproject"
+alias pve.cp="cpvirtualenv"
+alias pve.rm="rmvirtualenv"
+# 设置项目目录
+alias pve.setpath="setvirtualenvproject"
+# 清理 删除安装的模块
+alias pve.clean="wipeenv"
 
 # SSD状态
 alias status.ssd="$KITS/python/ssd-status.py"
