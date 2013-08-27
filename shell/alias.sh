@@ -207,9 +207,13 @@ alias pve.rm="rmvirtualenv"
 alias pve.setpath="setvirtualenvproject"
 # 清理 删除安装的模块
 alias pve.clean="wipeenv"
+# 进入virtual env目录
+alias pve.dir="[[ -d \"\$VIRTUAL_ENV\" ]] && (cd \$VIRTUAL_ENV; pwd) || echo \"no VIRTUAL_ENV\""
 
 # SSD状态
 alias status.ssd="$KITS/python/ssd-status.py"
+
+alias alive="proxy.alive; mamp.alive"
 
 # =========================================================
 # NAS
