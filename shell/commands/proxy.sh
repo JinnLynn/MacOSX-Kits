@@ -29,7 +29,7 @@ function kits_ssh_proxy() {
             ret=`ps aux | grep autossh | grep -c $mp`
             [[ $ret -gt 0 ]]; _kits_check "autossh"
             ret=`lsof -i:$JPROXY_SOCKS_PORT`
-            [[ ! -z "$ret" ]]; _kits_check "SOCKS[127.0.0.1:$JPROXY_SOCKS_PORT]"
+            [[ ! -z "$ret" ]]; _kits_check "SOCKS5[127.0.0.1:$JPROXY_SOCKS_PORT]"
             ;;
         "watch" )
             # watch -n 1 "lsof -i:$JPROXY_SOCKS_PORT"
@@ -55,8 +55,9 @@ function kits_privoxy() {
             done
             ;;
         "alive" )
+            listen=`cat $cfg | grep "listen-address" | awk '{print $2}'`
             ret=`ps aux | grep -v "grep" | grep -c "privoxy"`
-            [[ $ret -gt 0 ]]; _kits_check "privoxy"
+            [[ $ret -gt 0 ]]; _kits_check "privoxy[$listen]"
             ;;
     esac
 }
