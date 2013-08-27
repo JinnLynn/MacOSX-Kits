@@ -39,10 +39,5 @@ fe80::1%lo0	localhost
 203.208.46.161 multithreaded.thingscloud.appspot.com
 203.208.46.161 thingscloud.appspot.com
 
-127.0.0.1 local.afvisual.com
-127.0.0.1 jeeker
-127.0.0.1 local.jeeker.net
-
-172.16.1.3 mail.afvisual.com
-
-127.0.0.1 jnas
+127.0.0.1   af.dev
+::1         af.dev
