@@ -87,7 +87,7 @@ class RSync(object):
         # 返回 所有文件数量,所有文件累计大小
         return total_num, total_size
 
-    def outputProgressMsg(self, finished_num, total_num, finished_size, start_time):
+    def outputProgressMsg(self, finished_num, total_num, finished_size, start_time, exact_progress=True):
         passed_time = time.time() - start_time
         try:
             progress = float(finished_num) / float(total_num)
@@ -96,9 +96,14 @@ class RSync(object):
             progress = 1.0
         if progress<0 or progress>1:
             progress = 1.0
-        self.output('{:.2%} ({}/{}) {} | {}/s'.format(
-                        progress, finished_num, total_num, 
-                        util.hrData(finished_size), util.hrData(speed) ))
+        if exact_progress:
+            output = '{:.2%} ({}/{}) {} | {}/s'.format(
+                progress, finished_num, total_num, 
+                util.hrData(finished_size), util.hrData(speed)
+            )
+        else:
+            output = '{} {} | {}/s'.format(finished_num, util.hrData(finished_size), util.hrData(speed))
+        self.output(output)
 
     def run(self, exact_progress=True):
         # 精确统计需先dry-run
@@ -130,7 +135,7 @@ class RSync(object):
                     finished_num = int(m[0][1]) - int(m[0][0])
                     if not exact_progress:
                         total_num = int(m[0][1])
-                    self.outputProgressMsg(finished_num, total_num, finished_size, start_time)
+                    self.outputProgressMsg(finished_num, total_num, finished_size, start_time, exact_progress=exact_progress)
         except Exception, e:
             self.saveTerminate(proc)
             raise e
