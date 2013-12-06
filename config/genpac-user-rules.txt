@@ -6,15 +6,20 @@
 twitter.com
 youtube.com
 
-||mail.google.com
-||maps.google.com
+||google.com
+
 cocosbuilder.com
 wikipedia.org
-www.google.com
-code.google.com
-googlecode.com
 sourceforge.net
 
+! 存储服务
+||bitshare.com
+||uploaded.net
+
 ! 不是必须的
-uploaded.net
+fileom.com
 feedly.com
+staticflickr.com
+
+! stackoverflow CDN
+cdn.sstatic.net
