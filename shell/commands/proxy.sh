@@ -12,7 +12,7 @@ function kits_ssh_proxy() {
         "start" | "restart" )
             kits_ssh_proxy stop
             _kits_free_port $mp
-            autossh -M $mp -fN -D $JPROXY_SOCKS_PORT -i "$JPROXY_SERVER_KEY" $JPROXY_SERVER_USR@$JPROXY_SERVER
+            autossh -M $mp -fN -D $JPROXY_SOCKS_PORT -i "$JPROXY_KEY" $JPROXY_SRV
             ;;
         "stop" )
             # 杀死SSH进程

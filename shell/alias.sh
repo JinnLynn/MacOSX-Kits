@@ -4,7 +4,7 @@ alias la="ls -lAGh"
 alias cd-="cd - >/dev/null"
 
 alias reload!="exec $SHELL" # "[[ -f ~/.bashrc ]] && . ~/.bashrc"
-alias alias.find="kits_alias_find"
+alias kits.af="kits_alias_find"
 
 # SSH相关
 # SSH秘钥 SOCK等重置
@@ -17,11 +17,11 @@ alias ssh.work="ssh jinnlynn@172.16.5.14"
 alias ssh.work.scm="ssh scm@172.16.5.14"
 alias ssh.github="ssh -T git@github.com"
 alias ssh.ubuntu="ssh jinnlynn@10.211.55.14"
-alias ssh.aws="ssh $JEC2USR@$JEC2SERVER"
+alias ssh.jeeker="ssh $JJEEKER_SRV"
 alias ssh.rpi="ssh pi@$JRPI"
-alias ssh.corp="ssh root@$JCORP"
+alias ssh.corp="ssh $JCORP_SRV"
 # citypuzzle.org
-alias ssh.cp="ssh adminvip@$JCP_HOST"
+alias ssh.cp="ssh $JCP_SRV"
 
 # 代理相关
 # ssh 端口转发
@@ -29,6 +29,7 @@ alias proxy.start="kits_ssh_proxy start"
 alias proxy.stop="kits_ssh_proxy stop"
 alias proxy.watch="kits_ssh_proxy watch"
 alias proxy.alive="kits_proxy_alive"
+alias proxy.pac="kits_pac_update"
 # privoxy
 alias privoxy.start="kits_privoxy start"
 alias privoxy.stop="kits_privoxy stop"
@@ -61,8 +62,8 @@ alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 
 # 家
 # 本地端口转发
-alias home.lpf="kits_home_local_port_forward open"
-alias home.lpf.close="kits_home_local_port_forward close"
+alias home.lpf="kits_ssh_port_forward local"
+alias home.lpf.close="kits_ssh_port_forward close"
 # xiaolu VNC
 alias home.vnc="home.lpf 55010:10.95.27.4:5900 && open vnc://localhost:55010"
 alias home.vnc.close="home.lpf.close 55010"
@@ -75,6 +76,7 @@ alias home.nas.share.close="home.lpf.close 55030"
 
 # 备份
 alias kits.backup="$KITS/extra/backup/backup.py"
+alias kits.backup.quick="kits.backup --no-exact-progress"
 
 # 使用gfwlist生成自动代理配置文件
 alias pac.gen="kits_pac_gen"
@@ -217,7 +219,7 @@ alias alive="proxy.alive; mamp.alive"
 
 # =========================================================
 # NAS
-alias nas.kits.update="kits.sync.to.server $NASKITS/ root@$JHOST:/tmp/kits/"
+alias nas.kits.update="kits.sync.to.server $NASKITS/ root@$JHOST:/volume1/cellar/kits/"
 alias nas.ip="ssh.home 'curl -s http://ip.3322.net'"
 alias nas.ip.host="dig +short $JHOST"
 
@@ -236,11 +238,17 @@ alias rpi.vnc="open vnc://$JRPI"
 
 # ========================================================
 # corp server
-alias corp.update="kits.sync.to.server $JCORP_DATA root@$JCORP:/data/"
+alias corp.update="kits.sync.to.server --exclude=_dev/ $JCORP_DATA $JCORP_SRV:/data/"
 
 # ========================================================
-# jeeker server (aws)
-alias aws.update="kits.sync.to.server ~/Developer/Web/server.jeeker/ ubuntu@$JEC2SERVER:/data/"
+# jeeker server
+alias jeeker.update="kits.sync.to.server ~/Developer/Web/server.jeeker/ $JJEEKER_SRV:/data/"
 
+alias cp.update="kits.sync.to.win --exclude=_dev/*/*.rar --exclude=_dev/node_modules/  --exclude=farm/ --exclude=_dev/test/100mb.bin --exclude=config-dev.php ~/Developer/Web/sites/citypuzzle.org/ $JCP_SRV:/cygdrive/d/www/citypuzzle.org/"
 #
 alias iis.update="kits.sync.to.win ~/Developer/Web/sites/citypuzzle.org/ /Volumes/C/inetpub/wwwroot/"
+
+alias dd.update="cd ~/Developer/Web/sites/ddbabybook.com/_dev; grunt shell:sync_remote"
+
+
+alias tmp.lr="kits.sync.to.win --delete-excluded --exclude=node_modules/ ~/Developer/Web/sites/logistics4lr/ ~/Desktop/lr$(date +%Y%m%d)"

@@ -23,6 +23,6 @@ function kits_cron_hourly() {
 }
 
 # 每分钟的计划任务
-function kits_cron_minutely() {
+# function kits_cron_minutely() {
 
-}
+# }

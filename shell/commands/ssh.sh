@@ -16,23 +16,40 @@ function kits_ssh_reset() {
         fi
     done
     echo '重新安装秘钥...'
-    ssh-add $JKEY
-    ssh-add ~/.ssh/jSSHChinaKey
-    ssh-add $JCP_KEY
+    for i in $JSSH_KEYS; do
+        ssh-add $i
+    done
 }
 
-# 本地端口转发
-# 参数 open|close 本地端口:远程ip:远程端口
-function kits_home_local_port_forward() {
-    [[ -z "$1" || -z "$2" ]] && return 1
+# 端口转发
+# close PORT 关闭端口
+# local PORT:HOST:HOSTPORT [SSH_HOST]
+# remote PORT:HOST:HOSTPORT [SSH_HOST]
+# dynamic PORT [SSH_HOST]
+# SSH_HOST可选 默认 $JHOME
+function kits_ssh_port_forward() {
+    [[ -z "$1" || -z "$2" ]] && echo "至少需要两个参数。" && return 1
     port=`echo $2 | awk -F ':' '{print $1}'`
+    ssh_host="$3"
+    [[ -z "$ssh_host" ]] && ssh_host="$JHOME"
     case "$1" in
-        "open" )
+        "local" )
             _kits_free_port $port
-            ssh -fN -L $2 $JHOME
+            ssh -fN -L $2 $ssh_host
+            ;;
+        "remote" )
+            _kits_free_port $port
+            ssh -fN -R $2 $ssh_host
+            ;;
+        "dynamic" )
+            _kits_free_port $port
+            ssh -fN -D $port $ssh_host
             ;;
         "close" )
             _kits_free_port $port
+            ;;
+        * )
+            echo "参数错误。"
             ;;
     esac
 }

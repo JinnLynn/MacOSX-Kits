@@ -30,7 +30,7 @@ function kits_wifi() {
         "proxy" )
             case "$2" in
                 "all" )
-                    networksetup -setsocksfirewallproxy "$wifins" "$JPROXYSOCKSHOST" "$JPROXYSOCKSPORT" off
+                    networksetup -setsocksfirewallproxy "$wifins" "127.0.0.1" "$JPROXY_SOCKS_PORT" off
                     networksetup -setsocksfirewallproxystate "$wifins" on
                     networksetup -setautoproxystate "$wifins" off
                     ;;
