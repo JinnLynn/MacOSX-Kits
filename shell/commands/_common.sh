@@ -38,10 +38,11 @@ function _kits_check() {
 }
 
 function _kits_doforever() {
-    [[ -z "$1" || -z "$2" ]] && echo "Usage: <DELAY> <COMMAND>" && return
-
-    while true;
-        do $2
+    [[ -z "$1" || -z "$2" ]] && echo "Usage: <DELAY> <COMMAND>" && return 1
+    [[ ! "$1" -gt 0 ]] && echo "DELAY must be number and greater than 0." && return 1
+    while true; do
+        $2
+        echo -e "\n\033[32mWait $1 second(s) before do next...\033[39m\n"
         sleep $1
     done
 }
