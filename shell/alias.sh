@@ -9,6 +9,11 @@ alias kits.af="kits_alias_find"
 # SSH相关
 # SSH秘钥 SOCK等重置
 alias ssh.reset="kits_ssh_reset"
+# SSH端口转发
+alias ssh.lpf="kits_ssh_port_forward local"
+alias ssh.rpf="kits_ssh_port_forward remote"
+alias ssh.dpf="kits_ssh_port_forward dynamic"
+alias ssh.cpf="kits_ssh_port_forward close"
 # SSH快速连接
 alias ssh.home="ssh $JHOST"
 alias ssh.home.root="ssh root@$JHOST"
@@ -62,17 +67,20 @@ alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 
 # 家
 # 本地端口转发
-alias home.lpf="kits_ssh_port_forward local"
-alias home.lpf.close="kits_ssh_port_forward close"
 # xiaolu VNC
-alias home.vnc="home.lpf 55010:10.95.27.4:5900 && open vnc://localhost:55010"
-alias home.vnc.close="home.lpf.close 55010"
+alias home.vnc="ssh.lpf 55010:10.95.27.4:5900 && open vnc://localhost:55010"
+alias home.vnc.close="ssh.cpf 55010"
 # 路由器管理
-alias home.router="home.lpf 55020:10.95.27.10:80 && open http://localhost:55020"
-alias home.router.close="home.lpf.close 55020"
+alias home.router="ssh.lpf 55020:10.95.27.10:80 && open http://localhost:55020"
+alias home.router.close="ssh.cpf 55020"
 # NAS share
-alias home.nas.share="home.lpf 55030:10.95.27.1:548 && open afp://localhost:55030"
-alias home.nas.share.close="home.lpf.close 55030"
+alias home.nas.share="ssh.lpf 55030:10.95.27.1:548 && open afp://localhost:55030"
+alias home.nas.share.close="ssh.cpf 55030"
+
+# mldonkey
+alias mld.web="ssh.lpf 55100:127.0.0.1:4080 $JCORP_SRV && open http://localhost:55100"
+alias mld.web.close="ssh.cpf 55100"
+alias mld.files="ssh $JCORP_SRV \"cd /var/lib/mldonkey/incoming/ && df -h . && pwd && ls -AlhR\""
 
 # 备份
 alias kits.backup="$KITS/extra/backup/backup.py"
