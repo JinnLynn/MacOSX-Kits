@@ -20,6 +20,9 @@ export HISTCONTROL=erasedups
 # 运行多个Shell时退出合并历史记录
 shopt -s histappend
 
+# 忽略邮件检查
+unset MAILCHECK
+
 # 总是展开别名
 shopt -s expand_aliases
 
