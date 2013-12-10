@@ -25,29 +25,51 @@ function _kits_symbolic_link() {
     ln -s "$1" "$2" 
 }
 
+# 输出颜色文字
+# _kits_color_text TEXT [COLOR]
+# 如: _kits_color_text output_string green
+function _kits_color_text() {
+    [[ -z "$1" ]] && return
+    case "$2" in
+        "black" ) color="30m";; # 30:黑
+        "red" ) color="31m";; # 31:红
+        "green" ) color="32m";; # 32:绿
+        "yellow" ) color="33m";; # 33:黄
+        "blue" ) color="34m";; # 34:蓝色
+        "purple" ) color="35m";; # 35:紫色
+        "cyan" ) color="36m";; # 36:蓝绿色(青色)
+        "gray" ) color="37m";; # 37:灰色
+        * ) color="39m";; # 默认
+    esac
+    echo -e "\033[$color$1\033[0m"
+}
+
+# 输出行内颜色文字
+function _kits_color_text_inline() {
+    echo -en "$(_kits_color_text "$1" "$2")"
+}
+
+# 清空行
+function _kits_clear_line() {
+    columns=80
+    [[ ! -z "$COLUMNS" ]] && columns="$COLUMNS"
+    o=""
+    for ki in $(seq $columns); do o="$o "; done
+    echo -en "\r$o\r"
+}
+
 # 输出检查结果字符串
 # 使用方法: 判断语句; _kits_check "说明文字"
 # 如: [[ 0 -eq 0 ]]; _kits_check "0=0?"
 function _kits_check() {
     ret=$?
-    ok="\033[32m✔\033[39m"
-    fail="\033[31m✘\033[39m"
-    for (( i = 0; i < 40; i++ )); do echo -n " "; done
-    [[ $ret -eq 0 ]] && echo -en "$ok" || echo -en "$fail"
+    _kits_clear_line
+    [[ $ret -eq 0 ]] && _kits_color_text_inline "✔" green || _kits_color_text_inline "✘" red
+}
     [[ ! -z "$1" ]] && echo -e "\r$1"
-}
-
-function _kits_doforever() {
-    [[ -z "$1" || -z "$2" ]] && echo "Usage: <DELAY> <COMMAND>" && return 1
-    [[ ! "$1" -gt 0 ]] && echo "DELAY must be number and greater than 0." && return 1
-    while true; do
-        $2
-        echo -e "\n\033[32mWait $1 second(s) before do next...\033[39m\n"
-        sleep $1
-    done
-}
 
 # 获取一个未使用的网络端口
+# 使用 port=$(_kits_unused_port)
 function _kits_unused_port() {
     [[ -z "$JPORT_START" ]] && export JPORT_START="55000"
     while true; do

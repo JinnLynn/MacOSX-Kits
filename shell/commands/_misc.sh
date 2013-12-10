@@ -1,3 +1,23 @@
+# 循环执行命令
+function kits_doforever() {
+    [[ -z "$1" || -z "$2" ]] && echo "ERROR. Usage: <DELAY> <COMMAND>" && return 1
+    [[ ! "$1" -gt 0 ]] && echo "ERROR. DELAY must be number and greater than 0." && return 1
+    count=0
+    delay=$1
+    while true; do
+        count=$(($count+1))
+        _kits_color_text "--- Run Count: $count ---" blue
+        $2
+        echo ""
+        for (( i = 0; i < $delay; i++ )); do
+            _kits_clear_line
+            _kits_color_text_inline "Wait $(($delay-$i)) second(s) before do next..." green
+            sleep 1
+        done
+        _kits_clear_line
+    done
+}
+
 # 使用Preview | more | dash打开man内容
 function kits_man() {
     error="ERROR. Usage: kits_man [-p|-m|-d] COMMAND_NAME"
