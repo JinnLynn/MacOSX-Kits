@@ -220,6 +220,13 @@ alias pve.clean="wipeenv"
 # 进入virtual env目录
 alias pve.dir="[[ -d \"\$VIRTUAL_ENV\" ]] && (cd \$VIRTUAL_ENV; pwd) || echo \"no VIRTUAL_ENV\""
 
+# screen
+alias scr="screen"
+alias scr.ls='screen -ls'
+alias scr.mk='screen -S'
+alias scr.mkd='screen -dmS'
+alias scr.cd='screen -dR'
+
 # SSD状态
 alias status.ssd="$KITS/python/ssd-status.py"
 
