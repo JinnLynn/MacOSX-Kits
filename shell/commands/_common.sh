@@ -51,10 +51,9 @@ function _kits_color_text_inline() {
 
 # 清空行
 function _kits_clear_line() {
-    columns=80
-    [[ ! -z "$COLUMNS" ]] && columns="$COLUMNS"
-    o=""
-    for ki in $(seq $columns); do o="$o "; done
+    [[ ! -z "$COLUMNS" ]] && columns="$COLUMNS" || columns=80
+    [[ ! -z "$1" ]] && columns="$1"
+    o=$(for ki in $(seq $columns); do echo -n " "; done)
     echo -en "\r$o\r"
 }
 
@@ -63,10 +62,10 @@ function _kits_clear_line() {
 # 如: [[ 0 -eq 0 ]]; _kits_check "0=0?"
 function _kits_check() {
     ret=$?
-    _kits_clear_line
-    [[ $ret -eq 0 ]] && _kits_color_text_inline "✔" green || _kits_color_text_inline "✘" red
+    s=$(for ki in $(seq 40); do echo -n " "; done)
+    judge=$([[ $ret -eq 0 ]] && _kits_color_text_inline "✔" green || _kits_color_text_inline "✘" red)
+    echo -e "$s$judge\r$1"
 }
-    [[ ! -z "$1" ]] && echo -e "\r$1"
 
 # 获取一个未使用的网络端口
 # 使用 port=$(_kits_unused_port)
