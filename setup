@@ -7,15 +7,15 @@ SETUP_DIR=$(cd $(dirname $0); pwd)
 echo "export KITS=$SETUP_DIR" > $KITS_CONFIG_PATH
 
 . $KITS_CONFIG_PATH
-. $KITS/shell/sub/_common.sh
+. $KITS/shell/commands/_common.sh
 
 # profile处理
 _kits_symbolic_link $KITS/dotfiles/bash_profile.sh ~/.bash_profile
 _kits_symbolic_link $KITS/dotfiles/bashrc.sh ~/.bashrc
-_kits_symbolic_link $KITS/shell/cron.sh ~/.kits_cron
+_kits_symbolic_link $KITS/shell/task.sh ~/.kits_task
 
 # sublime text
-_kits_symbolic_link "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" $KITS/bin/subl
+_kits_symbolic_link "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" $KITS/bin/subl
 
 # 下列需要root权限
 # if [[ "$(whoami)" = "root" ]]; then

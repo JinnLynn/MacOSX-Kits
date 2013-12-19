@@ -42,3 +42,25 @@ function kits_man() {
 function kits_alias_find() {
    alias | awk -F '=' {'print $1'} | awk {'print $2'} | grep "$1"
 }
+
+# 初始化launchd.plist
+function kits_launchd_init() {
+    src=$KITS/config/launchd.plist
+    dst=~/Library/LaunchAgents
+    plist=net.jeeker.kits.*.plist
+    for i in $(ls $dst/$plist); do
+        launchctl unload $i
+    done
+    rm -rf $dst/$plist
+    cp $src/$plist $dst
+    for i in $(ls $dst/$plist); do
+        launchctl load $i
+    done
+}
+
+function kits_launchd_load() {
+    for i in $(ls ~/Library/LaunchAgents/net.jeeker.kits.*.plist); do
+        launchctl unload $i
+        launchctl load $i
+    done
+}
