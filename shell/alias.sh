@@ -29,8 +29,9 @@ alias ssh.corp="ssh $JCORP_SRV"
 alias ssh.cp="ssh $JCP_SRV"
 
 # 代理相关
-# ssh 端口转发
+# ssh
 alias proxy.start="kits_ssh_proxy start"
+alias proxy.start.global="kits_ssh_proxy start global"
 alias proxy.stop="kits_ssh_proxy stop"
 alias proxy.watch="kits_ssh_proxy watch"
 alias proxy.alive="kits_proxy_alive"
