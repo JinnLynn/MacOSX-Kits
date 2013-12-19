@@ -34,6 +34,9 @@ export PIP_REQUIRE_VIRTUALENV=true
 # pip 自动使用启动中的虚拟环境
 export PIP_RESPECT_VIRTUALENV=true
 
+# autojump
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
 # virtualenvwrapper
 [[ ! -z "$(which virtualenvwrapper_lazy.sh)" ]] && 
     . "$(which virtualenvwrapper_lazy.sh)"
