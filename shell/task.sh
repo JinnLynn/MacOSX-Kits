@@ -10,7 +10,7 @@ function task_kits_date() {
 # RunAtLoad
 function task_load() {
     task_kits_date $FUNCNAME
-    # 重置ssh 需要密码的密钥无法自动加载
+    # 重置ssh
     ssh.reset
     # 启动代理
     proxy.start

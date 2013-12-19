@@ -64,3 +64,10 @@ function kits_launchd_load() {
         launchctl load $i
     done
 }
+
+# 从钥匙串获取密码 参数 account
+function kits_keychain_password() {
+    [[ -z "$1" ]] && return
+    password=$(security find-generic-password -ga "$1" 2>&1 >/dev/null | cut -d '"' -f 2)
+    echo -n $password
+}

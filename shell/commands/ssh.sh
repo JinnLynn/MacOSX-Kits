@@ -17,7 +17,19 @@ function kits_ssh_reset() {
     done
     echo '重新安装秘钥...'
     for i in $JSSH_KEYS; do
-        ssh-add $i
+        # 安装jkey时自动从钥匙串获取密码并输入
+        if [[ ! -z "$(echo $i | grep jkey)" ]]; then
+            password=$(kits_keychain_password "$i")
+            expect -c "
+                spawn ssh-add $i
+                expect \"passphrase\"
+                send \"$password\r\"
+                expect eof
+            "
+        else
+            ssh-add $i
+        fi
+
     done
 }
 
