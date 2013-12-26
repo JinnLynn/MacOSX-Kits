@@ -13,6 +13,17 @@ disks = [
     ['/dev/disk0', '2011-09-03']
 ]
 
+_output_tepl = '''
+　　　　设备: {device}
+　　启用日期: {start_date}
+　　健康指示: {wearout}
+　数据已写入: {write}
+　数据已读取: {read}
+有效保留空间: {reservd}
+理论可写数据: {can_write}
+理论可用时间: {can_use}
+'''
+
 def main():
     # 检查 smartctl 是否存在
     try:
@@ -21,7 +32,6 @@ def main():
         kits.die('出错了, 没有找到 smartctl, 访问 www.smartmontools.org')
 
     for disk in disks:
-        print('{} 状态:'.format(*disk))
         try:
             info = {}
             start_date = datetime.strptime(disk[1], '%Y-%m-%d')
@@ -43,6 +53,7 @@ def main():
                 if 'Available_Reservd_Space' in line:
                     info['reservd'] = int(line.split()[3]) / 100.0
             if info:
+                info['device'] = disk[0]
                 # 预计可写
                 info['can_write'] = info['write'] / (1 - info['wearout']) - info['write']
                 # 预计可用天数
@@ -59,10 +70,10 @@ def main():
                     info['can_use'] = '{:.2f}年'.format( info['can_use'] / 365.0 )
                 else:
                     info['can_use'] = '{:.2f}天'.format( info['can_use'] )
-                print('　　启用日期: {start_date}\n　　健康指示: {wearout}\n　数据已写入: {write}\n　数据已读取: {read}\n有效保留空间: {reservd}\n理论可写数据: {can_write}\n理论可用时间: {can_use}'.format(**info))
+                print(_output_tepl.format(**info))
         except Exception, e:
-            raise e
-            print('出错了')
+            # raise e
+            print('出错了: {}'.format(e))
 
 if __name__ == '__main__':
     main()
