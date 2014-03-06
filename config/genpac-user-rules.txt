@@ -1,25 +1,41 @@
 ! genpac 自定义的规则
 
-@@sina.com
-@@163.com
+@@.sina.com
+@@.163.com
+@@.youku.com
+@@.qq.com
+@@.sohu.com
+@@.yyets.com
+@@.weibo.com
+@@.taobao.com
+@@.etao.com
+@@.tmall.com
 
-twitter.com
-youtube.com
+! 没有被封，使用代理速度更快
+||godaddy.com
+||fileom.com
+||feedly.com
+||staticflickr.com
 
+! 常用
+||twitter.com
+||youtube.com
 ||google.com
+||wikipedia.org
+||sourceforge.net
 
-cocosbuilder.com
-wikipedia.org
-sourceforge.net
+! stackoverflow CDN
+||cdn.sstatic.net
+
+@@|https://*.dropbox.com
+|http://*.dropbox.com
+
+.cocosbuilder.com
+
+! 其它
 
 ! 存储服务
 ||bitshare.com
 ||uploaded.net
 
-! 不是必须的
-fileom.com
-feedly.com
-staticflickr.com
-
-! stackoverflow CDN
-cdn.sstatic.net
+||blogspot.sg
