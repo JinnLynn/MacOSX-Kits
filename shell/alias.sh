@@ -30,12 +30,13 @@ alias ssh.cp="ssh $JCP_SRV"
 
 # 代理相关
 # ssh
-alias proxy.start="kits_ssh_proxy start"
-alias proxy.start.global="kits_ssh_proxy start global"
-alias proxy.stop="kits_ssh_proxy stop"
+alias proxy.start="kits_ssh_proxy start; privoxy.start"
+alias proxy.start.global="kits_ssh_proxy start global; privoxy.start"
+alias proxy.stop="kits_ssh_proxy stop; privoxy.stop"
 alias proxy.watch="kits_ssh_proxy watch"
 alias proxy.alive="kits_proxy_alive"
 alias proxy.pac="kits_pac_update"
+alias proxy.test="ssh -v $JPROXY_SRV"
 # privoxy
 alias privoxy.start="kits_privoxy start"
 alias privoxy.stop="kits_privoxy stop"
@@ -53,6 +54,7 @@ alias to.scms="cd ~/Developer/SCMs && pwd"
 alias to.dev="cd ~/Developer && pwd"
 alias to.jeeker="cd ~/Developer/Web/Jeeker && pwd"
 alias to.gude="cd ~/Developer/Misc/Gude && pwd"
+alias to.dp="cd /Volumes/ExtraHD/CloudServices/Dropbox && pwd"
 
 # 前往当前Finder某个窗口所在目录
 alias to.finder="kits_finder_to"
@@ -69,18 +71,21 @@ alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 # 家
 # 本地端口转发
 # xiaolu VNC
-alias home.vnc="ssh.lpf 55010:10.95.27.4:5900 && open vnc://localhost:55010"
-alias home.vnc.close="ssh.cpf 55010"
+alias home.vnc="ssh.lpf 55010:10.95.27.3:5900 && open vnc://localhost:55010"
+alias home.vnc.off="ssh.cpf 55010"
 # 路由器管理
 alias home.router="ssh.lpf 55020:10.95.27.10:80 && open http://localhost:55020"
-alias home.router.close="ssh.cpf 55020"
+alias home.router.off="ssh.cpf 55020"
+# NAS Web Admin
+alias home.nas="ssh.lpf 55030:10.95.27.1:5051 && open https://localhost:55030"
+alias home.nas.off="ssh.cpf 55030"
 # NAS share
-alias home.nas.share="ssh.lpf 55030:10.95.27.1:548 && open afp://localhost:55030"
-alias home.nas.share.close="ssh.cpf 55030"
+alias home.nas.share="ssh.lpf 55040:10.95.27.1:548 && open afp://localhost:55040"
+alias home.nas.share.off="ssh.cpf 55040"
 
 # mldonkey
 alias mld.web="ssh.lpf 55100:127.0.0.1:4080 $JCORP_SRV && open http://localhost:55100"
-alias mld.web.close="ssh.cpf 55100"
+alias mld.web.off="ssh.cpf 55100"
 alias mld.files="ssh $JCORP_SRV \"cd /var/lib/mldonkey/incoming/ && df -h . && pwd && ls -AlhR\""
 
 # 备份
