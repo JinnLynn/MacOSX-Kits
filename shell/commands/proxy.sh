@@ -14,7 +14,7 @@ function kits_ssh_proxy() {
             _kits_free_port $mp
             opt="-fN"
             [[ "$2" == "global" ]] && opt="$opt -g"
-            autossh -M $mp $opt -D $JPROXY_SOCKS_PORT -i "$JPROXY_KEY" $JPROXY_SRV
+            autossh -M $mp $opt -D $JPROXY_SOCKS_PORT $JPROXY_SRV
             ;;
         "stop" )
             # 杀死SSH进程
