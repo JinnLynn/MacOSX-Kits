@@ -44,7 +44,7 @@ def stdout(msg=''):
 def stdoutCR(msg=''):
     _, width = util.getTerminalSize()
     clear = '\r{:%d}' % width
-    sys.stdout.write(clear.format(''))
+    sys.stdout.write(clear.format(' '))
     sys.stdout.write('\r{}'.format(msg))
     sys.stdout.flush()
 
