@@ -6,6 +6,7 @@ import core, util
 from pprint import pprint
 
 _rsync_bin = '/usr/local/bin/rsync'
+_remote_rsync_bin = '/usr/syno/bin/rsync'
 _std_pipe = {
         'stdin'     : subprocess.PIPE,
         'stdout'    : subprocess.PIPE,
@@ -13,7 +14,8 @@ _std_pipe = {
     }
 
 class RSync(object):
-    def __init__(self, source, destination, rsync=_rsync_bin, 
+    def __init__(self, source, destination, 
+        rsync=_rsync_bin, remote_rsync=_remote_rsync_bin,
         sshkey=None, backup_dir=None, 
         filter_rule=None, include=None, exclude=None,
         compress=False, quiet=False):
@@ -22,6 +24,8 @@ class RSync(object):
         self.quiet = quiet
         self.default_cmd = [rsync, '-a', '--force', '--delete', '--ignore-errors', '--delete-excluded']
 
+        if remote_rsync:
+            self.default_cmd.extend(['--rsync-path', remote_rsync])
         if compress:
             self.default_cmd.append('-z')
         if backup_dir is not None:
