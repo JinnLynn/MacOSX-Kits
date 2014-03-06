@@ -1,0 +1,41 @@
+backup_server:  ~
+backup_user:    ~
+baskup_dst:     ~
+ssh_key:        ~
+global_filter:
+    -   '- desktop.ini'
+    -   '- thumbs.db'
+    -   '- $RECYCLE.BIN/'
+    -   '- .DS_Store'
+    -   '- ._*'
+    -   '- .Spotlight-V100'
+    -   '- .Trashes'
+tasks:
+    - name:     JMBP.JinnLynn
+      src:      ~/
+      filter:
+        -       '- /Library/***'
+        -       '- /.Trash/***'
+    - name:     JMBP.Apps
+      src:      /Volumes/ExtraHD/CloudServices/百度云同步盘/MacApps/
+    - name:     JMBPWin.Developer
+      src:      /Volumes/BOOTCAMP/Users/JinnLynn/Developer/
+    - name:     JMBP.Applications
+      src:      /Applications/
+    - name:     JMBP.Storage
+      src:      /Volumes/ExtraHD/Storage/
+    - name:     JMBP.Library
+      src:      ~/Library/
+      filter:   
+        # -       + /Application Support/***
+        -       + /Developer/***
+        -       + /Dictionaries/***
+        -       + /Fonts/***
+        -       + /Internet Plug-Ins/***
+        -       + /Keychains/***
+        -       + /LaunchAgents/***
+        -       + /Logs/***
+        -       + /Preferences/***
+        -       + /QuickLook/***
+        -       + /Services/***
+        -       '- *' 

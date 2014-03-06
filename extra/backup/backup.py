@@ -6,7 +6,7 @@ from pprint import pprint
 import kits
 kits.setDefaultEncodingUTF8()
 
-config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.yaml')
+config_file = os.path.join(os.environ.get('KITS', ''), 'config', 'backup.yaml')
 config = kits.loadYAML(config_file)
 
 config['backup_server'] = os.environ.get('JHOME', '')
