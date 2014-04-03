@@ -226,6 +226,10 @@ alias pve.clean="wipeenv"
 # 进入virtual env目录
 alias pve.dir="[[ -d \"\$VIRTUAL_ENV\" ]] && (cd \$VIRTUAL_ENV; pwd) || echo \"no VIRTUAL_ENV\""
 
+# Parallels Desktop 虚拟机
+alias vm.bc.start="kits_virtual_machine start \"BootCamp\""
+alias vm.bc.stop="kits_virtual_machine stop \"BootCamp\""
+
 # screen
 alias scr="screen"
 alias scr.ls='screen -ls'
