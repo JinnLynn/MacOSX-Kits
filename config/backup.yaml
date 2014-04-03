@@ -16,8 +16,6 @@ tasks:
       filter:
         -       '- /Library/***'
         -       '- /.Trash/***'
-    - name:     JMBP.Apps
-      src:      /Volumes/ExtraHD/CloudServices/百度云同步盘/MacApps/
     - name:     JMBPWin.Developer
       src:      /Volumes/BOOTCAMP/Users/JinnLynn/Developer/
     - name:     JMBP.Applications
