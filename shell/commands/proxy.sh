@@ -1,20 +1,34 @@
 
 function kits_proxy_alive() {
-    kits_ssh_proxy alive
+    kits_ssh_proxy alive $JPROXY_SOCKS_PORT
     kits_privoxy alive
+    kits_ssh_proxy alive $JPROXY_HOME_SOCKS_PORT
     # kits_squid alive
 }
 
-# ssh代理
+# 使用autossh 启用SSH动态端口转发（SOCKS代理）
+# 命令形式：
+#   kits_ssh_proxy [start|restart] SOCKS_PORT [USERNAME@]SSH_SERVER [--global]
+#   kits_ssh_proxy [stop|alive|watch] SOCKS_PORT
+# autossh的监控端口 = SOCKS_PORT + 50000 因此SOCKS_PORT<=9999
+#! autossh还有一个接收端口，不指定默认是监控端口+1 见 man autossh中关于 -M 参数的描述
+#! 因此由于接收端口的存在 不能同时打开相邻的动态端口
+#! 如：9526 9527同时进行动态端口转发就不行
+#! 因9526使用59527作为接收端口 而9527亦使用59527做监控端口
 function kits_ssh_proxy() {
-    mp="55000"
+    [[ -z $(which autossh) ]] && echo "ERROR: autossh missing." && return 127
+    [[ $# -lt 1 ]] && echo "ERROR: arguments missing." && return 127
+    port=$([[ -z "$2" ]] && echo $JPROXY_SOCKS_PORT || echo $2)
+    [[ ! $port -gt 1024 || $port -gt 9999 ]] 2>/dev/null && echo "SOCKS端口只能是数字且在1025-9999之间" && return 127
+    mp=$((50000+$port))
     case "$1" in
         "start" | "restart" )
-            kits_ssh_proxy stop
+            srv=$([[ -z "$3" ]] && echo $JPROXY_SRV || echo $3)
+            kits_ssh_proxy stop $port
             _kits_free_port $mp
             opt="-fN"
-            [[ "$2" == "global" ]] && opt="$opt -g"
-            autossh -M $mp $opt -D $JPROXY_SOCKS_PORT $JPROXY_SRV
+            [[ "$4" == "--global" ]] && opt="$opt -g"
+            autossh -M $mp $opt -D $port $srv
             ;;
         "stop" )
             # 杀死SSH进程
@@ -29,13 +43,13 @@ function kits_ssh_proxy() {
         "alive" )
             # 查找autossh进程
             ret=`ps aux | grep autossh | grep -c $mp`
-            [[ $ret -gt 0 ]]; _kits_check "autossh"
-            ret=`lsof -i:$JPROXY_SOCKS_PORT | grep -c LISTEN`
-            [[ $ret -gt 0 ]]; _kits_check "SOCKS5[127.0.0.1:$JPROXY_SOCKS_PORT]"
+            [[ $ret -gt 0 ]]; _kits_check "autossh[$mp]"
+            ret=`lsof -i:$port | grep -c LISTEN`
+            [[ $ret -gt 0 ]]; _kits_check "SOCKS5[127.0.0.1:$port]"
             ;;
         "watch" )
             # watch -n 1 "lsof -i:$JPROXY_SOCKS_PORT"
-            python $KITS/python/port-traffic-monitor.py
+            python $KITS/python/port-traffic-monitor.py $port
             ;;
         * )
             ;;

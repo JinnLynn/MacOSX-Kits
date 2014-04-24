@@ -29,14 +29,24 @@ alias ssh.corp="ssh $JCORP_SRV"
 alias ssh.cp="ssh $JCP_SRV"
 
 # 代理相关
-# ssh
+# SSH服务器
 alias proxy.start="kits_ssh_proxy start; privoxy.start"
 alias proxy.start.global="kits_ssh_proxy start global; privoxy.start"
 alias proxy.stop="kits_ssh_proxy stop; privoxy.stop"
 alias proxy.watch="kits_ssh_proxy watch"
 alias proxy.alive="kits_proxy_alive"
 alias proxy.pac="kits_pac_update"
-alias proxy.test="ssh -v $JPROXY_SRV"
+alias proxy.test="ssh -v $JPROXY_SRV \"exit\""
+# 使用代理下载文件
+alias proxy.dl="cd ~/Downloads && curl -O# --socks5 localhost:$JPROXY_SOCKS_PORT"
+
+# 家
+alias proxy.home.start="kits_ssh_proxy start $JPROXY_HOME_SOCKS_PORT $JHOME"
+alias proxy.home.stop="kits_ssh_proxy stop $JPROXY_HOME_SOCKS_PORT"
+alias proxy.home.alive="kits_ssh_proxy alive $JPROXY_HOME_SOCKS_PORT"
+alias proxy.home.watch="kits_ssh_proxy watch $JPROXY_HOME_SOCKS_PORT"
+alias proxy.home.test="ssh -v $JHOME \"exit\""
+
 # privoxy
 alias privoxy.start="kits_privoxy start"
 alias privoxy.stop="kits_privoxy stop"
@@ -71,21 +81,21 @@ alias tof.jeeker="cd ~/Developer/Web/Jeeker"
 # 家
 # 本地端口转发
 # xiaolu VNC
-alias home.vnc="ssh.lpf 55010:10.95.27.3:5900 && open vnc://localhost:55010"
-alias home.vnc.off="ssh.cpf 55010"
+alias home.vnc="ssh.lpf 60010:10.95.27.3:5900 && open vnc://localhost:60010"
+alias home.vnc.off="ssh.cpf 60010"
 # 路由器管理
-alias home.router="ssh.lpf 55020:10.95.27.10:80 && open http://localhost:55020"
-alias home.router.off="ssh.cpf 55020"
+alias home.router="ssh.lpf 60020:10.95.27.10:80 && open http://localhost:60020"
+alias home.router.off="ssh.cpf 60020"
 # NAS Web Admin
-alias home.nas="ssh.lpf 55030:10.95.27.1:5051 && open https://localhost:55030"
-alias home.nas.off="ssh.cpf 55030"
+alias home.nas="ssh.lpf 60030:10.95.27.1:5051 && open https://localhost:60030"
+alias home.nas.off="ssh.cpf 60030"
 # NAS share
-alias home.nas.share="ssh.lpf 55040:10.95.27.1:548 && open afp://localhost:55040"
-alias home.nas.share.off="ssh.cpf 55040"
+alias home.nas.share="ssh.lpf 60040:10.95.27.1:548 && open afp://localhost:60040"
+alias home.nas.share.off="ssh.cpf 60040"
 
 # mldonkey
-alias mld.web="ssh.lpf 55100:127.0.0.1:4080 $JCORP_SRV && open http://localhost:55100"
-alias mld.web.off="ssh.cpf 55100"
+alias mld.web="ssh.lpf 60100:127.0.0.1:4080 $JCORP_SRV && open http://localhost:60100"
+alias mld.web.off="ssh.cpf 60100"
 alias mld.files="ssh $JCORP_SRV \"cd /var/lib/mldonkey/incoming/ && df -h . && pwd && ls -AlhR\""
 
 # 备份
@@ -244,7 +254,7 @@ alias alive="proxy.alive; mamp.alive"
 
 # =========================================================
 # NAS
-alias nas.kits.update="kits.sync.to.server $NASKITS/ root@$JHOST:/volume1/cellar/kits/"
+alias nas.kits.update="kits.sync $NASKITS/ root@$JHOST:/volume1/cellar/kits/"
 alias nas.ip="ssh.home 'curl -s http://ip.3322.net'"
 alias nas.ip.host="dig +short $JHOST"
 
@@ -277,3 +287,7 @@ alias dd.update="cd ~/Developer/Web/sites/ddbabybook.com/_dev; grunt shell:sync_
 
 
 alias tmp.lr="kits.sync.to.win --delete-excluded --exclude=node_modules/ ~/Developer/Web/sites/logistics4lr/ ~/Desktop/lr$(date +%Y%m%d)"
+
+alias diablo="open \"/Applications/Diablo III/Diablo III.app\""
+alias diablo.tw="open \"/Applications/Diablo III/Diablo III.app\" --args -launch OnlineService.Matchmaking.ServerPool=TW3"
+alias diablo.kr="open \"/Applications/Diablo III/Diablo III.app\" --args -launch OnlineService.Matchmaking.ServerPool=Default"
