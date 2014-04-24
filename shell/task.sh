@@ -22,6 +22,12 @@ function task_hourly() {
     kits_pac_update
 }
 
+function task_daily() {
+    task_kits_date $FUNCNAME
+    # brew
+    brew update
+}
+
 # 其它
 # 备份
 function task_backup() {
