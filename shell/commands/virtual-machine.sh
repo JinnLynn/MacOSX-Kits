@@ -1,11 +1,11 @@
 # Parallels Desktop虚拟机的控制
 function kits_virtual_machine() {
     # VM名是否指定
-    [[ -z "$2" ]] && echo "VM name missing." && return 255
+    [[ -z "$2" ]] && echo "VM name missing." && return 127
     
     # VM是否存在
     prlctl list "$2" > /dev/null 2>&1
-    [[ ! $? -eq 0 ]] && echo "VM $2 is nonexistent." && return 255
+    [[ ! $? -eq 0 ]] && echo "VM $2 is nonexistent." && return 127
 
     case "$1" in
         "start" )
