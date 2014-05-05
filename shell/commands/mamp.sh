@@ -1,6 +1,6 @@
 # MAMP相关控制
 
-function kits_mamp() {
+kits_mamp() {
     mamp_path="/Applications/MAMP"
     pushd $mamp_path/bin/ > /dev/null
     case "$1" in

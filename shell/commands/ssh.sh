@@ -1,6 +1,6 @@
 
 # 重置SSH相关
-function kits_ssh_reset() {
+kits_ssh_reset() {
     echo "列出当前系统秘钥..."
     ssh-add -l
     echo "删除所有秘钥..."
@@ -39,7 +39,7 @@ function kits_ssh_reset() {
 # remote PORT:HOST:HOSTPORT [SSH_HOST]
 # dynamic PORT [SSH_HOST]
 # SSH_HOST可选 默认 $JHOME
-function kits_ssh_port_forward() {
+kits_ssh_port_forward() {
     [[ -z "$1" || -z "$2" ]] && echo "至少需要两个参数。" && return 1
     port=`echo $2 | awk -F ':' '{print $1}'`
     ssh_host="$3"

@@ -30,11 +30,6 @@ shopt -s expand_aliases
 # 设置颜色显示
 export CLICOLOR=1
 
-# pip 要求在虚拟环境中才能运行
-export PIP_REQUIRE_VIRTUALENV=true
-# pip 自动使用启动中的虚拟环境
-export PIP_RESPECT_VIRTUALENV=true
-
 # autojump
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
@@ -42,16 +37,11 @@ export PIP_RESPECT_VIRTUALENV=true
 [[ ! -z "$(which virtualenvwrapper_lazy.sh)" ]] && 
     . "$(which virtualenvwrapper_lazy.sh)"
 
-# autossh
-# export AUTOSSH_DEBUG="1"
-export AUTOSSH_LOGLEVEL="7"
-export AUTOSSH_LOGFILE="/Users/JinnLynn/Library/Logs/autossh.log"
-[[ ! -f $AUTOSSH_LOGFILE ]] && touch $AUTOSSH_LOGFILE
-# 该参数值越小，能较少长时间无法连接SSH后再次连接的间隔时间
-export AUTOSSH_POLL="30"
+# 载入环境变量
+[[ -f $KITS/shell/variables.sh ]] && . $KITS/shell/variables.sh
 
-# 载入私有信息
-[[ -f $KITS/shell/privacy.sh ]] && . $KITS/shell/privacy.sh
+# 载入私有环境变量
+[[ -f $KITS/private/shell.sh ]] && . $KITS/private/shell.sh 
 
 # 加载commands下所有sh文件
 for _f in `ls $KITS/shell/commands/*.sh`; do . $_f; done 

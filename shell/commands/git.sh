@@ -13,7 +13,7 @@ DEF_GITIGNORE=$(cat <<EOF
 EOF)
 
 # 在本地创建新的git repo
-function kits_git_new_repo() {
+kits_git_new_repo() {
     [[ -z "$1" ]] && echo "ERROR. USAGE: <reponame>" && return
     [[ -d "$1" ]] && echo "ERROR. '$1' existed." && return 
     git init $1
@@ -25,7 +25,7 @@ function kits_git_new_repo() {
 }
 
 # 在服务端创建新的git repo ( --bare )
-function kits_git_new_server_repo() {
+kits_git_new_server_repo() {
     [[ -z "$1" ]] && echo "ERROR. USAGE: <reponame>" && return
     # 确保是以.git结尾
     reponame=$1
@@ -44,7 +44,7 @@ EOF
 }
 
 # 更新~/Developer/SCMs下的所有版本库
-function kits_pull_all_scms() {
+kits_pull_all_scms() {
     pushd ~/Developer/SCMs >/dev/null
     for item in *; do
         if [[ -d "$item" && -d "$item/.git" ]]; then

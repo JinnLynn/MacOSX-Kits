@@ -1,4 +1,3 @@
-
 alias ll="ls -lGh"
 alias la="ls -lAGh"
 alias cd-="cd - >/dev/null"
@@ -29,16 +28,21 @@ alias ssh.corp="ssh $JCORP_SRV"
 alias ssh.cp="ssh $JCP_SRV"
 
 # 代理相关
-# SSH服务器
-alias proxy.start="kits_ssh_proxy start; privoxy.start"
-alias proxy.start.global="kits_ssh_proxy start global; privoxy.start"
-alias proxy.stop="kits_ssh_proxy stop; privoxy.stop"
+# SSH服务器kits_ssh_proxy start; 
+alias proxy.start="kits_goagent restart"
+# alias proxy.start.global="kits_ssh_proxy start global;"
+# alias proxy.stop="kits_ssh_proxy stop; kits_goagent stop"
 alias proxy.watch="kits_ssh_proxy watch"
 alias proxy.alive="kits_proxy_alive"
 alias proxy.pac="kits_pac_update"
 alias proxy.test="ssh -v $JPROXY_SRV \"exit\""
+
+# goagent
+alias goagent="kits_goagent"
+
 # 使用代理下载文件
 alias proxy.dl="cd ~/Downloads && curl -O# --socks5 localhost:$JPROXY_SOCKS_PORT"
+alias proxy.dl.ga="cd ~/Downloads && curl -O# --proxy localhost:$KITS_GOAGENT_PORT"
 
 # 家
 alias proxy.home.start="kits_ssh_proxy start $JPROXY_HOME_SOCKS_PORT $JHOME"
@@ -106,6 +110,8 @@ alias kits.backup.quick="kits.backup --no-exact-progress"
 alias pac.gen="kits_pac_gen"
 alias pac.update="kits_pac_update"
 alias pac.effect="kits_pac_effective_immediately"
+alias pac.url.test="kits.url '$(kits_pac_current_url)'"
+alias pac.url.open="open '$(kits_pac_current_url)'"
 
 # 使用`预览`浏览man内容
 alias man.p="kits_man -p"
@@ -127,9 +133,10 @@ alias kits.sync.to.server="rsync -rLptDhv --stats --force --delete --ignore-erro
 alias kits.sync.to.win="rsync -rLthv --stats --force --delete --ignore-errors --progress --exclude=.git/ --exclude-from='$KITS/config/sync-exclude.lst'"
 
 # 网址测试
-alias kits.url="curl -o /dev/null -s -w '\nCode\tConn\tTran\tTotal\tSize\tURL\n%{http_code}\t%{time_connect}\t%{time_starttransfer}\t%{time_total}\t%{size_download}\t%{url_effective}\n\n'"
+# alias kits.url="curl -o /dev/null -s -w '\nCode\tConn\tTran\tTotal\tSize\tURL\n%{http_code}\t%{time_connect}\t%{time_starttransfer}\t%{time_total}\t%{size_download}\t%{url_effective}\n\n'"
+alias kits.url="curl -o /dev/null -s -w 'URL:   %{url_effective}\nCode:  %{http_code}\nConn:  %{time_connect}\nTran:  %{time_starttransfer}\nTotal: %{time_total}\nSize:  %{size_download}\nSpeed: %{speed_download}\n'"
 alias kits.url.nas="kits.url $JURL_NAS"
-alias kits.url.pac="kits.url $JPAC_URL"
+alias kits.url.pac="kits.url \"$(kits_pac_current_url)\""
 
 # 查看IP
 alias kits.ip="curl -s http://ip.3322.net"

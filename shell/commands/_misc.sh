@@ -1,5 +1,5 @@
 # 循环执行命令
-function kits_doforever() {
+kits_doforever() {
     [[ -z "$1" || -z "$2" ]] && echo "ERROR. Usage: <DELAY> <COMMAND>" && return 1
     [[ ! "$1" -gt 0 ]] && echo "ERROR. DELAY must be number and greater than 0." && return 1
     count=0
@@ -19,7 +19,7 @@ function kits_doforever() {
 }
 
 # 使用Preview | more | dash打开man内容
-function kits_man() {
+kits_man() {
     error="ERROR. Usage: kits_man [-p|-m|-d] COMMAND_NAME"
     [[ -z "$2" ]] && echo "$error" && return 1
     case $1 in
@@ -39,12 +39,12 @@ function kits_man() {
 }
 
 # 别名查找
-function kits_alias_find() {
+kits_alias_find() {
    alias | awk -F '=' {'print $1'} | awk {'print $2'} | grep "$1"
 }
 
 # 初始化launchd.plist
-function kits_launchd_init() {
+kits_launchd_init() {
     src=$KITS/config/launchd.plist
     dst=~/Library/LaunchAgents
     plist=net.jeeker.kits.*.plist
@@ -58,7 +58,7 @@ function kits_launchd_init() {
     done
 }
 
-function kits_launchd_load() {
+kits_launchd_load() {
     for i in $(ls ~/Library/LaunchAgents/net.jeeker.kits.*.plist); do
         launchctl unload $i
         launchctl load $i
@@ -66,7 +66,7 @@ function kits_launchd_load() {
 }
 
 # 从钥匙串获取密码 参数 account
-function kits_keychain_password() {
+kits_keychain_password() {
     [[ -z "$1" ]] && return
     password=$(security find-generic-password -ga "$1" 2>&1 >/dev/null | cut -d '"' -f 2)
     echo -n $password

@@ -1,14 +1,19 @@
-#临时文件
+# 临时文件
 *.pyc
+tmp/**
 
-#日志
+# 日志
 *.log
 
-#私有信息
-privacy.*
+# 私有信息
+private/**
 
-#实验脚本
+# 实验脚本
 lib.sh
+
+# goagent 证书
+extra/goagent/CA.crt
+extra/goagent/certs/**
 
 # Windows
 [Dd]esktop.ini

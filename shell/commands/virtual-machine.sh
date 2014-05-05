@@ -1,5 +1,5 @@
 # Parallels Desktop虚拟机的控制
-function kits_virtual_machine() {
+kits_virtual_machine() {
     # VM名是否指定
     [[ -z "$2" ]] && echo "VM name missing." && return 127
     

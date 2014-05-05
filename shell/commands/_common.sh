@@ -1,5 +1,5 @@
 # 获取文件或目录所在的文件夹
-function _kits_get_dirpath() {
+_kits_get_dirpath() {
     file="$1"
     if [[ -z "$file" ]]; then
         echo ""
@@ -13,7 +13,7 @@ function _kits_get_dirpath() {
 # 软链接
 # 如果目标是文件或文件夹 备份
 # 如果目标已经是链接，删除，重新生成链接
-function _kits_symbolic_link() {
+_kits_symbolic_link() {
     if [[ ! -L "$2" ]]; then
         if [[ -f "$2" || -d "$2" ]]; then
             mv "$2" "$2-bak" 
@@ -28,7 +28,7 @@ function _kits_symbolic_link() {
 # 输出颜色文字
 # _kits_color_text TEXT [COLOR]
 # 如: _kits_color_text output_string green
-function _kits_color_text() {
+_kits_color_text() {
     [[ -z "$1" ]] && return
     case "$2" in
         "black" ) color="30m";; # 30:黑
@@ -45,12 +45,12 @@ function _kits_color_text() {
 }
 
 # 输出行内颜色文字
-function _kits_color_text_inline() {
+_kits_color_text_inline() {
     echo -en "$(_kits_color_text "$1" "$2")"
 }
 
 # 清空行
-function _kits_clear_line() {
+_kits_clear_line() {
     [[ ! -z "$COLUMNS" ]] && columns="$COLUMNS" || columns=80
     [[ ! -z "$1" ]] && columns="$1"
     o=$(for ki in $(seq $columns); do echo -n " "; done)
@@ -60,26 +60,35 @@ function _kits_clear_line() {
 # 输出检查结果字符串
 # 使用方法: 判断语句; _kits_check "说明文字"
 # 如: [[ 0 -eq 0 ]]; _kits_check "0=0?"
-function _kits_check() {
+_kits_check() {
     ret=$?
     s=$(for ki in $(seq 40); do echo -n " "; done)
     judge=$([[ $ret -eq 0 ]] && _kits_color_text_inline "✔" green || _kits_color_text_inline "✘" red)
     echo -e "$s$judge\r$1"
 }
 
+# 释放被占用的端口(kill 正在使用端口的进程)
+_kits_free_port() {
+    [[ -z "$1" ]] && return
+    pids=`lsof -i:$1 | grep LISTEN | awk '{print $2}'`
+    for p in $pids; do
+        [[ ! -z "$p" ]] && kill -9 $p
+    done
+}
+
+# 端口是否正在使用中
+_kits_is_port_listen() {
+    [[ -z "$1" ]] && return 1
+    ret=$(lsof -i:$1 | grep -c LISTEN)
+    [[ $ret -gt 0 ]] && return 0 || return 1
+}
+
 # 获取一个未使用的网络端口
 # 使用 port=$(_kits_unused_port)
-function _kits_unused_port() {
+_kits_unused_port() {
     [[ -z "$JPORT_START" ]] && export JPORT_START="55000"
     while true; do
         JPORT_START=$(($JPORT_START+1))
         [[ -z `lsof -i:$JPORT_START` ]] && echo $JPORT_START && return
     done
-}
-
-# 释放被占用的端口(kill 正在使用端口的进程)
-function _kits_free_port() {
-    [[ -z "$1" ]] && return
-    pid=`lsof -i:$1 | grep -m 1 $1 | awk '{print $2}'`
-    [[ ! -z "$pid" ]] && kill -9 $pid
 }

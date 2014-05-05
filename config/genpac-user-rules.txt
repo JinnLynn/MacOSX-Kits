@@ -11,18 +11,28 @@
 @@.etao.com
 @@.tmall.com
 
-! 没有被封，使用代理速度更快
+! -------- 加速 --------
+
 ||godaddy.com
 ||fileom.com
 ||feedly.com
 ||staticflickr.com
+! amazon aws 静态文件
+||awsstatic.com
 
-! 常用
+||cyberduck.io
+
+||googleapis.com
+
+! -------- END --------
+
+! -------- 常用 --------
 ||twitter.com
 ||youtube.com
 ||google.com
 ||wikipedia.org
 ||sourceforge.net
+||googlecode.com
 
 ! stackoverflow CDN
 ||cdn.sstatic.net

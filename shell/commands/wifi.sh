@@ -1,6 +1,6 @@
 # WIFI相关控制
 
-function kits_wifi() {
+kits_wifi() {
     wifins="Wi-Fi"
     # WIFI device name
     wifidn="en1"
