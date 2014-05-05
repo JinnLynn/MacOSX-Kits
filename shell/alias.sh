@@ -61,26 +61,27 @@ alias squid.restart="kits_squid restart"
 alias squid.alive="kits_squid alive"
 
 # 改变路径
-alias to.kits="cd $KITS && pwd"
-alias to.shell="cd $KITS/shell && pwd"
-alias to.desktop="cd ~/Desktop && pwd"
-alias to.scms="cd ~/Developer/SCMs && pwd"
-alias to.dev="cd ~/Developer && pwd"
-alias to.jeeker="cd ~/Developer/Web/Jeeker && pwd"
-alias to.gude="cd ~/Developer/Misc/Gude && pwd"
-alias to.dp="cd /Volumes/ExtraHD/CloudServices/Dropbox && pwd"
+alias to="kits_to"
+alias to.kits="to $KITS"
+alias to.shell="to.kits shell"
+alias to.desktop="to ~/Desktop"
+alias to.dev="to ~/Developer"
+alias to.scms="to.dev SCMs"
+alias to.jeeker="to ~/Developer/Web/Jeeker"
+alias to.gude="to ~/Developer/Misc/Gude"
+alias to.dp="to /Volumes/ExtraHD/CloudServices/Dropbox"
 
 # 前往当前Finder某个窗口所在目录
 alias to.finder="kits_finder_to"
 
 # 在Finder中打开
-alias tof="open ."
-alias tof.kits="open $KITS"
-alias tof.shell="open $KITS/shell"
-alias tof.desktop="open ~/Desktop"
-alias tof.scms="open ~/Developer/SCMs"
-alias tof.dev="open ~/Developer"
-alias tof.jeeker="cd ~/Developer/Web/Jeeker"
+alias tof="kits_tof"
+alias tof.kits="tof $KITS"
+alias tof.shell="tof.kits shell"
+alias tof.desktop="tof ~/Desktop"
+alias tof.dev="tof ~/Developer"
+alias tof.scms="tof.dev ~/Developer/SCMs"
+alias tof.jeeker="tof ~/Developer/Web/Jeeker"
 
 # 家
 # 本地端口转发
