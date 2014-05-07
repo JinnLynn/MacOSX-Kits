@@ -1,0 +1,79 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
+
+# AUTHOR:  JinnLynn http://jeeker.net/
+# LICENSE: The MIT license
+# DATE:    2014-05-06
+
+import sys
+import os
+import socket
+from getopt import getopt
+
+_DEFAULT_TIMEOUT = 1
+
+def check_port(host, start_port, end_port=None, timeout=_DEFAULT_TIMEOUT):
+    if end_port is None:
+        end_port = start_port
+    # 检查包括end_port
+    step = 1 if end_port >= start_port else -1
+    end_port += step
+    
+    for port in range(start_port, end_port, step):
+        try:
+            sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sk.settimeout(timeout)
+            sk.connect((host, port))
+            print('Connection to {} port {} succeeded!'.format(host, port))
+        except Exception, e:
+            print('Connection to {} port {} failed: {}'.format(host, port, e))
+        finally:
+            sk.close()
+
+def usage():
+    name = os.path.basename(__file__)
+    print('check host port connectable.')
+    print('')
+    print('    {} -h'.format(name))
+    print('    {} [-t TIMEOUT] HOST PORT'.format(name))
+    print('')
+    print('    -h          help')
+    print('    -t TIMEOUT  timeout')
+    print('')
+    print('EXAMPLES')
+    print('    {} www.sina.com 80'.format(name))
+    print('    {} www.sina.com 80-100'.format(name))
+    # print()
+    exit()
+
+def safe_to_digit(v, raise_msg=None):
+    if not v:
+        return None
+    if isinstance(v, int):
+        return v
+    try:
+        return int(v)
+    except Exception, e:
+        if raise_msg:
+            raise Exception(raise_msg)
+
+if __name__ == '__main__':
+    try:
+        opts, argv = getopt(sys.argv[1:], 'ht:')
+        timeout = _DEFAULT_TIMEOUT
+        for k, v in opts:
+            if k == '-h':
+                usage()
+            elif k == '-t':
+                timeout = safe_to_digit(v, 'timeout MUST BE digit')
+        if len(argv) < 2:
+            raise Exception('host or port error')
+        host, port = argv[0:2]
+        ports = port.split('-')
+        if len(ports) == 1:
+            ports.append(None)
+        start_port = safe_to_digit(ports[0], 'port MUST BE digit')
+        end_port = safe_to_digit(ports[1], 'port MUST BE digit')
+        check_port(host, start_port, end_port, timeout)
+    except Exception, e:
+        exit('ERROR: {}'.format(e))

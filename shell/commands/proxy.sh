@@ -1,5 +1,7 @@
 
 kits_proxy_alive() {
+    _kits_is_port_connectable $PROXY_REMOTE_SOCKS_HOST $PROXY_REMOTE_SOCKS_PORT
+    _kits_check "SOCKS5[$PROXY_REMOTE_SOCKS_HOST:$PROXY_REMOTE_SOCKS_PORT]"
     kits_goagent alive
     kits_ssh_proxy alive $JPROXY_SOCKS_PORT
     kits_ssh_proxy alive $JPROXY_HOME_SOCKS_PORT

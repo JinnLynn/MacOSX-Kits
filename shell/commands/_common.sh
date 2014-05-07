@@ -83,6 +83,15 @@ _kits_is_port_listen() {
     [[ $ret -gt 0 ]] && return 0 || return 1
 }
 
+# 端口是否可连接 可用于测试远程
+_kits_is_port_connectable() {
+    [[ -z "$1" ]] && return 1
+    [[ -z "$2" ]] && return 1
+    # nc 在某些无法连接的情况下速度很慢
+    # nc -z -w 1 "$1" "$2" >/dev/null 2>&1
+    $KITS/bin/port-check -t 1 "$1" "$2" | grep succeeded >/dev/null 2>&1
+}
+
 # 获取一个未使用的网络端口
 # 使用 port=$(_kits_unused_port)
 _kits_unused_port() {
