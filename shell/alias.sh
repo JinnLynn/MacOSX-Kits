@@ -40,6 +40,14 @@ alias proxy.test="ssh -v $JPROXY_SRV \"exit\""
 # goagent
 alias goagent="kits_goagent"
 
+# 自动代理配置文件
+alias pac.gen="kits_pac_gen"
+alias pac.update="kits_pac_update"
+alias pac.effect="kits_pac_effective_immediately"
+alias pac.url="networksetup -getautoproxyurl Wi-Fi | grep URL | awk '{print \$2}'"
+alias pac.url.test="kits.url \"\$(pac.url)\""
+alias pac.url.open="open \"\$(pac.url)\""
+
 # 使用代理下载文件
 alias proxy.dl="cd ~/Downloads && curl -O# --socks5 localhost:$JPROXY_SOCKS_PORT"
 alias proxy.dl.ga="cd ~/Downloads && curl -O# --proxy localhost:$KITS_GOAGENT_PORT"
@@ -69,7 +77,7 @@ alias to.dev="to ~/Developer"
 alias to.scms="to.dev SCMs"
 alias to.jeeker="to ~/Developer/Web/Jeeker"
 alias to.gude="to ~/Developer/Misc/Gude"
-alias to.dp="to /Volumes/ExtraHD/CloudServices/Dropbox"
+alias to.db="to /Volumes/ExtraHD/CloudServices/Dropbox"
 
 # 前往当前Finder某个窗口所在目录
 alias to.finder="kits_finder_to"
@@ -98,21 +106,9 @@ alias home.nas.off="ssh.cpf 60030"
 alias home.nas.share="ssh.lpf 60040:10.95.27.1:548 && open afp://localhost:60040"
 alias home.nas.share.off="ssh.cpf 60040"
 
-# mldonkey
-alias mld.web="ssh.lpf 60100:127.0.0.1:4080 $JCORP_SRV && open http://localhost:60100"
-alias mld.web.off="ssh.cpf 60100"
-alias mld.files="ssh $JCORP_SRV \"cd /var/lib/mldonkey/incoming/ && df -h . && pwd && ls -AlhR\""
-
 # 备份
 alias kits.backup="$KITS/extra/backup/backup.py"
 alias kits.backup.quick="kits.backup --no-exact-progress"
-
-# 使用gfwlist生成自动代理配置文件
-alias pac.gen="kits_pac_gen"
-alias pac.update="kits_pac_update"
-alias pac.effect="kits_pac_effective_immediately"
-alias pac.url.test="kits.url '$(kits_pac_current_url)'"
-alias pac.url.open="open '$(kits_pac_current_url)'"
 
 # 使用`预览`浏览man内容
 alias man.p="kits_man -p"
@@ -137,7 +133,6 @@ alias kits.sync.to.win="rsync -rLthv --stats --force --delete --ignore-errors --
 # alias kits.url="curl -o /dev/null -s -w '\nCode\tConn\tTran\tTotal\tSize\tURL\n%{http_code}\t%{time_connect}\t%{time_starttransfer}\t%{time_total}\t%{size_download}\t%{url_effective}\n\n'"
 alias kits.url="curl -o /dev/null -s -w 'URL:   %{url_effective}\nCode:  %{http_code}\nConn:  %{time_connect}\nTran:  %{time_starttransfer}\nTotal: %{time_total}\nSize:  %{size_download}\nSpeed: %{speed_download}\n'"
 alias kits.url.nas="kits.url $JURL_NAS"
-alias kits.url.pac="kits.url \"$(kits_pac_current_url)\""
 
 # 查看IP
 alias kits.ip="curl -s http://ip.3322.net"
