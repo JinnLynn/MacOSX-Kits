@@ -13,6 +13,7 @@ config['backup_server'] = os.environ.get('JHOME', '')
 config['backup_user'] = 'root'
 config['backup_dst'] = '/volume1/Backup' 
 config['ssh_key'] = os.environ.get('JKEY', None)
+config['ssh_port'] = os.environ.get('JHOME_SSH_PORT', '')
 
 logger = None
 _exact_progress = True
@@ -61,6 +62,8 @@ def prepare(tasks):
     rm_oldbaks_cmd = ['ssh']
     if config['ssh_key'] is not None:
         rm_oldbaks_cmd.extend(['-i', '"{}"'.format(config['ssh_key'])])
+    if config['ssh_port']:
+        rm_oldbaks_cmd.extend(['-p', config['ssh_port']])
     rm_oldbaks_cmd.append('{}@{}'.format(config['backup_user'], config['backup_server']))
     rm_oldbaks_cmd.append('"{}"'.format('; '.join(rm_oldbaks)))
     rm_oldbaks_cmd = ' '.join(rm_oldbaks_cmd)
@@ -79,8 +82,8 @@ def backup(task):
         kits.stdout('Backup {}'.format(task['name']))
     try:
         task['filter'].extend(config['global_filter'])
-        rsync = kits.rsync.RSync(task['src'], task['dst'], sshkey=config['ssh_key'], backup_dir=task['bak'], 
-            filter_rule=task['filter'], quiet=_quiet)
+        rsync = kits.rsync.RSync(task['src'], task['dst'], sshkey=config['ssh_key'], sshport=config['ssh_port'],
+            backup_dir=task['bak'], filter_rule=task['filter'], quiet=_quiet)
         # print(rsync.toCmd('--stats', '--dry-run'))
         # return
         total, size, elapsed = rsync.run(exact_progress=_exact_progress)

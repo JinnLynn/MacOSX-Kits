@@ -16,7 +16,7 @@ _std_pipe = {
 class RSync(object):
     def __init__(self, source, destination, 
         rsync=_rsync_bin, remote_rsync=_remote_rsync_bin,
-        sshkey=None, backup_dir=None, 
+        sshkey=None, sshport=None, backup_dir=None, 
         filter_rule=None, include=None, exclude=None,
         compress=False, quiet=False):
         self.source = source
@@ -50,8 +50,12 @@ class RSync(object):
                 for ex in exclude:
                     cmd = '--exclude-from' if os.path.isfile(ex) else '--exclude'
                     self.default_cmd.append('{}="{}"'.format(cmd, ex))
-        if sshkey is not None:
-            self.default_cmd.append('--rsh="/usr/bin/ssh -i {}"'.format(sshkey))
+        rsh=['ssh']
+        if sshkey:
+            rsh.extend(['-i', '"{}"'.format(sshkey)])
+        if sshport:
+            rsh.extend(['-p', sshport])
+        self.default_cmd.append('--rsh="{}"'.format(' '.join(rsh)))
 
     def output(self, msg, new_line=False):
         if self.quiet:
