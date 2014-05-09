@@ -13,6 +13,8 @@
         <!-- 每天 -->
         <key>StartInterval</key>
         <integer>86400</integer>
+        <key>AbandonProcessGroup</key>
+        <true/>
         <!-- 调试输出 -->
         <key>StandardOutPath</key>
         <string>/Users/JinnLynn/Library/Logs/net.jeeker.kits/launchd.log</string>

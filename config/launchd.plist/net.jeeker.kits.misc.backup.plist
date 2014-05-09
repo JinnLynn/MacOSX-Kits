@@ -18,6 +18,8 @@
             <key>Minute</key>
             <integer>0</integer>
         </dict>
+        <key>AbandonProcessGroup</key>
+        <true/>
         <!-- 调试输出 -->
         <key>StandardOutPath</key>
         <string>/Users/JinnLynn/Library/Logs/net.jeeker.kits/launchd.log</string>
