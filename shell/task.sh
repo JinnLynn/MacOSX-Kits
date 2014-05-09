@@ -15,13 +15,15 @@ task_load() {
     # 重置ssh
     ssh.reset
     # 启动代理
-    proxy.start
+    proxy start
+    goagent start
 }
 
 task_minutely() {
     # task_kits_date $FUNCNAME
-    # goagent代理检查
-    kits_goagent keep-alive
+    # 代理检查
+    goagent keep-alive
+    proxy keep-alive
 }
 
 task_hourly() {
