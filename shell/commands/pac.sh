@@ -1,6 +1,6 @@
 # 使用GenPAC生成自动代理配置文件
 kits_pac_gen() {
-    genpac --config-from=$KITS/config/genpac-config.ini --proxy="$PAC_PROXY_LOCAL" --output="$KITS_TMP/pac4local.js" --verbose
+    genpac --config-from=$KITS/config/genpac-config.ini --verbose
 }
 
 # 生成pac并更新
@@ -10,7 +10,7 @@ kits_pac_update() {
     # push到gist要求的改变数量
     push_changed=15
     # 生成 个人使用，包括自定义规则的pac文件
-    genpac --config-from=$KITS/config/genpac-config.ini --proxy="$PAC_PROXY_LOCAL" --output="$KITS_TMP/pac4local.js"
+    genpac --config-from=$KITS/config/genpac-config.ini
     # genpac --config-from=$KITS/config/genpac-config.ini --proxy="$PAC_PROXY_LAN"  --output="$KITS_TMP/pac4lan.js"
     # 上传服务器
     for f in $(ls $KITS/tmp/pac*.js); do
@@ -41,7 +41,7 @@ kits_pac_effective_immediately() {
         # 改变timeout 防止短时间内生成的地址都相同
         ((timeout=timeout+1))
         # aliyun oss 私有bucket，每次生成有效期一年 31536000 的地址
-        url=$(osscmd sign oss://$OSS_PRIVATE_BUCKET/pac4local.js --timeout=$timeout 2>/dev/null | grep $OSS_PRIVATE_BUCKET)
+        url=$(osscmd sign oss://$OSS_PRIVATE_BUCKET/pac4jmbp.js --timeout=$timeout 2>/dev/null | grep $OSS_PRIVATE_BUCKET)
         # osscmd 生成的的签名地址对特殊字符进行%xx类似的转义
         # 系统在使用这些地址获取pac时又对字符%再次进行转义
         # 由此造成获取pac时签名错误

@@ -1,10 +1,7 @@
 
 kits_proxy_alive() {
-    _kits_is_port_connectable $PROXY_REMOTE_SOCKS_HOST $PROXY_REMOTE_SOCKS_PORT
-    _kits_check "SOCKS5[$PROXY_REMOTE_SOCKS_HOST:$PROXY_REMOTE_SOCKS_PORT]"
     kits_goagent alive
-    kits_ssh_proxy alive $JPROXY_SOCKS_PORT
-    kits_ssh_proxy alive $JPROXY_HOME_SOCKS_PORT
+    kits_home_socks alive
 }
 
 # 使用autossh 启用SSH动态端口转发（SOCKS代理）
@@ -12,7 +9,7 @@ kits_proxy_alive() {
 #   kits_ssh_proxy [start|restart] SOCKS_PORT [USERNAME@]SSH_SERVER [--global]
 #   kits_ssh_proxy [stop|alive|watch] SOCKS_PORT
 # autossh的监控端口 = SOCKS_PORT + 50000 因此SOCKS_PORT<=9999
-#! autossh还有一个接收端口，不指定默认是监控端口+1 见 man autossh中关于 -M 参数的描述
+#! autossh还有一个echo_port，默认是监控端口+1 见 man autossh中关于 -M 参数的描述
 #! 因此由于接收端口的存在 不能同时打开相邻的动态端口
 #! 如：9526 9527同时进行动态端口转发就不行
 #! 因9526使用59527作为接收端口 而9527亦使用59527做监控端口
@@ -22,6 +19,7 @@ kits_ssh_proxy() {
     port=$([[ -z "$2" ]] && echo $JPROXY_SOCKS_PORT || echo $2)
     [[ ! $port -gt 1024 || $port -gt 9999 ]] 2>/dev/null && echo "SOCKS端口只能是数字且在1025-9999之间" && return 127
     mp=$((50000+$port))
+    ep=$((1+$mp))
     case "$1" in
         "start" | "restart" )
             srv=$([[ -z "$3" ]] && echo $JPROXY_SRV || echo $3)
@@ -32,19 +30,12 @@ kits_ssh_proxy() {
             autossh -M $mp $opt -D $port $srv
             ;;
         "stop" )
-            # 杀死SSH进程
-            for p in `ps aux | grep ssh | grep $mp:127.0.0.1:$mp | awk '{print $2}'`; do 
-                [[ ! -z "$p" ]] && kill -9 $p
-            done
-            # 如果SSH没有成功连接, 前述的进程将不存在，需手动杀死autossh进程
-            for p in `ps aux | grep autossh | grep $mp | awk '{print $2}'`; do 
-                [[ ! -z "$p" ]] && kill -9 $p
-            done
+            _kits_free_port $ep
+            _kits_free_port $port
             ;;
         "alive" )
             # 查找autossh进程
-            _kits_is_port_listen $mp; _kits_check "autossh[$mp]"
-            ret=`lsof -i:$port | grep -c LISTEN`
+            _kits_is_port_listen $ep; _kits_check "autossh[$mp>$ep]"
             _kits_is_port_listen $port; _kits_check "SOCKS5[127.0.0.1:$port]"
             ;;
         "watch" )
@@ -62,24 +53,16 @@ kits_goagent() {
     log_file=$KITS_LOGPATH/goagent.log
     script_file="$KITS/extra/goagent/proxy.py"
 
-    port=$KITS_GOAGENT_PORT
+    port=$PROXY_GOAGENT_PORT
 
     case "$1" in
-        "start" )
-            if [[ -z "$KITS_TASK_RUNNING" ]]; then
-                _kits_is_port_listen $port || nohup python $script_file > $log_file 2>&1 &
-            else
-                # 计划任务中执行时不能放入后台 WHY?
-                _kits_is_port_listen $port || python $script_file > $log_file 2>&1
-            fi
-            ;;
-        "stop" )
-            _kits_free_port $port > /dev/null 2>&1
-            ;;
-        "restart" )
+        "start" | "restart" )
             kits_goagent stop
             sleep 2
-            kits_goagent start
+            nohup python $script_file >$log_file 2>&1 &
+            ;;
+        "stop" )
+            _kits_free_port $port
             ;;
         "alive" )
             _kits_is_port_listen $port
@@ -93,6 +76,34 @@ kits_goagent() {
             ;;
         * )
             echo "ERROR. Usage: <start|stop|restart|alive|keep-alive|log>"
+            ;;
+    esac
+}
+
+# 将Home的socks代理转发到本地
+kits_home_socks() {
+    port=$PROXY_SOCKS_PORT
+    mp=$((50000+$port))
+    ep=$(($mp+1))
+    case "$1" in
+        "start" | "restart" )
+            kits_home_socks stop
+            sleep 2
+            autossh -M $mp -fN -L $port:127.0.0.1:$port -p $JHOME_SSH_PORT $JHOME
+            ;;
+        "stop" )
+            _kits_free_port $ep
+            _kits_free_port $port
+            ;;
+        "alive" )
+            _kits_is_port_listen $ep; _kits_check "autossh[$mp>$ep]"
+            _kits_is_port_listen $port; _kits_check "SOCKS5[127.0.0.1:$port]"
+            ;;
+        "keep-alive" )
+            _kits_is_port_listen $port || kits_home_socks restart
+            ;;
+        * )
+            echo "ERROR, Usage: <start|stop|restart|alive|keep-alive>"
             ;;
     esac
 }

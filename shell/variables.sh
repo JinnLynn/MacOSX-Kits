@@ -21,5 +21,3 @@ export AUTOSSH_LOGFILE="$KITS_LOGPATH/autossh.log"
 [[ ! -f $AUTOSSH_LOGFILE ]] && touch $AUTOSSH_LOGFILE
 # 该参数值越小，能较少长时间无法连接SSH后再次连接的间隔时间
 export AUTOSSH_POLL="30"
-
-export KITS_GOAGENT_PORT="9528"

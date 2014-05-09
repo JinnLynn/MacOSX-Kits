@@ -11,6 +11,9 @@
 @@.etao.com
 @@.tmall.com
 
+! 用于测试当前代理IP
+||ifconfig.me
+
 ! -------- 加速 --------
 
 ||godaddy.com

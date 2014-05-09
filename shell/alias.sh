@@ -14,9 +14,9 @@ alias ssh.rpf="kits_ssh_port_forward remote"
 alias ssh.dpf="kits_ssh_port_forward dynamic"
 alias ssh.cpf="kits_ssh_port_forward close"
 # SSH快速连接
-alias ssh.home="ssh $JHOST"
-alias ssh.home.root="ssh root@$JHOST"
-alias ssh.home.scm="ssh scm@$JHOST"
+alias ssh.home="ssh -p $JHOME_SSH_PORT $JHOME"
+alias ssh.home.root="ssh -p $JHOME_SSH_PORT root@$JHOME"
+alias ssh.home.scm="ssh -p $JHOME_SSH_PORT scm@$JHOME"
 alias ssh.work="ssh jinnlynn@172.16.5.14"
 alias ssh.work.scm="ssh scm@172.16.5.14"
 alias ssh.github="ssh -T git@github.com"
@@ -28,17 +28,16 @@ alias ssh.corp="ssh $JCORP_SRV"
 alias ssh.cp="ssh $JCP_SRV"
 
 # 代理相关
-# SSH服务器kits_ssh_proxy start; 
-alias proxy.start="kits_goagent restart"
-# alias proxy.start.global="kits_ssh_proxy start global;"
-# alias proxy.stop="kits_ssh_proxy stop; kits_goagent stop"
-alias proxy.watch="kits_ssh_proxy watch"
-alias proxy.alive="kits_proxy_alive"
-alias proxy.pac="kits_pac_update"
-alias proxy.test="ssh -v $JPROXY_SRV \"exit\""
-
+# proxy
+alias proxy="kits_home_socks"
+alias proxy.start="kits_home_socks start"
+alias proxy.stop="kits_home_socks stop"
+alias proxy.alive="kits_home_socks alive"
 # goagent
 alias goagent="kits_goagent"
+alias goagent.start="kits_goagent start"
+alias goagent.stop="kits_goagent stop"
+alias goagent.alive="kits_goagent alive"
 
 # 自动代理配置文件
 alias pac.gen="kits_pac_gen"
@@ -49,8 +48,8 @@ alias pac.url.test="kits.url \"\$(pac.url)\""
 alias pac.url.open="open \"\$(pac.url)\""
 
 # 使用代理下载文件
-alias proxy.dl="cd ~/Downloads && curl -O# --socks5 localhost:$JPROXY_SOCKS_PORT"
-alias proxy.dl.ga="cd ~/Downloads && curl -O# --proxy localhost:$KITS_GOAGENT_PORT"
+alias proxy.dl="cd ~/Downloads && curl -O# --socks5 127.0.0.1:$PROXY_SOCKS_PORT"
+alias proxy.dl.ga="cd ~/Downloads && curl -O# --proxy 127.0.0.1:$PROXY_GOAGENT_PORT"
 
 # 家
 alias proxy.home.start="kits_ssh_proxy start $JPROXY_HOME_SOCKS_PORT $JHOME"
@@ -253,11 +252,11 @@ alias scr.cd='screen -dR'
 # SSD状态
 alias status.ssd="$KITS/python/ssd-status.py"
 
-alias alive="proxy.alive; mamp.alive"
+alias alive="kits_proxy_alive; mamp.alive"
 
 # =========================================================
 # NAS
-alias nas.kits.update="kits.sync $NASKITS/ root@$JHOST:/volume1/cellar/kits/"
+alias nas.kits.update="kits.sync -e 'ssh -p $JHOME_SSH_PORT' $NASKITS/ root@$JHOME:/volume1/cellar/kits/"
 alias nas.ip="ssh.home 'curl -s http://ip.3322.net'"
 alias nas.ip.host="dig +short $JHOST"
 

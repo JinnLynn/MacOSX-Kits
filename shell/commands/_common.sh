@@ -1,30 +1,3 @@
-# 获取文件或目录所在的文件夹
-_kits_get_dirpath() {
-    file="$1"
-    if [[ -z "$file" ]]; then
-        echo ""
-    fi
-    if [[ -L $file ]]; then
-        file=$(readlink $file)
-    fi
-    echo $(cd $(dirname $file); pwd)
-}
-
-# 软链接
-# 如果目标是文件或文件夹 备份
-# 如果目标已经是链接，删除，重新生成链接
-_kits_symbolic_link() {
-    if [[ ! -L "$2" ]]; then
-        if [[ -f "$2" || -d "$2" ]]; then
-            mv "$2" "$2-bak" 
-            echo "BACKUP: "$2" -> "$2"-bak"
-        fi
-    elif [[ -L "$2" ]]; then
-        rm -f "$2"
-    fi
-    ln -s "$1" "$2" 
-}
-
 # 输出颜色文字
 # _kits_color_text TEXT [COLOR]
 # 如: _kits_color_text output_string green
@@ -72,7 +45,7 @@ _kits_free_port() {
     [[ -z "$1" ]] && return
     pids=`lsof -i:$1 | grep LISTEN | awk '{print $2}'`
     for p in $pids; do
-        [[ ! -z "$p" ]] && kill -9 $p
+        [[ ! -z "$p" ]] && kill -9 $p >/dev/null 2>&1
     done
 }
 

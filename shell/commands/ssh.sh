@@ -35,27 +35,31 @@ kits_ssh_reset() {
 
 # 端口转发
 # close PORT 关闭端口
-# local PORT:HOST:HOSTPORT [SSH_HOST]
-# remote PORT:HOST:HOSTPORT [SSH_HOST]
+# local PORT:HOST:HOSTPORT [SSH_HOST[:SSH_PORT]]
+# remote PORT:HOST:HOSTPORT [SSH_HOST[:SSH_PORT]]
 # dynamic PORT [SSH_HOST]
-# SSH_HOST可选 默认 $JHOME
+# SSH_HOST可选 默认 $JHOME 
+# SSH_PORT 默认 $JHOME_SSH_PORT 
 kits_ssh_port_forward() {
     [[ -z "$1" || -z "$2" ]] && echo "至少需要两个参数。" && return 1
     port=`echo $2 | awk -F ':' '{print $1}'`
-    ssh_host="$3"
+    ssh_host=$(echo "$3" | awk -F ':' '{print $1}')
+    ssh_port=$(echo "$3" | awk -F ':' '{print $2}')
     [[ -z "$ssh_host" ]] && ssh_host="$JHOME"
+    [[ -z "$ssh_port" ]] && ssh_port="22"
+    [[ $ssh_host == $JHOME ]] && ssh_port="$JHOME_SSH_PORT"
     case "$1" in
         "local" )
             _kits_free_port $port
-            ssh -fN -L $2 $ssh_host
+            ssh -fN -L $2 -p $ssh_port $ssh_host
             ;;
         "remote" )
             _kits_free_port $port
-            ssh -fN -R $2 $ssh_host
+            ssh -fN -R $2 -p $ssh_port $ssh_host
             ;;
         "dynamic" )
             _kits_free_port $port
-            ssh -fN -D $port $ssh_host
+            ssh -fN -D $port -p $ssh_port $ssh_host
             ;;
         "close" )
             _kits_free_port $port
