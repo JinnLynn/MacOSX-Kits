@@ -5,6 +5,32 @@ alias cd-="cd - >/dev/null"
 alias reload!="exec $SHELL" # "[[ -f ~/.bashrc ]] && . ~/.bashrc"
 alias kits.af="kits_alias_find"
 
+# 前往当前Finder某个窗口所在目录
+alias to.finder="kits_finder_to"
+
+# 改变路径
+alias to="kits_to"
+alias to.kits="to $KITS"
+alias to.shell="to.kits shell"
+alias to.desktop="to ~/Desktop"
+alias to.dev="to ~/Developer"
+alias to.scms="to.dev SCMs"
+alias to.jeeker="to ~/Developer/Web/Jeeker"
+alias to.gude="to ~/Developer/Misc/Gude"
+alias to.db="to $DROPBOX_HOME"
+alias to.cc="to $COCOS2DX_HOME"
+
+# 在Finder中打开
+alias tof="kits_tof"
+alias tof.kits="tof $KITS"
+alias tof.shell="tof.kits shell"
+alias tof.desktop="tof ~/Desktop"
+alias tof.dev="tof ~/Developer"
+alias tof.scms="tof.dev ~/Developer/SCMs"
+alias tof.jeeker="tof ~/Developer/Web/Jeeker"
+alias tof.db="to $DROPBOX_HOME"
+alias tof.cc="tof $COCOS2DX_HOME"
+
 # SSH相关
 # SSH秘钥 SOCK等重置
 alias ssh.reset="kits_ssh_reset"
@@ -20,7 +46,7 @@ alias ssh.home.scm="ssh -p $JHOME_SSH_PORT scm@$JHOME"
 alias ssh.work="ssh jinnlynn@172.16.5.14"
 alias ssh.work.scm="ssh scm@172.16.5.14"
 alias ssh.github="ssh -T git@github.com"
-alias ssh.ubuntu="ssh jinnlynn@10.211.55.14"
+alias ssh.ubuntu="ssh jinnlynn@10.211.55.28"
 alias ssh.jeeker="ssh $JJEEKER_SRV"
 alias ssh.rpi="ssh pi@$JRPI"
 alias ssh.corp="ssh $JCORP_SRV"
@@ -66,29 +92,6 @@ alias squid.start="kits_squid start"
 alias squid.stop="kits_squid stop"
 alias squid.restart="kits_squid restart"
 alias squid.alive="kits_squid alive"
-
-# 改变路径
-alias to="kits_to"
-alias to.kits="to $KITS"
-alias to.shell="to.kits shell"
-alias to.desktop="to ~/Desktop"
-alias to.dev="to ~/Developer"
-alias to.scms="to.dev SCMs"
-alias to.jeeker="to ~/Developer/Web/Jeeker"
-alias to.gude="to ~/Developer/Misc/Gude"
-alias to.db="to /Volumes/ExtraHD/CloudServices/Dropbox"
-
-# 前往当前Finder某个窗口所在目录
-alias to.finder="kits_finder_to"
-
-# 在Finder中打开
-alias tof="kits_tof"
-alias tof.kits="tof $KITS"
-alias tof.shell="tof.kits shell"
-alias tof.desktop="tof ~/Desktop"
-alias tof.dev="tof ~/Developer"
-alias tof.scms="tof.dev ~/Developer/SCMs"
-alias tof.jeeker="tof ~/Developer/Web/Jeeker"
 
 # 家
 # 本地端口转发
