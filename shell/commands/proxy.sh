@@ -61,6 +61,11 @@ kits_goagent() {
             sleep 2
             nohup python $script_file >$log_file 2>&1 &
             ;;
+        "start-frontend" )
+            kits_goagent stop
+            sleep 2
+            python $script_file
+            ;;
         "stop" )
             _kits_free_port $port
             ;;

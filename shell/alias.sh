@@ -108,6 +108,14 @@ alias home.nas.off="ssh.cpf 60030"
 alias home.nas.share="ssh.lpf 60040:10.95.27.1:548 && open afp://localhost:60040"
 alias home.nas.share.off="ssh.cpf 60040"
 
+# GIT
+alias git.log="git log --pretty=\"%C(auto)%ci %an %H %s\""
+# 新建版本库 <REPONAME>
+alias git.nr="kits_git_new_repo"
+alias git.nsr="kits_git_new_server_repo"
+
+alias git.scms.pull="kits_pull_all_scms"
+
 # 备份
 alias kits.backup="$KITS/extra/backup/backup.py"
 alias kits.backup.quick="kits.backup --no-exact-progress"
@@ -163,6 +171,15 @@ alias mamp.restart="kits_mamp restart"
 alias mamp.reload="kits_mamp reload"
 alias mamp.alive="kits_mamp alive"
 
+# MEMP控制
+alias memp.start="kits_memp start"
+alias memp.stop="kits_memp stop"
+alias memp.restart="kits_memp restart"
+alias memp.reload="kits_memp reload"
+alias memp.alive="kits_memp alive"
+
+alias alive="kits_proxy_alive; memp.alive"
+
 # 隐藏文件的显示控制
 alias finder.hidden.show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias finder.hidden.hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
@@ -170,13 +187,6 @@ alias finder.hidden.hide="defaults write com.apple.finder AppleShowAllFiles -boo
 # 桌面图标隐藏
 alias desktop.hide="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias desktop.show="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
-# git新建版本库
-# <REPONAME>
-alias git.nr="kits_git_new_repo"
-alias git.nsr="kits_git_new_server_repo"
-
-alias git.scms.pull="kits_pull_all_scms"
 
 # WIFI控制
 # 启用与禁用 <on|off|reset>
@@ -255,8 +265,6 @@ alias scr.cd='screen -dR'
 # SSD状态
 alias status.ssd="$KITS/python/ssd-status.py"
 
-alias alive="kits_proxy_alive; mamp.alive"
-
 # =========================================================
 # NAS
 alias nas.kits.update="kits.sync -e 'ssh -p $JHOME_SSH_PORT' $NASKITS/ root@$JHOME:/volume1/cellar/kits/"
@@ -268,6 +276,10 @@ alias nas.ds="$KITS/python/ds"
 alias nas.ds.create="nas.ds create"
 alias nas.ds.emule="nas.ds emule"
 alias nas.ds.clean="nas.ds clean"
+
+# =========================================================
+# VM Ubuntu Server
+alias vmus.kits.update="kits.sync -e 'ssh' $VMUS_KITS/ $VMUS_SRV:/data/kits/"
 
 
 # =========================================================
