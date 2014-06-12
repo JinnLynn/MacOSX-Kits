@@ -3,9 +3,6 @@
 #! 这里不能用相对路径
 #! KITS 将在~/.kits_path中 如果不存在该文件运行setup即可生成
 
-export NASKITS="$HOME/Developer/Misc/NAS-Kits"
-export RPIKITS="$HOME/Developer/Misc/RPi-Kits"
-
 # export PATH="$KITS/bin:$PATH"
 export PATH="$KITS/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 
