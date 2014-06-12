@@ -1,13 +1,13 @@
 # MacOSX-Kits
 
-个人在OSX终端下的配置或小工具，可能是Shell Script、AppleScript、Python等。
+个人在OS X终端下的配置或小工具。
 
 ## USAGE
 
 #### Installation
 
 ```
-git clone git://github.com/JinnLynn/MacOSX-Kits.git ~/.kits && cd ~/.kits && git submodule update --init && ./setup
+git clone --recursive https://github.com/JinnLynn/MacOSX-Kits.git && cd MacOSX-Kits && ./setup
 ```
 
 #### Update
