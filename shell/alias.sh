@@ -289,10 +289,6 @@ alias rpi.vnc="open vnc://$JRPI"
 
 
 # ========================================================
-# corp server
-alias corp.update="kits.sync.to.server --exclude=_dev/ $JCORP_DATA $JCORP_SRV:/data/"
-
-# ========================================================
 # jeeker server
 alias jeeker.update="kits.sync.to.server ~/Developer/Web/server.jeeker/ $JJEEKER_SRV:/data/"
 

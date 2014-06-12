@@ -28,20 +28,27 @@ shopt -s expand_aliases
 export CLICOLOR=1
 
 # autojump
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+[[ -s $(brew --prefix)/etc/autojump.sh ]] && . $(brew --prefix)/etc/autojump.sh
 
 # virtualenvwrapper
-[[ ! -z "$(which virtualenvwrapper_lazy.sh)" ]] && 
-    . "$(which virtualenvwrapper_lazy.sh)"
+[[ -n "$(which virtualenvwrapper_lazy.sh)" ]] && . "$(which virtualenvwrapper_lazy.sh)"
 
 # 载入环境变量
 [[ -f $KITS/shell/variables.sh ]] && . $KITS/shell/variables.sh
 
 # 载入私有环境变量
-[[ -f $KITS/private/shell.sh ]] && . $KITS/private/shell.sh 
+[[ -f $KITS/private/shell-variables.sh ]] && . $KITS/private/shell-variables.sh 
 
 # 加载commands下所有sh文件
-for _f in `ls $KITS/shell/commands/*.sh`; do . $_f; done 
+for _f in $(ls $KITS/shell/commands/*.sh 2>/dev/null); do . $_f; done 
 
 # 载入别名
 [[ -f $KITS/shell/alias.sh ]] && . $KITS/shell/alias.sh
+
+# 载入私有命令
+for _f in $(ls $KITS/private/shell-commands/*.sh 2>/dev/null); do . $_f; done 
+
+# 载入私有别名
+[[ -f $KITS/private/shell-alias.sh ]] && . $KITS/private/shell-alias.sh 
+
+unset _f
