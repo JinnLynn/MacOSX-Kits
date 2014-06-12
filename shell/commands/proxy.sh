@@ -50,7 +50,7 @@ kits_ssh_proxy() {
 
 # GoAgent控制
 kits_goagent() {
-    log_file=$KITS_LOGPATH/goagent.log
+    log_file=$KITS_LOG/goagent.log
     script_file="$KITS/extra/goagent/proxy.py"
 
     port=$PROXY_GOAGENT_PORT

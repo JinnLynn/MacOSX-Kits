@@ -71,7 +71,7 @@ kits_php-fpm() {
     _kits_is_cmd_missing php-fpm && echo "php-fpm missing." && return 1
     local fpm_config="/usr/local/etc/php/5.5/php-fpm.conf"
     local pid_file="/usr/local/var/run/php-fpm.pid"
-    local log_file="$KITS_LOGPATH/php-fpm.log"
+    local log_file="$KITS_LOG/php-fpm.log"
     case "$1" in
         "start" | "restart" | "reload" )
             _kits_is_process_exists "$pid_file" && kits_php-fpm stop

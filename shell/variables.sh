@@ -1,6 +1,6 @@
 # 默认的日志输出目录
-export KITS_LOGPATH="$HOME/Library/Logs/net.jeeker.kits"
-[[ ! -d $KITS_LOGPATH ]] && mkdir -p $KITS_LOGPATH && chmod -R 777 $KITS_LOGPATH
+export KITS_LOG="$HOME/Library/Logs/net.jeeker.kits"
+[[ ! -d $KITS_LOG ]] && mkdir -p $KITS_LOG && chmod -R 777 $KITS_LOG
 
 # 默认临时目录
 export KITS_TMP="$KITS/tmp" 
@@ -23,7 +23,7 @@ export PIP_RESPECT_VIRTUALENV=true
 
 # autossh
 export AUTOSSH_LOGLEVEL="7"
-export AUTOSSH_LOGFILE="$KITS_LOGPATH/autossh.log"
+export AUTOSSH_LOGFILE="$KITS_LOG/autossh.log"
 [[ ! -f $AUTOSSH_LOGFILE ]] && touch $AUTOSSH_LOGFILE
 # 该参数值越小，能较少长时间无法连接SSH后再次连接的间隔时间
 export AUTOSSH_POLL="30"
