@@ -3,6 +3,10 @@
 
 export KITS_TASK_RUNNING="running"
 
+# kits_task_mv_dropbox() {
+#     filter=""
+# }
+
 # 日期输出
 task_kits_date() {
     d=$(date "+%Y-%m-%d %H:%M:%S,000")
@@ -15,8 +19,8 @@ task_load() {
     # 重置ssh
     ssh.reset
     # 启动代理
-    proxy start
-    goagent start
+    proxy keep-alive
+    goagent keep-alive
 }
 
 task_minutely() {
@@ -29,7 +33,7 @@ task_minutely() {
 task_hourly() {
     task_kits_date $FUNCNAME
     # PAC更新
-    kits_pac_update
+    # kits_pac_update
 }
 
 task_daily() {
