@@ -2,8 +2,8 @@
 kits_doforever() {
     [[ -z "$1" || -z "$2" ]] && echo "ERROR. Usage: <DELAY> <COMMAND>" && return 1
     [[ ! "$1" -gt 0 ]] && echo "ERROR. DELAY must be number and greater than 0." && return 1
-    count=0
-    delay=$1
+    local count=0
+    local delay=$1
     while true; do
         count=$(($count+1))
         _kits_color_text "--- Run Count: $count ---" blue
@@ -20,7 +20,7 @@ kits_doforever() {
 
 # 使用Preview | more | dash打开man内容
 kits_man() {
-    error="ERROR. Usage: kits_man [-p|-m|-d] COMMAND_NAME"
+    local error="ERROR. Usage: kits_man [-p|-m|-d] COMMAND_NAME"
     [[ -z "$2" ]] && echo "$error" && return 1
     case $1 in
         "-p" )
@@ -45,9 +45,9 @@ kits_alias_find() {
 
 # 初始化launchd.plist
 kits_launchd_init() {
-    src=$KITS/config/launchd.plist
-    dst=~/Library/LaunchAgents
-    plist=net.jeeker.kits.*.plist
+    local src=$KITS/config/launchd.plist
+    local dst=~/Library/LaunchAgents
+    local plist=net.jeeker.kits.*.plist
     for i in $(ls $dst/$plist); do
         launchctl unload $i
     done
@@ -68,6 +68,6 @@ kits_launchd_load() {
 # 从钥匙串获取密码 参数 account
 kits_keychain_password() {
     [[ -z "$1" ]] && return
-    password=$(security find-generic-password -ga "$1" 2>&1 >/dev/null | cut -d '"' -f 2)
+    local password=$(security find-generic-password -ga "$1" 2>&1 >/dev/null | cut -d '"' -f 2)
     echo -n $password
 }

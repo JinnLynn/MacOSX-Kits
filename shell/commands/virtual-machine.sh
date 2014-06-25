@@ -10,14 +10,14 @@ kits_virtual_machine() {
     case "$1" in
         "start" )
             # Parallels Desktop是否已在运行
-            ret=$(ps aux | grep prl_client_app | grep -c "Parallels Desktop")
+            local ret=$(ps aux | grep prl_client_app | grep -c "Parallels Desktop")
             [[ $ret -eq 0 ]] && open -a "Parallels Desktop"
             # VM是否已运行
-            ret=$(prlctl status "$2" | grep -c "running") 
+            local ret=$(prlctl status "$2" | grep -c "running") 
             [[ $ret -eq 0 ]] && prlctl start "$2" || echo "VM $2 is already running."
             ;;
         "stop" )
-            ret=$(prlctl status "$2" | grep -c "stopped")
+            local ret=$(prlctl status "$2" | grep -c "stopped")
             [[ $ret -eq 0 ]] && prlctl stop "$2" || echo "VM $2 is already stopped."
             ;;
         * )

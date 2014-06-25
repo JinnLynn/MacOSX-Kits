@@ -9,6 +9,7 @@ kits_ssh_reset() {
     rm -rf ~/.ssh/known_hosts
     echo "清除可能存在的无用SSH_AUTH_SOCK..."
     echo "当前SSH_AUTH_SOCK值: $SSH_AUTH_SOCK"
+    local i
     for i in $(ls /tmp/launch-*/Listeners); do
         if [[ "$i" != "$SSH_AUTH_SOCK" ]]; then
             rm -rf $(dirname $i)
@@ -42,9 +43,9 @@ kits_ssh_reset() {
 # SSH_PORT 默认 $JHOME_SSH_PORT 
 kits_ssh_port_forward() {
     [[ -z "$1" || -z "$2" ]] && echo "至少需要两个参数。" && return 1
-    port=`echo $2 | awk -F ':' '{print $1}'`
-    ssh_host=$(echo "$3" | awk -F ':' '{print $1}')
-    ssh_port=$(echo "$3" | awk -F ':' '{print $2}')
+    local port=`echo $2 | awk -F ':' '{print $1}'`
+    local ssh_host=$(echo "$3" | awk -F ':' '{print $1}')
+    local ssh_port=$(echo "$3" | awk -F ':' '{print $2}')
     [[ -z "$ssh_host" ]] && ssh_host="$JHOME"
     [[ -z "$ssh_port" ]] && ssh_port="22"
     [[ $ssh_host == $JHOME ]] && ssh_port="$JHOME_SSH_PORT"

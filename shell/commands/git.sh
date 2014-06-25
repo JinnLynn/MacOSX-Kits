@@ -28,7 +28,7 @@ kits_git_new_repo() {
 kits_git_new_server_repo() {
     [[ -z "$1" ]] && echo "ERROR. USAGE: <reponame>" && return
     # 确保是以.git结尾
-    reponame=$1
+    local reponame=$1
     if [ ! -z "${reponame##*\.git}" ]; then
         reponame="$reponame.git"
     fi

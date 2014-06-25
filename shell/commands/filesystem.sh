@@ -33,15 +33,15 @@ kits_finder_to()
     # 直接执行下面的代码获取的窗口不一定是当前的Finder(在AppleScript editor中是可以的，WHY？)
     # path=$(osascript -e 'tell application "Finder" to get POSIX path of (target of front window as alias)')
     ##
-    win_num=1
-    win_count=$(osascript -e 'tell application "Finder" to get count of window')
+    local win_num=1
+    local win_count=$(osascript -e 'tell application "Finder" to get count of window')
     if [[ $win_count -eq 0 ]]; then
         echo "ERROR. NO Finder window found."
         return
     elif [[ $win_count -eq 1 ]]; then
         win_num=1
     else
-        count=1
+        local count=1
         while [[ $count -le $win_count ]]; do
             cmd=$(echo -n "tell application \"Finder\" to get POSIX path of (folder of window $count as alias)")
             echo "$count. $(osascript -e "$cmd")"
@@ -56,7 +56,7 @@ kits_finder_to()
             return
         fi
     fi
-    cmd=$(echo -n "tell application \"Finder\" to get POSIX path of (folder of window $win_num as alias)")
+    local cmd=$(echo -n "tell application \"Finder\" to get POSIX path of (folder of window $win_num as alias)")
     cd "$(osascript -e "$cmd")"
     echo "go to $(pwd)"
 }

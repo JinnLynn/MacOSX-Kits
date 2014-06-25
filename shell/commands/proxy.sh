@@ -21,16 +21,16 @@ kits_proxy_test() {
 kits_ssh_proxy() {
     [[ -z $(which autossh) ]] && echo "ERROR: autossh missing." && return 127
     [[ $# -lt 1 ]] && echo "ERROR: arguments missing." && return 127
-    port=$([[ -z "$2" ]] && echo $JPROXY_SOCKS_PORT || echo $2)
+    local port=$([[ -z "$2" ]] && echo $JPROXY_SOCKS_PORT || echo $2)
     [[ ! $port -gt 1024 || $port -gt 9999 ]] 2>/dev/null && echo "SOCKS端口只能是数字且在1025-9999之间" && return 127
-    mp=$((50000+$port))
-    ep=$((1+$mp))
+    local mp=$((50000+$port))
+    local ep=$((1+$mp))
     case "$1" in
         "start" | "restart" )
-            srv=$([[ -z "$3" ]] && echo $JPROXY_SRV || echo $3)
+            local srv=$([[ -z "$3" ]] && echo $JPROXY_SRV || echo $3)
             kits_ssh_proxy stop $port
             _kits_free_port $mp
-            opt="-fN"
+            local opt="-fN"
             [[ "$4" == "--global" ]] && opt="$opt -g"
             autossh -M $mp $opt -D $port $srv
             ;;
@@ -59,10 +59,10 @@ kits_ssh_proxy() {
 
 # GoAgent控制
 kits_goagent() {
-    log_file=$KITS_LOG/goagent.log
-    script_file="$KITS/extra/goagent/proxy.py"
+    local log_file=$KITS_LOG/goagent.log
+    local script_file="$KITS/extra/goagent/proxy.py"
 
-    port=$PROXY_GOAGENT_PORT
+    local port=$PROXY_GOAGENT_PORT
 
     case "$1" in
         "start" | "restart" )
@@ -101,9 +101,9 @@ kits_goagent() {
 
 # 将Home的socks代理转发到本地
 kits_home_socks() {
-    port=$PROXY_SOCKS_PORT
-    mp=$((50000+$port))
-    ep=$(($mp+1))
+    local port=$PROXY_SOCKS_PORT
+    local mp=$((50000+$port))
+    local ep=$(($mp+1))
     case "$1" in
         "start" | "restart" )
             kits_home_socks stop
@@ -133,8 +133,8 @@ kits_home_socks() {
 
 # privoxy
 kits_privoxy() {
-    cfg=$KITS/config/privoxy
-    port=$(cat $cfg | grep listen-address | awk -F ":" '{print $2}')
+    local cfg=$KITS/config/privoxy
+    local port=$(cat $cfg | grep listen-address | awk -F ":" '{print $2}')
     [[ -z "$port" ]] && echo "Port missing." && return 1
     case "$1" in
         "start" | "restart" )
@@ -163,9 +163,9 @@ kits_privoxy() {
 
 # squid相关控制
 kits_squid() {
-    pid=$(ps ax | grep "squid" | awk '{print $1, $5}' | grep "(squid)" | awk '{print $1}')
+    local pid=$(ps ax | grep "squid" | awk '{print $1, $5}' | grep "(squid)" | awk '{print $1}')
     # 基于SquidMan生成的配置文件
-    conf=~/Library/Preferences/squid.conf
+    local conf=~/Library/Preferences/squid.conf
 
     case "$1" in
         "start" | "restart" )

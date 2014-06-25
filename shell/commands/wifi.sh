@@ -1,9 +1,9 @@
 # WIFI相关控制
 
 kits_wifi() {
-    wifins="Wi-Fi"
+    local wifins="Wi-Fi"
     # WIFI device name
-    wifidn="en1"
+    local wifidn="en1"
     case "$1" in
         # WIFI的电源控制
         "power" )
@@ -23,7 +23,7 @@ kits_wifi() {
         ;;
         # 地点配置
         "location"|"loc" )
-            loc=$2
+            local loc=$2
             if [[ "$loc" = 'auto' || "$loc" = '' ]]; then loc="Automatic"; fi
             scselect "$loc" >/dev/null
         ;;

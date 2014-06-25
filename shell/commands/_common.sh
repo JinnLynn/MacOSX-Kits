@@ -3,6 +3,7 @@
 # 如: _kits_color_text output_string green
 _kits_color_text() {
     [[ -z "$1" ]] && return
+    local color="39m"
     case "$2" in
         "black" ) color="30m";; # 30:黑
         "red" ) color="31m";; # 31:红
@@ -24,9 +25,10 @@ _kits_color_text_inline() {
 
 # 清空行
 _kits_clear_line() {
+    local columns
     [[ ! -z "$COLUMNS" ]] && columns="$COLUMNS" || columns=80
     [[ ! -z "$1" ]] && columns="$1"
-    o=$(for ki in $(seq $columns); do echo -n " "; done)
+    local o=$(for ki in $(seq $columns); do echo -n " "; done)
     echo -en "\r$o\r"
 }
 
@@ -34,16 +36,17 @@ _kits_clear_line() {
 # 使用方法: 判断语句; _kits_check "说明文字"
 # 如: [[ 0 -eq 0 ]]; _kits_check "0=0?"
 _kits_check() {
-    ret=$?
-    s=$(for ki in $(seq 40); do echo -n " "; done)
-    judge=$([[ $ret -eq 0 ]] && _kits_color_text_inline "✔" green || _kits_color_text_inline "✘" red)
+    local ret=$?
+    local s=$(for ki in $(seq 40); do echo -n " "; done)
+    local judge=$([[ $ret -eq 0 ]] && _kits_color_text_inline "✔" green || _kits_color_text_inline "✘" red)
     echo -e "$s$judge\r$1"
 }
 
 # 释放被占用的端口(kill 正在使用端口的进程)
 _kits_free_port() {
     [[ -z "$1" ]] && return
-    pids=`lsof -i:$1 | grep LISTEN | awk '{print $2}'`
+    local pids=`lsof -i:$1 | grep LISTEN | awk '{print $2}'`
+    local p
     for p in $pids; do
         [[ ! -z "$p" ]] && kill -9 $p >/dev/null 2>&1
     done
@@ -52,7 +55,7 @@ _kits_free_port() {
 # 端口是否正在使用中
 _kits_is_port_listen() {
     [[ -z "$1" ]] && return 1
-    ret=$(lsof -i:$1 | grep -c LISTEN)
+    local ret=$(lsof -i:$1 | grep -c LISTEN)
     [[ $ret -gt 0 ]] && return 0 || return 1
 }
 

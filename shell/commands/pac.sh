@@ -6,9 +6,9 @@ kits_pac_gen() {
 # 生成pac并更新
 kits_pac_update() {
     # pac已经硬链接到gist 和 服务器目录
-    gist_repo=/Users/JinnLynn/Developer/Misc/Gist/5001700
+    local gist_repo=/Users/JinnLynn/Developer/Misc/Gist/5001700
     # push到gist要求的改变数量
-    push_changed=15
+    local push_changed=15
     # 生成 个人使用，包括自定义规则的pac文件
     genpac --config-from=$KITS/config/genpac-config.ini
     # genpac --config-from=$KITS/config/genpac-config.ini --proxy="$PAC_PROXY_LAN"  --output="$KITS_TMP/pac4lan.js"
@@ -20,8 +20,8 @@ kits_pac_update() {
     genpac --config-from=$KITS/config/genpac-config.ini --output=$gist_repo/pac.js --user-rule-from=''
     pushd $gist_repo > /dev/null
     # git diff  pac.js
-    added=$(git diff --numstat pac.js | awk '{print $1}')
-    deleted=$(git diff --numstat pac.js | awk '{print $2}')
+    local added=$(git diff --numstat pac.js | awk '{print $1}')
+    local deleted=$(git diff --numstat pac.js | awk '{print $2}')
     echo "added: $added deleted: $deleted"
     ((changed=$added+$deleted))
     # 当改变达到一定数量时自动push到gist
