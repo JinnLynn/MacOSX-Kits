@@ -205,6 +205,10 @@ alias wifi.ip="kits_wifi ip"
 
 alias notify="$KITS/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier"
 
+# Python
+# 临时运行在系统级别上使用pip
+alias pip.sys="kits_python_pip_system"
+
 # Gude
 alias gd.env="pve.on gude"
 alias gd.install="gd.env && python setup.py install && cd -"
