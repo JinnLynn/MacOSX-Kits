@@ -1,7 +1,12 @@
 
 kits_proxy_alive() {
-    kits_goagent alive
     kits_home_socks alive
+    kits_goagent alive
+}
+
+kits_proxy_test() {
+    kits_home_socks test
+    kits_goagent test 
 }
 
 # 使用autossh 启用SSH动态端口转发（SOCKS代理）
@@ -36,14 +41,18 @@ kits_ssh_proxy() {
         "alive" )
             # 查找autossh进程
             _kits_is_port_listen $ep; _kits_check "autossh[$mp>$ep]"
-            _kits_is_port_listen $port; _kits_check "SOCKS5[127.0.0.1:$port]"
+            _kits_is_port_listen $port; _kits_check "SOCKS5[$port]"
             ;;
         "watch" )
             # watch -n 1 "lsof -i:$JPROXY_SOCKS_PORT"
             python $KITS/python/port-traffic-monitor.py $port
             ;;
+        "test" )
+            curl -sI -m 1 --socks5 "127.0.0.1:$port" http://www.baidu.com > /dev/null
+            _kits_check "SOCKS5[$port]"
+            ;;
         * )
-            echo "ERROR. Usage: <start|stop|restart|watch|alive>"
+            echo "ERROR. Usage: <start|stop|restart|watch|alive|test>"
             ;;
     esac
 }
@@ -71,7 +80,7 @@ kits_goagent() {
             ;;
         "alive" )
             _kits_is_port_listen $port
-            _kits_check "GoAgent[127.0.0.1:$port]"
+            _kits_check "GoAgent[$port]"
             ;;
         "keep-alive" )
             _kits_is_port_listen $port || kits_goagent restart
@@ -79,8 +88,13 @@ kits_goagent() {
         "log" )
             tail -f $log_file
             ;;
+        "test" )
+            # goagent 连接可能需要较长时间 不宜设置max-time
+            curl -sI --proxy "127.0.0.1:$port" http://www.baidu.com > /dev/null
+            _kits_check "GoAgent[$port]"
+            ;;
         * )
-            echo "ERROR. Usage: <start|stop|restart|alive|keep-alive|log>"
+            echo "ERROR. Usage: <start|stop|restart|alive|keep-alive|log|test>"
             ;;
     esac
 }
@@ -94,7 +108,7 @@ kits_home_socks() {
         "start" | "restart" )
             kits_home_socks stop
             sleep 2
-            autossh -M $mp -fN -L $port:127.0.0.1:$port -p $JHOME_SSH_PORT $JHOME
+            autossh -M $mp -fNg -L $port:127.0.0.1:$port -p $JHOME_SSH_PORT $JHOME
             ;;
         "stop" )
             _kits_free_port $ep
@@ -102,13 +116,17 @@ kits_home_socks() {
             ;;
         "alive" )
             _kits_is_port_listen $ep; _kits_check "autossh[$mp>$ep]"
-            _kits_is_port_listen $port; _kits_check "SOCKS5[127.0.0.1:$port]"
+            _kits_is_port_listen $port; _kits_check "SOCKS5[$port]"
             ;;
         "keep-alive" )
             _kits_is_port_listen $port || kits_home_socks restart
             ;;
+        "test" )
+            curl -sI -m 1 --socks5 "127.0.0.1:$port" http://www.baidu.com > /dev/null
+            _kits_check "SOCKS5[$port]"
+            ;;
         * )
-            echo "ERROR, Usage: <start|stop|restart|alive|keep-alive>"
+            echo "ERROR, Usage: <start|stop|restart|alive|keep-alive|test>"
             ;;
     esac
 }
@@ -116,6 +134,8 @@ kits_home_socks() {
 # privoxy
 kits_privoxy() {
     cfg=$KITS/config/privoxy
+    port=$(cat $cfg | grep listen-address | awk -F ":" '{print $2}')
+    [[ -z "$port" ]] && echo "Port missing." && return 1
     case "$1" in
         "start" | "restart" )
             kits_privoxy stop
@@ -123,14 +143,20 @@ kits_privoxy() {
             privoxy $cfg
             ;;
         "stop" )
-            for p in  `ps aux | grep "privoxy" | grep -v "grep" | awk '{print $2}'`; do
-                [[ ! -z "$p" ]] && kill -9 $p
-            done
+            _kits_free_port $port
             ;;
         "alive" )
-            listen=`cat $cfg | grep "listen-address" | awk '{print $2}'`
-            ret=`ps aux | grep -v "grep" | grep -c "privoxy"`
-            [[ $ret -gt 0 ]]; _kits_check "privoxy[$listen]"
+            _kits_is_port_listen $port; _kits_check "privoxy[$port]"
+            ;;
+        "keep-alive" )
+            _kits_is_port_listen $port || kits_privoxy restart
+            ;;
+        "test" )
+            curl -sI -m 1 --proxy "127.0.0.1:$port" http://www.baidu.com > /dev/null
+            _kits_check "privoxy[$port]"
+            ;;
+        * )
+            echo "ERROR, Usage: <start|stop|restart|alive|keep-alive|test>"
             ;;
     esac
 }

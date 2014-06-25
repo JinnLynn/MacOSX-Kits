@@ -1,5 +1,6 @@
 alias ll="ls -lGh"
 alias la="ls -lAGh"
+alias grep="grep --color=auto"
 alias cd-="cd - >/dev/null"
 
 alias reload!="exec $SHELL" # "[[ -f ~/.bashrc ]] && . ~/.bashrc"
@@ -55,15 +56,13 @@ alias ssh.cp="ssh $JCP_SRV"
 
 # 代理相关
 # proxy
-alias proxy="kits_home_socks"
-alias proxy.start="kits_home_socks start"
-alias proxy.stop="kits_home_socks stop"
-alias proxy.alive="kits_home_socks alive"
+alias proxy.start="kits_home_socks start; kits_goagent start"
+alias proxy.stop="kits_home_socks stop; kits_goagent stop"
+alias proxy.alive="kits_home_socks alive; kits_goagent alive"
+alias proxy.test="kits_home_socks test; kits_goagent test"
+alias proxy.keep-alive="kits_home_socks keep-alive; kits_goagent keep-alive"
 # goagent
-alias goagent="kits_goagent"
-alias goagent.start="kits_goagent start"
-alias goagent.stop="kits_goagent stop"
-alias goagent.alive="kits_goagent alive"
+alias goa.log="kits_goagent log"
 
 # 自动代理配置文件
 alias pac.gen="kits_pac_gen"

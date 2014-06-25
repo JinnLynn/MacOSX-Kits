@@ -26,8 +26,8 @@ task_load() {
 task_minutely() {
     # task_kits_date $FUNCNAME
     # 代理检查
-    goagent keep-alive
-    proxy keep-alive
+    proxy.keep-alive
+    proxy.test
 }
 
 task_hourly() {
