@@ -42,6 +42,12 @@ _kits_check() {
     echo -e "$s$judge\r$1"
 }
 
+_kits_check_prefix() {
+    local ret=$?
+    local judge=$([[ $ret -eq 0 ]] && _kits_color_text_inline "✔" green || _kits_color_text_inline "✘" red)
+    echo -e "$judge  $1"
+}
+
 # 释放被占用的端口(kill 正在使用端口的进程)
 _kits_free_port() {
     [[ -z "$1" ]] && return
