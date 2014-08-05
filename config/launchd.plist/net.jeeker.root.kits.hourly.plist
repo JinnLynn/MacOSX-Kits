@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>net.jeeker.root.kits.hourly</string>
+        <key>ProgramArguments</key>
+        <array>
+            <string>/bin/bash</string>
+            <string>-c</string>
+            <string>. /Users/JinnLynn/.kits_task; task_root_hourly</string>
+        </array>
+        <!-- 每小时 -->
+        <key>StartInterval</key>
+        <integer>3600</integer>
+        <key>AbandonProcessGroup</key>
+        <true/>
+        <!-- 调试输出 -->
+        <key>StandardOutPath</key>
+        <string>/Users/JinnLynn/Library/Logs/net.jeeker.kits/launchd.log</string>
+        <key>StandardErrorPath</key>
+        <string>/Users/JinnLynn/Library/Logs/net.jeeker.kits/launchd.log</string>
+        <key>Debug</key>
+        <true/>
+    </dict>
+</plist>

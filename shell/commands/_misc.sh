@@ -43,28 +43,6 @@ kits_alias_find() {
    alias | awk -F '=' {'print $1'} | awk {'print $2'} | grep "$1"
 }
 
-# 初始化launchd.plist
-kits_launchd_init() {
-    local src=$KITS/config/launchd.plist
-    local dst=~/Library/LaunchAgents
-    local plist=net.jeeker.kits.*.plist
-    for i in $(ls $dst/$plist); do
-        launchctl unload $i
-    done
-    rm -rf $dst/$plist
-    cp $src/$plist $dst
-    for i in $(ls $dst/$plist); do
-        launchctl load $i
-    done
-}
-
-kits_launchd_load() {
-    for i in $(ls ~/Library/LaunchAgents/net.jeeker.kits.*.plist); do
-        launchctl unload $i
-        launchctl load $i
-    done
-}
-
 # 从钥匙串获取密码 参数 account
 kits_keychain_password() {
     [[ -z "$1" ]] && return

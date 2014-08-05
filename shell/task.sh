@@ -19,15 +19,13 @@ task_load() {
     # 重置ssh
     ssh.reset
     # 启动代理
-    proxy keep-alive
-    goagent keep-alive
+    proxy.keep-alive
 }
 
 task_minutely() {
     # task_kits_date $FUNCNAME
     # 代理检查
     proxy.keep-alive
-    proxy.test
 }
 
 task_hourly() {
@@ -40,6 +38,11 @@ task_daily() {
     task_kits_date $FUNCNAME
     # brew
     brew update
+}
+
+task_root_hourly() {
+    task_kits_date $FUNCNAME
+    pkill -9 "Little Snitch Daemon"
 }
 
 # 其它
