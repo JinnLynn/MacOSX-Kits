@@ -4,7 +4,7 @@ alias grep="grep --color=auto"
 alias cd-="cd - >/dev/null"
 
 alias reload!="exec $SHELL" # "[[ -f ~/.bashrc ]] && . ~/.bashrc"
-alias kits.af="kits_alias_find"
+alias af="alias | awk '{print substr(\$0,index(\$0, \" \")+1,length())}' | grep"
 
 # 前往当前Finder某个窗口所在目录
 alias to.finder="kits_finder_to"
