@@ -10,6 +10,9 @@ export PATH="$KITS/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/s
 # export PS1="\u@\h: \W\$ "
 export PS1="\u@\h$([[ ! -z "$STY" ]] && echo "[$STY]"): \W\$ "
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # 历史记录控制
 # erasedups = 不重复记录相同的命令
 # ignoredups = 不重复记录连续的相同命令
