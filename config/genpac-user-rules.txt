@@ -1,54 +1,60 @@
 ! genpac 自定义的规则
 
-@@.sina.com
-@@.163.com
-@@.youku.com
-@@.qq.com
-@@.sohu.com
-@@.yyets.com
-@@.weibo.com
-@@.taobao.com
-@@.etao.com
-@@.tmall.com
+! -------- 忽略 --------
+@@||sina.com
+@@||163.com
+@@||baidu.com
+@@||youku.com
+@@||qq.com
+@@||sohu.com
+@@||yyets.com
+@@||weibo.com
+@@||taobao.com
+@@||etao.com
+@@||tmall.com
+@@||alipay.com
+@@||afvisual.com
 
 ! 用于测试当前代理IP
 ||ifconfig.me
 
-! -------- 加速 --------
-
-||godaddy.com
-||fileom.com
-||feedly.com
-||staticflickr.com
-! amazon aws 静态文件
-||awsstatic.com
-
-||cyberduck.io
-
-||googleapis.com
-
-! -------- END --------
-
 ! -------- 常用 --------
+||google.com
+||dropbox.com
+||wikipedia.org
 ||twitter.com
 ||youtube.com
-||google.com
-||wikipedia.org
 ||sourceforge.net
 ||googlecode.com
 
-! stackoverflow CDN
+! -------- 加速 --------
+||github.com
+||godaddy.com
+||fileom.com
+||feedly.com
+||cyberduck.io
+
+! -------- CDN --------
+||googleapis.com
+||cloudflare.com
+||awsstatic.com
+||cdninstagram.com
 ||cdn.sstatic.net
+||staticflickr.com
+||ggpht.com
 
-@@|https://*.dropbox.com
-|http://*.dropbox.com
+! -------- 短地址 --------
+||ul.to
+||goo.gl
 
-.cocosbuilder.com
-
-! 其它
-
-! 存储服务
+! -------- 存储服务 --------
 ||bitshare.com
 ||uploaded.net
+||oboom.com
+||depositfiles.com
+||rapidgator.net
 
+! -------- 其它 --------
 ||blogspot.sg
+||cocosbuilder.com
+||videolan.org
