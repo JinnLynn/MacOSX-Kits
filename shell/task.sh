@@ -1,7 +1,7 @@
 # 环境
 . ~/.bashrc
 
-export KITS_TASK_RUNNING="running"
+export KITS_TASK_RUNNING=true
 
 # kits_task_mv_dropbox() {
 #     filter=""
