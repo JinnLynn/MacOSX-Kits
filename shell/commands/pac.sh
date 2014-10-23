@@ -55,7 +55,7 @@ kits_pac_effective_immediately() {
     # done
     local url="$1"
     [[ -z "$url" ]] && url="$PAC_URL"
-    url="$url&hash=$(date +%s)"
+    url="$url?hash=$(date +%s)"
     echo "PAC URL: $url"
     sudo networksetup -setautoproxyurl "Wi-Fi" "$url"
 }
