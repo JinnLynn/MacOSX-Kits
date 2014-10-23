@@ -1,5 +1,5 @@
 # 环境
-. ~/.bashrc
+. ~/.bashrc 2>/dev/null
 
 export KITS_TASK_RUNNING=true
 
@@ -40,8 +40,12 @@ task_daily() {
     brew update
 }
 
+# root 用户
 task_root_hourly() {
     task_kits_date $FUNCNAME
+    # Little Snitch 破解: 
+    # 杀死Daemon进程，防止每三小时提示注册
+    echo "kill Little Snitch Daemon"
     pkill -9 "Little Snitch Daemon"
 }
 
