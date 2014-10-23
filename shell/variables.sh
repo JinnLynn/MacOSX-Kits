@@ -6,8 +6,8 @@ export KITS_LOG="$HOME/Library/Logs/net.jeeker.kits"
 export KITS_TMP="$KITS/tmp" 
 [[ ! -d $KITS_TMP ]] && mkdir -p $KITS_TMP && chmod -R 777 $KITS_TMP
 
-export NASKITS="$HOME/Developer/Misc/NAS-Kits"
-export RPIKITS="$HOME/Developer/Misc/RPi-Kits"
+export NASKITS="$HOME/Developer/Misc/Kits/NAS"
+export RPIKITS="$HOME/Developer/Misc/Kits/RPi"
 
 export VMUS_KITS="$HOME/Developer/Misc/Kits-UbuntuServer"
 export VMUS_HOST="10.211.55.28"
