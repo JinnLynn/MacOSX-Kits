@@ -20,6 +20,11 @@ export PYTHONPATH="$KITS/python/libs:$PYTHONPATH"
 export PIP_REQUIRE_VIRTUALENV=true
 # pip 自动使用启动中的虚拟环境
 export PIP_RESPECT_VIRTUALENV=true
+# pylint
+export PYLINTRC="$HOME/.pylintrc"
+# nosetests
+export NOSE_WITH_YANC=true
+export NOSE_YANC_COLOR='on'
 
 # autossh
 export AUTOSSH_LOGLEVEL="7"
