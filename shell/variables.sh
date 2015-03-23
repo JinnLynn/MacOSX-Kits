@@ -15,7 +15,7 @@ export VMUS_SRV="jinnlynn@$VMUS_HOST"
 
 # Python相关
 # 自定义库目录
-export PYTHONPATH="$KITS/python/libs:$PYTHONPATH"
+export PYTHONPATH="$KITS/extra/python-packages:$PYTHONPATH"
 # pip 要求在虚拟环境中才能运行
 export PIP_REQUIRE_VIRTUALENV=true
 # pip 自动使用启动中的虚拟环境
@@ -34,7 +34,7 @@ export AUTOSSH_LOGFILE="$KITS_LOG/autossh.log"
 export AUTOSSH_POLL="30"
 
 # Dropbox目录
-export DROPBOX_HOME="/Volumes/ExtraHD/CloudServices/Dropbox"
+export DROPBOX_HOME="/Volumes/ExtraHD/Clouds/Dropbox"
 
 # 开发相关
 export ADT_ROOT="$HOME/Developer/Android/ADT"

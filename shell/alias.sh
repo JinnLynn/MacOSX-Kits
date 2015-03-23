@@ -2,6 +2,7 @@ alias ll="ls -lGh"
 alias la="ls -lAGh"
 alias grep="grep --color=auto"
 alias cd-="cd - >/dev/null"
+alias open.="open ."
 
 alias reload!="exec $SHELL" # "[[ -f ~/.bashrc ]] && . ~/.bashrc"
 alias alive="kits_proxy_alive; memp.alive"

@@ -24,5 +24,5 @@ alias gd.build="gd build"
 alias gd.publish="gd publish"
 alias gd.serve="gd serve"
 alias gd.local="gd build -lp"
-alias gd.remote="gd publish -b"
+alias gd.remote="gd publish -b && _extra/sync"
 

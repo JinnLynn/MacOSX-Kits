@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals, print_function, absolute_import, division
 import os
+import hashlib
 
 def hrData(byte):
     try:
@@ -59,3 +61,6 @@ def colorStringGreen(s):
 
 def colorStringRed(s):
     return '\033[31m{}\033[39m'.format(s)
+
+def digest(msg):
+    return hashlib.md5(msg).hexdigest()

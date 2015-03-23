@@ -2,3 +2,7 @@
 ._*
 .Spotlight-V100
 .Trashes
+
+.tags
+.tags_sorted_by_file
+.gemtags

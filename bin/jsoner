@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+json解析工具
+
+data.json:
+{"status": {"message": ["msg1", "msg2"], "code": 1}}
+
+---
+jsoner -k status.code -f data.json
+jsoner -k status -k code -f data.json
+jsoner -k status.code -s '{"status": {"message": ["msg1", "msg2"], "code": 1}}'
+echo '{"status": {"message": ["msg1", "msg2"], "code": 1}}' | jsoner -k status.code
+jsoner -k status.code
+
+OUTPUT:
+1
+
+---
+jsoner -k status.message.0 -f data.json
+jsoner -k status -k message -k 0 -f data.json
+
+OUTPUT:
+msg1
+
+"""
+from __future__ import unicode_literals, print_function, absolute_import, division
+
+import sys
+import json
+import argparse
+from pprint import pprint
+
+__version__ = '1.0.0'
+__author__ = 'JinnLynn <eatfishlin@gmail.com>'
+__license__ = 'The MIT License'
+__copyright__ = 'Copyright 2015 JinnLynn'
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(prog='PROG')
+    parser.add_argument('-f', '--file', help='json file')
+    parser.add_argument('-s', '--string', help='json string')
+    parser.add_argument('-k', '--key', action='append', help='json key')
+    args = parser.parse_args()
+    data = None
+    try:
+        if args.string:
+            data = json.loads(args.string)
+        elif args.file:
+            with open(args.file, 'r') as fp:
+                data = json.load(fp, encoding='utf8')
+        else:
+            data = json.load(sys.stdin)
+    except Exception, e:
+        sys.exit(1)
+
+    if not args.key:
+        sys.exit()
+
+    # pprint(data)
+    # print('{data[city]}'.format(**data))
+
+    try:
+        for key in args.key:
+            for k in key.split('.'):
+                try:
+                    k = int(k)
+                    data = data[k]
+                except ValueError, e:
+                    data = data.get(k)
+    except Exception, e:
+        sys.exit(1)
+
+    if data:
+        print(data)

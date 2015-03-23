@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals, print_function, absolute_import, division
+
+import sys
+import os
+import smtplib
+
+__version__ = '1.0.0'
+__author__ = 'JinnLynn <eatfishlin@gmail.com>'
+__license__ = 'The MIT License'
+__copyright__ = 'Copyright 2015 JinnLynn'
+
+def send(to, subject, msg):
+    smtp_server = os.getenv('SMTP_SRV')
+    smtp_port = os.getenv('SMTP_PORT')
+    smtp_usr = os.getenv('SMTP_USR')
+    smtp_pwd = os.getenv('SMTP_PWD')
+    from_addr = os.getenv('MAIL_DEFAULT_FROM')
+    to_addr = to if to else os.getenv('MAIL_DEFAULT_TO')
+    msg = 'From: {}\r\nTo: {}\r\nSubject: {}\r\n\r\n{}'.format(from_addr, to_addr, subject, msg)
+    try:
+        smtp = smtplib.SMTP()
+        # smtp.set_debuglevel(1)
+        smtp.connect(smtp_server, smtp_port)
+        smtp.login(smtp_usr, smtp_pwd)
+        smtp.sendmail(from_addr, to_addr, msg)
+        smtp.quit()
+    except Exception as e:
+        sys.exit('send mail fail. {}'.format(e))
+
+if __name__ == '__main__':
+    try:
+        send(sys.argv[1], sys.argv[2], sys.argv[3])
+    except Exception as e:
+        sys.exit('something error. {}'.format(e))

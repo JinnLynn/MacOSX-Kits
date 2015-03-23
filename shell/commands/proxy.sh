@@ -2,6 +2,7 @@
 kits_proxy_alive() {
     kits_home_socks alive
     kits_goagent alive
+    kits_privoxy alive
 }
 
 kits_proxy_test() {
@@ -21,17 +22,18 @@ kits_proxy_test() {
 kits_ssh_proxy() {
     [[ -z $(which autossh) ]] && echo "ERROR: autossh missing." && return 127
     [[ $# -lt 1 ]] && echo "ERROR: arguments missing." && return 127
-    local port=$([[ -z "$2" ]] && echo $JPROXY_SOCKS_PORT || echo $2)
+    local port=$([[ -z "$2" ]] && echo $PROXY_SOCKS_PORT || echo $2)
     [[ ! $port -gt 1024 || $port -gt 9999 ]] 2>/dev/null && echo "SOCKS端口只能是数字且在1025-9999之间" && return 127
     local mp=$((50000+$port))
     local ep=$((1+$mp))
     case "$1" in
         "start" | "restart" )
-            local srv=$([[ -z "$3" ]] && echo $JPROXY_SRV || echo $3)
+            local srv=$([[ -z "$3" ]] && echo $PROXY_SRV || echo $3)
             kits_ssh_proxy stop $port
             _kits_free_port $mp
             local opt="-fN"
             [[ "$4" == "--global" ]] && opt="$opt -g"
+            echo "autossh -M $mp $opt -D $port $srv"
             autossh -M $mp $opt -D $port $srv
             ;;
         "stop" )
@@ -42,6 +44,9 @@ kits_ssh_proxy() {
             # 查找autossh进程
             _kits_is_port_listen $ep; _kits_check "autossh[$mp>$ep]"
             _kits_is_port_listen $port; _kits_check "SOCKS5[$port]"
+            ;;
+        "keep-alive" )
+            _kits_is_port_listen $port || kits_ssh_proxy restart
             ;;
         "watch" )
             # watch -n 1 "lsof -i:$JPROXY_SOCKS_PORT"

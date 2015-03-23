@@ -23,18 +23,18 @@ _kits_is_cmd_missing() {
 
 kits_nginx() {
     _kits_is_cmd_missing nginx && echo "nginx missing." && return 1
-    local config_file=$KITS/config/nginx/nginx.conf
-    local pid_file=/usr/local/var/run/nginx.pid
+    local config_file="$JLOCAL_SERVER_PATH/config/nginx/nginx.conf"
+    local pid_file="/usr/local/var/run/nginx.pid"
     case "$1" in
         "start" | "restart")
-            _kits_is_process_exists "$pid_file" && nginx -s stop && sleep 2
+            _kits_is_process_exists "$pid_file" && nginx -c $config_file -s stop && sleep 2
             nginx -c $config_file
             ;;
         "reload" )
-            _kits_is_process_exists "$pid_file" && nginx -s reload || echo "Nginx is not running."
+            _kits_is_process_exists "$pid_file" && nginx -c $config_file -s reload || echo "Nginx is not running."
             ;;
         "stop" )
-            _kits_is_process_exists "$pid_file" && nginx -s stop || echo "Nginx is not running."
+            _kits_is_process_exists "$pid_file" && nginx -c $config_file -s stop || echo "Nginx is not running."
             ;;
         "alive" )
             _kits_is_process_exists "$pid_file"; _kits_check "Nginx"
@@ -69,13 +69,14 @@ kits_mysql() {
 
 kits_php-fpm() {
     _kits_is_cmd_missing php-fpm && echo "php-fpm missing." && return 1
-    local fpm_config="/usr/local/etc/php/5.5/php-fpm.conf"
+    local fpm_config="$JLOCAL_SERVER_PATH/config/php/php-fpm.conf"
+    local php_ini="$JLOCAL_SERVER_PATH/config/php/php.ini"
     local pid_file="/usr/local/var/run/php-fpm.pid"
     local log_file="$KITS_LOG/php-fpm.log"
     case "$1" in
         "start" | "restart" | "reload" )
             _kits_is_process_exists "$pid_file" && kits_php-fpm stop
-            php-fpm -D --fpm-config $fpm_config --pid $pid_file 1>$log_file 2>&1
+            php-fpm -D -c "$php_ini" --fpm-config "$fpm_config" --pid "$pid_file" 1>$log_file 2>&1
             ;;
         "stop" )
             _kits_is_process_exists "$pid_file" && _kits_kill_process "$pid_file" || echo "PHP-FPM is not running."

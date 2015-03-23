@@ -24,14 +24,18 @@ task_load() {
 
 task_minutely() {
     # task_kits_date $FUNCNAME
-    # 代理检查
-    proxy.keep-alive
+
+    # 代理保持 下面只能二选一
+    # a: 远程连接ssh服务器，本地端口转发时
+    # proxy.keep-alive
+    # b: 本地直连ssh服务器时
+    kits_ssh_proxy keep-alive
 }
 
 task_hourly() {
     task_kits_date $FUNCNAME
-    # PAC更新
-    # kits_pac_update
+    # PAC生成
+    pac.gen
 }
 
 task_daily() {
@@ -56,5 +60,5 @@ task_backup() {
     # 延时一定时间，防止当系统刚从睡眠中恢复时网络不正常，备份失败。
     echo 'Sleep 30s...'
     sleep 30
-    kits.backup --quiet --no-exact-progress
+    # kits.backup --quiet --no-exact-progress
 }

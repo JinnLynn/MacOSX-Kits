@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals, print_function, absolute_import, division
 import sys, os, logging
 import json
 
 import yaml
-import util
-import keychain
+from . import util
+from . import keychain
 
 _log_dir = os.path.expanduser('~/Library/Logs/net.jeeker.kits')
 _loggers = {}

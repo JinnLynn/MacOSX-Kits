@@ -9,6 +9,9 @@
 ::1             localhost 
 fe80::1%lo0	localhost
 
+127.0.0.1   aft.dev
+127.0.0.1   aft.old
+
 # BLOCK: Parallels Desktop
 127.0.0.1   pdfm7.blist.parallels.com
 127.0.0.1   pdfm7.vl.parallels.com
@@ -38,7 +41,9 @@ fe80::1%lo0	localhost
 127.0.0.1   na1r.services.adobe.com
 
 # Things Cloud
-203.208.46.161 multithreaded.thingscloud.appspot.com
-203.208.46.161 thingscloud.appspot.com
-#74.208.10.249 gs.apple.com
-#127.0.0.1 gs.apple.com
+203.208.46.161  multithreaded.thingscloud.appspot.com
+203.208.46.161  thingscloud.appspot.com
+#74.208.10.249  gs.apple.com
+#127.0.0.1      gs.apple.com
+
+
