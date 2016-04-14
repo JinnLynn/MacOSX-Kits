@@ -49,3 +49,9 @@ alias proxy.home.test="ssh -v $JHOME \"exit\""/Volumes/OSXYosemite/Users/JinnLyn
 # alias squid.stop="kits_squid stop"
 # alias squid.restart="kits_squid restart"
 # alias squid.alive="kits_squid alive"
+
+# VPN
+alias vpn.start="kits_vpn start"
+alias vpn.stop="kits_vpn stop"
+alias vpn.alive="kits_vpn alive"
+alias vpn.keep-alive="kits_vpn keep-alive"
