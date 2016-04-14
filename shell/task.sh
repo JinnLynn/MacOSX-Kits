@@ -24,12 +24,7 @@ task_load() {
 
 task_minutely() {
     # task_kits_date $FUNCNAME
-
-    # 代理保持 下面只能二选一
-    # a: 远程连接ssh服务器，本地端口转发时
-    # proxy.keep-alive
-    # b: 本地直连ssh服务器时
-    kits_ssh_proxy keep-alive
+    proxy.keep-alive
 }
 
 task_hourly() {
@@ -47,10 +42,13 @@ task_daily() {
 # root 用户
 task_root_hourly() {
     task_kits_date $FUNCNAME
+    # 日志写入权限
+    chown -R JinnLynn /Users/JinnLynn/Library/net.jeeker.kits/
+    chmod -R 777 /Users/JinnLynn/Library/net.jeeker.kits/
     # Little Snitch 破解: 
     # 杀死Daemon进程，防止每三小时提示注册
-    echo "kill Little Snitch Daemon"
-    pkill -9 "Little Snitch Daemon"
+    # echo "kill Little Snitch Daemon"
+    # pkill -9 "Little Snitch Daemon"
 }
 
 # 其它
@@ -61,4 +59,5 @@ task_backup() {
     echo 'Sleep 30s...'
     sleep 30
     # kits.backup --quiet --no-exact-progress
+    kits.backup
 }

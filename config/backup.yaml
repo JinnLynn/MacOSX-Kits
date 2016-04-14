@@ -14,26 +14,73 @@ tasks:
     - name:     JMBP.JinnLynn
       src:      ~/
       filter:
+        -       '- /Downloads/***'
         -       '- /Library/***'
         -       '- /.Trash/***'
     - name:     JMBPWin.Developer
       src:      /Volumes/BOOTCAMP/Users/JinnLynn/Developer/
-    - name:     JMBP.Applications
-      src:      /Applications/
     - name:     JMBP.Storage
       src:      /Volumes/ExtraHD/Storage/
     - name:     JMBP.Library
       src:      ~/Library/
       filter:   
-        # -       + /Application Support/***
-        -       + /Developer/***
-        -       + /Dictionaries/***
-        -       + /Fonts/***
-        -       + /Internet Plug-Ins/***
-        -       + /Keychains/***
-        -       + /LaunchAgents/***
-        -       + /Logs/***
-        -       + /Preferences/***
-        -       + /QuickLook/***
-        -       + /Services/***
+        -       '+ /Application Support/***'
+        -       '+ /Containers/***'
+        -       '+ /Developer/***'
+        -       '+ /Dictionaries/***'
+        -       '+ /Fonts/***'
+        -       '+ /Internet Plug-Ins/***'
+        -       '+ /Keychains/***'
+        -       '+ /LaunchAgents/***'
+        -       '+ /Logs/***'
+        -       '+ /Preferences/***'
+        -       '+ /QuickLook/***'
+        -       '+ /Screen Savers/***'
+        -       '+ /Services/***'
         -       '- *' 
+    - name:     'JMBP.Applications'
+      src:      '/Applications/'
+      filter:
+        # 文件太多 若备份浪费时间 官方app
+        -       '- /Xcode.app/***'
+        -       '- /Pages.app/***'
+        -       '- /Numbers.app/***'
+        -       '- /Keynote.app/***'
+        -       '- /App Store.app/***'
+        -       '- /Automator.app/***'
+        -       '- /Calculator.app/***'
+        -       '- /Calendar.app/***'
+        -       '- /Chess.app/***'
+        -       '- /Contacts.app/***'
+        -       '- /Dashboard.app/***'
+        -       '- /Dictionary.app/***'
+        -       '- /DVD Player.app/***'
+        -       '- /FaceTime.app/***'
+        -       '- /Font Book.app/***'
+        -       '- /Game Center.app/***'
+        -       '- /Photos.app/***'
+        -       '- /iBooks.app/***'
+        -       '- /Image Capture.app/***'
+        -       '- /iTunes.app/***'
+        -       '- /Mail.app/***'
+        -       '- /Maps.app/***'
+        -       '- /Messages.app/***'
+        -       '- /Mission Control.app/***'
+        -       '- /Notes.app/***'
+        -       '- /Photo Booth.app/***'
+        -       '- /Photos.app/***'
+        -       '- /Preview.app/***'
+        -       '- /QuickTime Player.app/***'
+        -       '- /Reminders.app/***'
+        -       '- /Safari.app/***'
+        -       '- /System Preferences.app/***'
+        -       '- /TextEdit.app/***'
+        -       '- /Time Machine.app/***'
+        -       '- /Utilities/***'
+        # 游戏大文件
+        -       '- /Diablo III/***'
+        -       '- /Diablo'
+        -       '- /Heroes of the Storm/***'
+        -       '- /Battle.net.app/***'
+        # 其它
+        -       '- /Google Chrome.app/***'

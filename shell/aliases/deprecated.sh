@@ -15,6 +15,6 @@ alias iphone.sync="$KITS/shell/extra/itunes.sh sync"
 alias iphone.eject="$KITS/shell/extra/itunes.sh eject"
 
 # diablo3
-alias diablo="open \"/Applications/Diablo III/Diablo III.app\""
+alias diablo="open \"/Applications/Diablo III/Diablo III.app\" --args -launch"
 alias diablo.tw="open \"/Applications/Diablo III/Diablo III.app\" --args -launch OnlineService.Matchmaking.ServerPool=TW3"
 alias diablo.kr="open \"/Applications/Diablo III/Diablo III.app\" --args -launch OnlineService.Matchmaking.ServerPool=Default"

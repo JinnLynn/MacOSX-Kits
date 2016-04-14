@@ -1,6 +1,7 @@
-listen-address  :9529
+listen-address  :9580
 
 forward-socks5      /                   127.0.0.1:9527  .
+#forward-socks5      /                   127.0.0.1:9537  .
 
 forward           172.16.*.*/    .
 forward          192.168.*.*/    .
@@ -8,8 +9,8 @@ forward             10.*.*.*/    .
 forward            127.*.*.*/    .
 
 # Dropbox http 走代理 https不走
-forward-socks5      .dropbox.com        127.0.0.1:9527 .
+#forward-socks5      .dropbox.com        127.0.0.1:9527 .
 #forward-socks5      .amazonaws.com     127.0.0.1:9527 .
-forward             .dropbox.com:443    .
+#forward             .dropbox.com:443    .
 
 # 其它全部走代理

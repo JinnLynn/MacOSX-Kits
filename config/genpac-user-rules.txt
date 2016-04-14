@@ -7,7 +7,6 @@
 @@||youku.com
 @@||qq.com
 @@||sohu.com
-@@||yyets.com
 @@||weibo.com
 @@||taobao.com
 @@||etao.com
@@ -18,6 +17,7 @@
 ! 用于测试当前代理IP
 ||ifconfig.me
 
+
 ! -------- 常用 --------
 ||google.com
 ||dropbox.com
@@ -26,13 +26,45 @@
 ||youtube.com
 ||sourceforge.net
 ||googlecode.com
+||sublime.wbond.net
+||startssl.com
+
+||herokuapp.com
+
+||dd-wrt.com
+||openwrt.org
+
+
+! -------- 国内IP会访问不同的页面 --------
+! 被重定向到 印象笔记 注: 官方提供了选项
+!||evernote.com
+! 被重定向到 bluestacks.cn
+||bluestacks.com
+
+
+! -------- 特别 --------
+! gfwlist官网
+||gfwli.st
+
 
 ! -------- 加速 --------
 ||github.com
+||atom.io
 ||godaddy.com
 ||fileom.com
 ||feedly.com
 ||cyberduck.io
+||obdev.at
+||kickstarter.com
+||jsfiddle.net
+
+
+! -------- 资源 --------
+||rarbg.com
+||rarbg.to
+||kickass.to
+||kat.cr
+
 
 ! -------- CDN --------
 ||googleapis.com
@@ -42,10 +74,15 @@
 ||cdn.sstatic.net
 ||staticflickr.com
 ||ggpht.com
+||w.org
+||dropboxstatic.com
+||fastly.net
+
 
 ! -------- 短地址 --------
 ||ul.to
 ||goo.gl
+
 
 ! -------- 存储服务 --------
 ||bitshare.com
@@ -53,8 +90,14 @@
 ||oboom.com
 ||depositfiles.com
 ||rapidgator.net
+||uploadable.ch
+||yunfile.com
+||nitroflare.com
+
 
 ! -------- 其它 --------
 ||blogspot.sg
 ||cocosbuilder.com
 ||videolan.org
+||who.is
+||gravatar.com/

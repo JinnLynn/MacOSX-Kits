@@ -83,3 +83,57 @@ _kits_unused_port() {
         [[ -z `lsof -i:$JPORT_START` ]] && echo $JPORT_START && return
     done
 }
+
+# 命令是否存在
+# _kits_cmd_exists CMD && echo "CMD exists." || echo "CMD missing."
+# ! _kits_cmd_exists CMD && echo "CMD missing." && return 1
+_kits_cmd_exists() {
+    which $1 >/dev/null 2>&1 && return 0 || return 1
+}
+
+_kits_hr_bw() {
+    # 是否数字
+    [[ -z "$(echo "$1" | grep -s -E "^[0-9]+$")" ]] && return 1
+    local bw=$1
+    local units="B/s KB/s MB/s GB/s TB/s PB/s"
+    for unit in $units; do
+        # 获取整数部分，shell不支持浮点比较
+        local int=$(echo $bw | awk -F. '{print $1}')
+        if [[ $int -lt 1024 ]]; then
+            echo $unit
+            bw="$bw$unit"
+            break
+        else
+            bw=$(echo $bw | awk 'BEGIN{OFMT="%.2f"}{print $1 / 1024}')
+        fi
+    done
+    echo $bw
+}
+
+_kits_hr_size() {
+    # 是否数字
+    [[ -z "$(echo "$1" | grep -s -E "^[0-9]+$")" ]] && return 1
+    local size=$1
+    local units="B KB MB GB TB PB ZB"
+    for unit in $units; do
+        # 获取整数部分，shell不支持浮点比较
+        local int=$(echo $size | awk -F. '{print $1}')
+        if [[ $int -lt 1024 ]]; then
+            size="$size$unit"
+            break
+        else
+            size=$(echo $size | awk 'BEGIN{OFMT="%.2f"}{print $1 / 1024}')
+        fi
+    done
+    echo $size
+}
+
+# 测试是否ip
+_kits_is_ip() {
+    local ip="$1"
+    [[ ! "$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]] && return 1
+    for i in {1..4}; do
+        [[ $(echo "$ip" | cut -d. -f$i) -gt 255 ]] && return 1
+    done
+    return 0
+}

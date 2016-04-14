@@ -49,3 +49,29 @@ kits_keychain_password() {
     local password=$(security find-generic-password -ga "$1" 2>&1 >/dev/null | cut -d '"' -f 2)
     echo -n $password
 }
+
+# 时间
+kits_time() {
+    case "$1" in
+        "-d" | "date" )
+            date +%Y-%m-%d
+            ;;
+        "-t" | "time" )
+            date +%H:%M:%S
+            ;;
+        "-s" | "timestamp" )
+            date +%Y%m%d%H%M%S
+            ;;
+        * )
+            date +%Y-%m-%d\ %H:%M:%S
+            ;;
+    esac
+}
+
+kits_log() {
+    local msg="$1"
+    local logfile="$KITS_LOG/$(kits_time -d).log"
+    [[ ! -z "$2" ]] && logfile="$2"
+    [[ ! -f "$logfile" ]] && touch "$logfile" && chmod -R 777 "$logfile"
+    [[ ! -z "$1" ]] && echo "$(kits_time)[$(whoami)]: $msg" >> $logfile
+}

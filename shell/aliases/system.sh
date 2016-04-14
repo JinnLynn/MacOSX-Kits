@@ -1,7 +1,7 @@
 # 系统功能相关
 
 # 备份
-alias kits.backup="$KITS/extra/backup/backup.py"
+alias kits.backup="$KITS/extra/backup/backup.py | tee $KITS_LOG/bak-$(kits_time -d).log"
 alias kits.backup.quick="kits.backup --no-exact-progress"
 
 # 锁定电脑

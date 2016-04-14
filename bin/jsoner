@@ -3,48 +3,44 @@
 """
 json解析工具
 
-data.json:
-{"status": {"message": ["msg1", "msg2"], "code": 1}}
-
----
-jsoner -k status.code -f data.json
-jsoner -k status -k code -f data.json
-jsoner -k status.code -s '{"status": {"message": ["msg1", "msg2"], "code": 1}}'
-echo '{"status": {"message": ["msg1", "msg2"], "code": 1}}' | jsoner -k status.code
-jsoner -k status.code
-
-OUTPUT:
-1
-
----
-jsoner -k status.message.0 -f data.json
-jsoner -k status -k message -k 0 -f data.json
-
-OUTPUT:
-msg1
-
 """
-from __future__ import unicode_literals, print_function, absolute_import, division
+from __future__ import unicode_literals, print_function, absolute_import
 
 import sys
 import json
 import argparse
 from pprint import pprint
 
-__version__ = '1.0.0'
+__version__ = '1.1.0'
 __author__ = 'JinnLynn <eatfishlin@gmail.com>'
 __license__ = 'The MIT License'
-__copyright__ = 'Copyright 2015 JinnLynn'
+__copyright__ = 'Copyright 2015-2016 JinnLynn'
+
+
+def get(data, key):
+    for k in key.split('.'):
+        try:
+            k = int(k)
+        except ValueError, e:
+            pass
+        data = data[k]
+            
+    return data
+
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog='PROG')
+    parser = argparse.ArgumentParser()
     parser.add_argument('-f', '--file', help='json file')
     parser.add_argument('-s', '--string', help='json string')
-    parser.add_argument('-k', '--key', action='append', help='json key')
+    parser.add_argument('-k', '--key', action="append", help='json key')
+    parser.add_argument('-n', '--node')
+    parser.add_argument('--print-fmt')
+    parser.add_argument('--print-sep', default='\n')
     args = parser.parse_args()
+    
     data = None
     try:
-        if args.string:
+        if args.string is not None:
             data = json.loads(args.string)
         elif args.file:
             with open(args.file, 'r') as fp:
@@ -52,24 +48,30 @@ if __name__ == '__main__':
         else:
             data = json.load(sys.stdin)
     except Exception, e:
-        sys.exit(1)
+        sys.exit(e)
 
     if not args.key:
-        sys.exit()
+        sys.exit('missing key' if not args.quiet else 1)
 
-    # pprint(data)
-    # print('{data[city]}'.format(**data))
-
+    values = []
     try:
+        if args.node:
+            data = get(data, args.node)
         for key in args.key:
-            for k in key.split('.'):
-                try:
-                    k = int(k)
-                    data = data[k]
-                except ValueError, e:
-                    data = data.get(k)
+            for k in key.split(','):
+                ret = get(data, k)
+                ret = '' if ret is None else str(ret)
+                values.append(ret)
     except Exception, e:
+        sys.exit(e)
+
+    if not values:
         sys.exit(1)
 
-    if data:
-        print(data)
+    if not args.print_fmt:
+        print(args.print_sep.join(values))
+    else:
+        output = args.print_fmt
+        for v in values:
+            output = output.replace('%%', v, 1)
+        print(output)

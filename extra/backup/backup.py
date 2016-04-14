@@ -11,7 +11,7 @@ config = kits.loadYAML(config_file)
 
 config['backup_server'] = os.environ.get('JHOME', '')
 config['backup_user'] = 'root'
-config['backup_dst'] = '/volume1/Backup' 
+config['backup_dst'] = '/volume1/cellar/bak' 
 config['ssh_key'] = os.environ.get('JKEY', None)
 config['ssh_port'] = os.environ.get('JHOME_SSH_PORT', '')
 
@@ -103,6 +103,19 @@ def backup(task):
         kits.stdout('{} backup fail.'.format(task['name']));
         # raise e
 
+def backup2(task):
+    if not _quiet:
+        kits.stdout('Backup {}'.format(task['name']))
+    task['filter'].extend(config['global_filter'])
+    rsync = kits.rsync.RSync(task['src'], task['dst'], sshkey=config['ssh_key'],
+        sshport=config['ssh_port'],
+        backup_dir=task['bak'], filter_rule=task['filter'], quiet=_quiet)
+    args = ['-h', '--stats', '--progress'] if not _quiet else ['--quiet']
+    cmd = rsync.toCmd(*args)
+    print(cmd)
+    subprocess.call(cmd, shell=True)
+    print('')
+
 def main():
     global _exact_progress, _quiet, logger
     if '--no-exact-progress' in sys.argv:
@@ -115,7 +128,7 @@ def main():
         kits.die()
     tasks = parseTasks()
     prepare(tasks)
-    map(lambda t: backup(t), tasks)
+    map(lambda t: backup2(t), tasks)
 
 if __name__ == '__main__':
     try:

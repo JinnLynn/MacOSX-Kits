@@ -14,7 +14,7 @@ alias ssh.home.scm="ssh -p $JHOME_SSH_PORT scm@$JHOME"
 alias ssh.work="ssh jinnlynn@172.16.5.14"
 alias ssh.work.scm="ssh scm@172.16.5.14"
 alias ssh.github="ssh -T git@github.com"
-alias ssh.ubuntu="ssh jinnlynn@10.211.55.7"
+alias ssh.ubuntu="ssh jinnlynn@10.211.55.11"
 alias ssh.jeeker="ssh $JJEEKER_SRV"
 alias ssh.rpi="ssh pi@$JRPI"
 alias ssh.corp="ssh $JCORP_SRV"
@@ -35,3 +35,7 @@ alias home.nas.off="ssh.cpf 60030"
 # NAS share
 alias home.nas.share="ssh.lpf 60040:10.95.27.1:548 && open afp://localhost:60040"
 alias home.nas.share.off="ssh.cpf 60040"
+
+# Digital Ocean 
+alias ssh.do="ssh root@tunnel.jeeker.net"
+alias ssh.do.reboot="ssh.do \"reboot\""
