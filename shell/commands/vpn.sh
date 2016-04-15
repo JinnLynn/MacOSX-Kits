@@ -1,7 +1,13 @@
 kits_vpn() {
-    local vpn_service=$([[ -z "$2" ]] && echo "VPN GFW" || echo $2)
+    # 默认vpn service为名称为首个名称以VPN开头的service
+    local def_service="$(networksetup -listallnetworkservices | grep ^VPN | head -n 1)"
+    local def_secret="$DO_VPN_SECRET" 
+    local vpn_service=$([[ -z "$2" ]] && echo "$def_service" || echo $2)
     # scutil命令连接vpn时总是要secret key，不管是否已配置
-    local vpn_secret=$([[ -z "$3" ]] && echo "$DO_USR$DO_PWD" || echo $2)
+    local vpn_secret=$([[ -z "$3" ]] && echo "$def_secret" || echo $2)
+
+    [[ -z "$vpn_service" ]] && echo "vpn service missing." && return 1
+
     case "$1" in
         "start" | "restart" )
             $FUNCNAME status && $FUNCNAME stop && sleep 1
@@ -11,8 +17,8 @@ kits_vpn() {
             scutil --nc stop "$vpn_service"
             ;;
         "alive" )
-            local ip=$(scutil --nc status "VPN GFW" | grep "ServerAddress" | awk '{print $3}')
-            local msg=$([[ -z "$ip" ]] && echo "VPN" || echo "VPN[$ip]")
+            local ip=$(scutil --nc status "$vpn_service" | grep "ServerAddress" | awk '{print $3}')
+            local msg=$([[ -z "$ip" ]] && echo "$vpn_service" || echo "$vpn_service[$ip]")
             $FUNCNAME status; _kits_check "$msg"
             ;;
         "keep-alive" )
