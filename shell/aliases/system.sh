@@ -1,5 +1,9 @@
 # 系统功能相关
 
+# 蓝牙
+alias bt.on="blueutil on"
+alias bt.off="blueutil off"
+
 # 备份
 alias kits.backup="$KITS/extra/backup/backup.py | tee $KITS_LOG/bak-$(kits_time -d).log"
 alias kits.backup.quick="kits.backup --no-exact-progress"
