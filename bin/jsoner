@@ -48,7 +48,8 @@ if __name__ == '__main__':
         else:
             data = json.load(sys.stdin)
     except Exception, e:
-        sys.exit(e)
+        sys.exit(1)
+        # sys.exit(e)
 
     if not args.key:
         sys.exit('missing key' if not args.quiet else 1)
@@ -63,7 +64,8 @@ if __name__ == '__main__':
                 ret = '' if ret is None else str(ret)
                 values.append(ret)
     except Exception, e:
-        sys.exit(e)
+        sys.exit(1)
+        # sys.exit(e)
 
     if not values:
         sys.exit(1)

@@ -1,27 +1,36 @@
-# 临时文件
-*.pyc
-tmp/**
+# Personal
+/var/**
 
-# 日志
-*.log
+# Python
+*.py[cod]
 
 # 私有信息
-private/**
-
-# 实验脚本
-lib.sh
+/root/**
 
 # goagent 证书
-extra/goagent/CA.crt
-extra/goagent/certs/**
+/opt/goagent/CA.crt
+/opt/goagent/certs/**
 
 # Windows
-[Dd]esktop.ini
-[Tt]humbs.db
-$RECYCLE.BIN/
+# REF: https://github.com/github/gitignore/blob/master/Global/Windows.gitignore
+Desktop.ini
+Thumbs.db
+ehthumbs.db
+.BIN/
 
-# MacOSX
+# MacOSX 
+# REF: https://github.com/github/gitignore/blob/master/Global/OSX.gitignore
 .DS_Store
 ._*
 .Spotlight-V100
 .Trashes
+.AppleDouble
+.LSOverride
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+Icon
+
+
+#!!! Icon must end with two lines

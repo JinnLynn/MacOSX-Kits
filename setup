@@ -22,12 +22,11 @@ echo "export KITS=~/.kits" > $KITS_CONFIG_PATH
 . $KITS_CONFIG_PATH
 
 # profile处理
-_kits_symbolic_link $KITS/dotfiles/bash_profile.sh ~/.bash_profile
-_kits_symbolic_link $KITS/dotfiles/bashrc.sh ~/.bashrc
-_kits_symbolic_link $KITS/shell/task.sh ~/.kits_task
+_kits_symbolic_link $KITS/home/bash_profile.sh ~/.bash_profile
+_kits_symbolic_link $KITS/home/bashrc.sh ~/.bashrc
+_kits_symbolic_link $KITS/opt/shell/task.sh ~/.kits_task
 
 # 一些配置文件
-_kits_symbolic_link $KITS/dotfiles/pylintrc ~/.pylintrc
 
 # sublime text
 _kits_symbolic_link "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" $KITS/bin/subl
