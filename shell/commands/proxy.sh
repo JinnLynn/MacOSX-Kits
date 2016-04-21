@@ -1,18 +1,3 @@
-kits_proxy_config() {
-    local service_name="Wi-Fi"
-    echo -e "PAC:\n------"
-    networksetup -getautoproxyurl "$service_name"
-    echo "------"
-    echo -e "SOCKS:\n------"
-    networksetup -getsocksfirewallproxy "$service_name"
-    echo "------"
-    echo -e "HTTP:\n------"
-    networksetup -getwebproxy "$service_name"
-    echo "------"
-    echo -e "HTTPS:\n------"
-    networksetup -getsecurewebproxy "$service_name"
-}
-
 # 使用autossh 启用SSH动态端口转发（SOCKS代理）
 # 命令形式：
 #   kits_ssh_proxy [start|restart] SOCKS_PORT [USERNAME@]SSH_SERVER
@@ -27,29 +12,27 @@ kits_ssh_proxy() {
     [[ $# -lt 1 ]] && echo "ERROR: arguments missing." && return 127
     local port=$([[ -z "$2" ]] && echo $PROXY_SOCKS_PORT || echo $2)
     [[ ! $port -gt 1024 || $port -gt 9999 ]] 2>/dev/null && echo "SOCKS端口只能是数字且在1025-9999之间" && return 127
-    local mp=$((50000+$port))
-    local ep=$((1+$mp))
     case "$1" in
         "start" | "restart" )
             local srv=$([[ -z "$3" ]] && echo $PROXY_SRV || echo $3)
-            kits_ssh_proxy stop $port
-            _kits_free_port $mp
+            $FUNCNAME stop
             local opt="-fN"
             [[ $PROXY_GLOBAL ]] && opt="$opt -g"
-            # echo "autossh -M $mp $opt -i $PROXY_KEY -p 53 -g -D $port $srv"
-            autossh -M $mp $opt -i $PROXY_KEY -D $port $srv
+            autossh -M $(kits_random 50000 60000) $opt -i $PROXY_KEY -D $port $srv
             ;;
         "stop" )
-            _kits_free_port $ep
+            _kits_kill_pid $AUTOSSH_PIDFILE
             _kits_free_port $port
             ;;
         "alive" )
-            # 查找autossh进程
-            _kits_is_port_listen $ep; _kits_check "autossh[$mp>$ep]"
+            local mp=$(ps ax | grep "autossh -M" | grep -v grep | grep "$(cat $AUTOSSH_PIDFILE 2>/dev/null)" | awk '{print $7}')
+            local msg="autossh"
+            [[ -n "$mp" ]] && msg="$msg[$mp]"
+            _kits_pid_exists $AUTOSSH_PIDFILE; _kits_check "$msg"
             _kits_is_port_listen $port; _kits_check "SOCKS5[$port]"
             ;;
         "keep-alive" )
-            _kits_is_port_listen $port || kits_ssh_proxy restart
+            _kits_is_port_listen $port || $FUNCNAME restart
             ;;
         "watch" )
             # watch -n 1 "lsof -i:$JPROXY_SOCKS_PORT"

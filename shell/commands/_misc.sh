@@ -75,3 +75,11 @@ kits_log() {
     [[ ! -f "$logfile" ]] && touch "$logfile" && chmod -R 777 "$logfile"
     [[ ! -z "$1" ]] && echo "$(kits_time)[$(whoami)]: $msg" >> $logfile
 }
+
+kits_random() {
+    local min=0
+    [[ ! -z "$1" ]] && min=$1
+    local max=100
+    [[ ! -z "$2" ]] && max=$2
+    awk -v min=$min -v max=$max 'BEGIN{srand(); print int(min+rand()*(max-min+1))}'
+}

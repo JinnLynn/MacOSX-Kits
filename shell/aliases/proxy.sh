@@ -6,6 +6,7 @@ alias proxy.stop="kits_ssh_proxy stop; kits_polipo stop"
 alias proxy.alive="kits_ssh_proxy alive; kits_polipo alive"
 alias proxy.test="kits_ssh_proxy test; kits_polipo test"
 alias proxy.keep-alive="kits_ssh_proxy keep-alive; kits_polipo keep-alive"
+alias proxy.config="scutil --proxy | grep '^\ '"
 
 alias proxy.ter.on="export http_proxy=\"http://127.0.0.1:$PROXY_HTTP_PORT/\"; export https_proxy=\"http://127.0.0.1:$PROXY_HTTP_PORT/\";"
 alias proxy.ter.off="unset http_proxy; unset https_proxy"

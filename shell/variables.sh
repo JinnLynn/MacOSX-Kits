@@ -32,6 +32,7 @@ export AUTOSSH_LOGFILE="$KITS_LOG/autossh.log"
 [[ ! -f $AUTOSSH_LOGFILE ]] && touch $AUTOSSH_LOGFILE
 # 该参数值越小，能较少长时间无法连接SSH后再次连接的间隔时间
 export AUTOSSH_POLL="30"
+export AUTOSSH_PIDFILE="/usr/local/var/run/autossh.pid"
 
 # Dropbox目录
 export DROPBOX_HOME="/Volumes/ExtraHD/Clouds/Dropbox"

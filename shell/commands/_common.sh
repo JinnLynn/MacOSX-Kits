@@ -48,13 +48,38 @@ _kits_check_prefix() {
     echo -e "$judge  $1"
 }
 
+# 输出内容到stderr
+_kits_echo_err() { 
+    echo "$@" 1>&2; 
+}
+
+# 杀死进程 可以是进程ID或pid文件
+_kits_kill_pid() {
+    local pid=$1
+    [[ -z "$pid" ]] && return 1
+    [[ -f "$pid" ]] && pid=$(cat $pid)
+    [[ ! -z "$pid" ]] && {
+        kill $pid >/dev/null 2>&1 || kill -9 $pid >/dev/null 2>&1
+    }
+}
+
+# 进程是否存在 可以是进程ID或pid文件
+_kits_pid_exists() {
+    local pid=$1
+    [[ -z "$pid" ]] && return 1
+    [[ -f "$pid" ]] && pid=$(cat $pid)
+    [[ -z "$pid" ]] && return 1
+    local find_pid=$(ps -ax | awk '{print $1}' | grep -e "^$pid$")
+    [[ -z "$find_pid" ]] && return 1 || return 0
+}
+
 # 释放被占用的端口(kill 正在使用端口的进程)
 _kits_free_port() {
     [[ -z "$1" ]] && return
     local pids=`lsof -i:$1 | grep LISTEN | awk '{print $2}'`
     local p
     for p in $pids; do
-        [[ ! -z "$p" ]] && kill -9 $p >/dev/null 2>&1
+        _kits_kill_pid $pr
     done
 }
 
