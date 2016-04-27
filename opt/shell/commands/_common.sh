@@ -42,13 +42,13 @@ _kits_clear_line() {
 _kits_check() {
     local ret=$?
     local s=$(for ki in $(seq 40); do echo -n " "; done)
-    local judge=$([[ $ret -eq 0 ]] && _kits_green_text "✔" || _kits_red_text "✘" red)
+    local judge=$([[ $ret -eq 0 ]] && _kits_green_text "✔" || _kits_red_text "✘")
     echo -e "$s$judge\r$1"
 }
 
 _kits_check_prefix() {
     local ret=$?
-    local judge=$([[ $ret -eq 0 ]] && _kits_green_text "✔" || _kits_red_text "✘" red)
+    local judge=$([[ $ret -eq 0 ]] && _kits_green_text "✔" || _kits_red_text "✘")
     echo -e "$judge  $1"
 }
 
