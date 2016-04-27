@@ -45,7 +45,7 @@ alias wifi.ip="kits_wifi ip"
 alias notify="$KITS/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier"
 
 # SSD状态
-alias status.ssd="$KITS/python/ssd-status.py"
+alias status.disk="kits_disk_status"
 
 # 使用`预览`浏览man内容
 alias man.p="kits_man -p"
