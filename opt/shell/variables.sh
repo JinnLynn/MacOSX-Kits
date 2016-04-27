@@ -40,3 +40,5 @@ export AUTOSSH_LOGFILE="$KITS_LOG/autossh.log"
 # 该参数值越小，能较少长时间无法连接SSH后再次连接的间隔时间
 export AUTOSSH_POLL="30"
 export AUTOSSH_PIDFILE="$KITS_RUN/autossh.pid"
+
+export DROPBOX_HOME=$(jsoner -k personal.path -f $HOME/.dropbox/info.json)
