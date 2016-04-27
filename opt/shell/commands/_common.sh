@@ -1,10 +1,10 @@
 # 输出颜色文字
-# _kits_color_text TEXT [COLOR]
-# 如: _kits_color_text output_string green
+# _kits_color_text COLOR TEXT
+# 如: _kits_color_text green output_string 
 _kits_color_text() {
-    [[ -z "$1" ]] && return
+    [[ -z "$1" || -z "$2" ]] && return
     local color="39m"
-    case "$2" in
+    case "$1" in
         "black" ) color="30m";; # 30:黑
         "red" ) color="31m";; # 31:红
         "green" ) color="32m";; # 32:绿
@@ -15,12 +15,16 @@ _kits_color_text() {
         "gray" ) color="37m";; # 37:灰色
         * ) color="39m";; # 默认
     esac
-    echo -e "\033[$color$1\033[0m"
+    shift 
+    echo -e "\033[$color$@\033[0m"
 }
 
-# 输出行内颜色文字
-_kits_color_text_inline() {
-    echo -en "$(_kits_color_text "$1" "$2")"
+_kits_green_text() {
+    _kits_color_text green $@
+}
+
+_kits_red_text() {
+    _kits_color_text red $@
 }
 
 # 清空行
@@ -38,13 +42,13 @@ _kits_clear_line() {
 _kits_check() {
     local ret=$?
     local s=$(for ki in $(seq 40); do echo -n " "; done)
-    local judge=$([[ $ret -eq 0 ]] && _kits_color_text_inline "✔" green || _kits_color_text_inline "✘" red)
+    local judge=$([[ $ret -eq 0 ]] && _kits_green_text "✔" || _kits_red_text "✘" red)
     echo -e "$s$judge\r$1"
 }
 
 _kits_check_prefix() {
     local ret=$?
-    local judge=$([[ $ret -eq 0 ]] && _kits_color_text_inline "✔" green || _kits_color_text_inline "✘" red)
+    local judge=$([[ $ret -eq 0 ]] && _kits_green_text "✔" || _kits_red_text "✘" red)
     echo -e "$judge  $1"
 }
 

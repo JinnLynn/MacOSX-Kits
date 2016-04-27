@@ -6,12 +6,12 @@ kits_doforever() {
     local delay=$1
     while true; do
         count=$(($count+1))
-        _kits_color_text "--- Run Count: $count ---" blue
+        _kits_color_text blue "--- Run Count: $count ---"
         $2
         echo ""
         for (( i = 0; i < $delay; i++ )); do
             _kits_clear_line
-            _kits_color_text_inline "Wait $(($delay-$i)) second(s) before do next..." green
+            _kits_green_text_inline "Wait $(($delay-$i)) second(s) before do next..."
             sleep 1
         done
         _kits_clear_line
