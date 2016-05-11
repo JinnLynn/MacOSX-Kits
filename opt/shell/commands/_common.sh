@@ -83,14 +83,21 @@ _kits_free_port() {
     local pids=`lsof -i:$1 | grep LISTEN | awk '{print $2}'`
     local p
     for p in $pids; do
-        _kits_kill_pid $pr
+        _kits_kill_pid $p
     done
 }
 
 # 端口是否正在使用中
+# $1 端口号
+# $2 可选 使用该端口的命令
 _kits_is_port_listen() {
     [[ -z "$1" ]] && return 1
-    local ret=$(lsof -i:$1 | grep -c LISTEN)
+    local ret
+    [[ -z "$2" ]] && {
+        ret=$(lsof -i:$1 | grep -c LISTEN)
+    } || {
+        ret=$(lsof -i:$1 | grep LISTEN | grep -c "^$2")
+    }
     [[ $ret -gt 0 ]] && return 0 || return 1
 }
 

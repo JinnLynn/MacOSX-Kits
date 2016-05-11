@@ -1,15 +1,22 @@
 # 代理相关
 
 # proxy
-alias proxy.start="kits_ssh_proxy start; kits_polipo start"
-alias proxy.stop="kits_ssh_proxy stop; kits_polipo stop"
-alias proxy.alive="kits_ssh_proxy alive; kits_polipo alive"
-alias proxy.test="kits_ssh_proxy test; kits_polipo test"
-alias proxy.keep-alive="kits_ssh_proxy keep-alive; kits_polipo keep-alive"
+alias proxy.start="for _f in \$PROXY_FUNC; do \$_f start; done"
+alias proxy.stop="for _f in \$PROXY_FUNC; do \$_f stop; done"
+alias proxy.alive="for _f in \$PROXY_FUNC; do \$_f alive; done"
+alias proxy.test="for _f in \$PROXY_FUNC; do \$_f test; done"
+alias proxy.keep-alive="for _f in \$PROXY_FUNC; do \$_f keep-alive; done"
 alias proxy.config="scutil --proxy | grep '^\ '"
 
 alias proxy.ter.on="export http_proxy=\"http://127.0.0.1:$PROXY_HTTP_PORT/\"; export https_proxy=\"http://127.0.0.1:$PROXY_HTTP_PORT/\";"
 alias proxy.ter.off="unset http_proxy; unset https_proxy"
+
+# VPN
+alias vpn.start="kits_vpn start"
+alias vpn.stop="kits_vpn stop"
+alias vpn.alive="kits_vpn alive"
+alias vpn.keep-alive="kits_vpn keep-alive"
+
 # goagent
 # alias goa.log="kits_goagent log"
 # Tor
@@ -50,9 +57,3 @@ alias proxy.home.test="ssh -v $JHOME \"exit\""/Volumes/OSXYosemite/Users/JinnLyn
 # alias squid.stop="kits_squid stop"
 # alias squid.restart="kits_squid restart"
 # alias squid.alive="kits_squid alive"
-
-# VPN
-alias vpn.start="kits_vpn start"
-alias vpn.stop="kits_vpn stop"
-alias vpn.alive="kits_vpn alive"
-alias vpn.keep-alive="kits_vpn keep-alive"

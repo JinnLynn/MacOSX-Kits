@@ -39,19 +39,13 @@ export CLICOLOR=1
 # 载入环境变量
 [[ -f $KITS/opt/shell/variables.sh ]] && . $KITS/opt/shell/variables.sh
 
-# 载入私有环境变量
-[[ -f $KITS/root/opt/shell/variables.sh ]] && . $KITS/root/opt/shell/variables.sh 
-
 # 加载commands下所有sh文件
 for _f in $(ls $KITS/opt/shell/commands/*.sh 2>/dev/null); do . $_f; done 
-
-# 载入别名
-[[ -f $KITS/opt/shell/alias.sh ]] && . $KITS/opt/shell/alias.sh
 
 # 载入私有命令
 for _f in $(ls $KITS/root/opt/shell/commands/*.sh 2>/dev/null); do . $_f; done 
 
-# 载入私有别名
-[[ -f $KITS/root/opt/shell/alias.sh ]] && . $KITS/root/opt/shell/alias.sh 
+# 载入别名
+[[ -f $KITS/opt/shell/alias.sh ]] && . $KITS/opt/shell/alias.sh
 
 unset _f

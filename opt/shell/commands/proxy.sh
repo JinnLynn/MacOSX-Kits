@@ -29,7 +29,7 @@ kits_ssh_proxy() {
             local msg="autossh"
             [[ -n "$mp" ]] && msg="$msg[$mp]"
             _kits_pid_exists $AUTOSSH_PIDFILE; _kits_check "$msg"
-            _kits_is_port_listen $port; _kits_check "SOCKS5[$port]"
+            _kits_is_port_listen $port ssh; _kits_check "SOCKS5[$port]"
             ;;
         "keep-alive" )
             _kits_is_port_listen $port || $FUNCNAME restart
@@ -47,6 +47,42 @@ kits_ssh_proxy() {
             echo "ERROR. Usage: <start|stop|restart|watch|alive|test>"
             ;;
     esac
+}
+
+kits_shadowsocks() {
+    ! _kits_cmd_exists ss-local && {
+        echo 'Shadowsocks missing. Please INSTALL: brew install shadowsocks-libev'
+        return 1
+    }
+
+    local config_file="$KITS/root/etc/shadowsocks.json"
+    local log_file="$KITS_LOG/shadowsocks.log"
+    local port="$PROXY_SOCKS_PORT"
+
+    case "$1" in
+        "start" | "restart" )
+            $FUNCNAME stop
+            sleep 1
+            nohup ss-local -c "$config_file" -v -l $port >>$log_file 2>&1 &
+            ;;
+        "stop" )
+            _kits_free_port $port
+            ;;
+        "alive" )
+             _kits_is_port_listen $port; _kits_check "Shadowsocks[$port]"
+            ;;
+        "keep-alive" )
+            _kits_is_port_listen $port ss-local || $FUNCNAME restart
+            ;;
+        "test" )
+            ret=$(curl -s -m 5 --socks5 "127.0.0.1:$port" http://ipv4.wtfismyip.com/text)
+            _kits_check "Shadowsocks[$ret->$port]"
+            ;;
+        * )
+            echo "ERROR. Usage: <start|stop|restart|alive|test>"
+            ;;
+    esac
+
 }
 
 kits_polipo() {
