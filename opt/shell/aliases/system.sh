@@ -5,7 +5,7 @@ alias bt.on="blueutil on"
 alias bt.off="blueutil off"
 
 # 备份
-alias kits.backup="$KITS/opt/backup/backup.py | tee $KITS_LOG/bak-$(kits_time -d).log"
+alias kits.backup="echo -e \"\nBACKUP START $(kits_time) =====\n\" >> $KITS_LOG/backup.log; $KITS/opt/backup/backup.py | tee -a $KITS_LOG/backup.log; echo -e \"\nBackup END $(kits_time) =====\n\" >> $KITS_LOG/backup.log"
 alias kits.backup.quick="$KITS/opt/backup/backup.py --no-exact-progress"
 
 # 锁定电脑
