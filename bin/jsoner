@@ -11,7 +11,11 @@ import json
 import argparse
 from pprint import pprint
 
-__version__ = '1.1.0'
+# 编码问题
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+__version__ = '1.0.0'
 __author__ = 'JinnLynn <eatfishlin@gmail.com>'
 __license__ = 'The MIT License'
 __copyright__ = 'Copyright 2015-2016 JinnLynn'
@@ -21,10 +25,9 @@ def get(data, key):
     for k in key.split('.'):
         try:
             k = int(k)
-        except ValueError, e:
+        except ValueError as e:
             pass
         data = data[k]
-            
     return data
 
 
@@ -37,7 +40,7 @@ if __name__ == '__main__':
     parser.add_argument('--print-fmt')
     parser.add_argument('--print-sep', default='\n')
     args = parser.parse_args()
-    
+
     data = None
     try:
         if args.string is not None:
@@ -47,9 +50,8 @@ if __name__ == '__main__':
                 data = json.load(fp, encoding='utf8')
         else:
             data = json.load(sys.stdin)
-    except Exception, e:
+    except Exception as e:
         sys.exit(1)
-        # sys.exit(e)
 
     if not args.key:
         sys.exit('missing key' if not args.quiet else 1)
@@ -63,9 +65,8 @@ if __name__ == '__main__':
                 ret = get(data, k)
                 ret = '' if ret is None else str(ret)
                 values.append(ret)
-    except Exception, e:
+    except Exception as e:
         sys.exit(1)
-        # sys.exit(e)
 
     if not values:
         sys.exit(1)
